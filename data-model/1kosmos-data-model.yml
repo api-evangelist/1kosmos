@@ -1,0 +1,144 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/1kosmos-blockid-openapi.yml + postman/1kosmos-postman-collection.json
+summary: >-
+  Derived from the path structure, path parameters and request/response examples of the 29 published
+  operations. BlockID's model is strictly hierarchical: a Tenant owns Communities, a Community owns
+  Users, and every other object hangs off that pair. No schema components are published, so entity
+  fields below are only those visible in the collection's real request and response examples.
+root: Tenant
+entities:
+- name: Tenant
+  id_field: tenantId
+  also_known_as: [tenantID, tenanttag]
+  description: The top-level customer boundary. Addressed by its DNS name, which is also the API host.
+  fields_observed: [id, tenanttag, dns]
+  discovered_by: openapi/1kosmos-blockid-openapi.yml#setUpGetTenantCommunityInfo
+  relationships:
+  - {type: has_many, target: Community, via: community.tenantid}
+- name: Community
+  id_field: communityId
+  also_known_as: [communityID, communityName, community]
+  description: >-
+    A population of users and its policy/branding envelope inside a tenant. Every user-facing
+    operation is scoped to one community.
+  fields_observed: [id, tenantid, name, publicKey]
+  discovered_by: openapi/1kosmos-blockid-openapi.yml#setUpGetTenantCommunityInfo
+  relationships:
+  - {type: belongs_to, target: Tenant, via: tenantid}
+  - {type: has_many, target: User, via: '/users-mgmt/tenant/{tenantId}/community/{communityId}/users'}
+  - {type: has_many, target: AccessCode, via: '/api/r2/acr/community/{community}/code'}
+  - {type: has_many, target: VerifiableCredential, via: '/vcs/tenant/{tenantID}/community/{communityID}'}
+  - {type: has_one, target: AuthModule, via: authModule}
+- name: AuthModule
+  id_field: authModule
+  description: >-
+    The authentication backend a user is created against. Referenced by id in the user create/fetch
+    request bodies; a wrong id returns 404 "Auth module is not found."
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: has_many, target: User}
+- name: User
+  id_field: userId
+  also_known_as: [username, user_id]
+  description: An identity inside a community. Carries aliases, an IAL, enrolled documents and devices.
+  fields_observed: [username, userId]
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: belongs_to, target: AuthModule, via: authModule}
+  - {type: has_one, target: IdentityAssuranceLevel, via: '/api/r1/community/{communityName}/userid/{userId}/ial'}
+  - {type: has_many, target: Device, via: device_id}
+  - {type: has_many, target: OTPChallenge, via: userId}
+  - {type: has_many, target: Event, via: user_id}
+- name: IdentityAssuranceLevel
+  description: The NIST SP 800-63-3 assurance level(s) attained by a user, with the evidence behind them.
+  discovered_by: openapi/1kosmos-blockid-openapi.yml#ialFetchIALOfAUser
+  relationships:
+  - {type: belongs_to, target: User}
+- name: Device
+  id_field: device_id
+  description: An enrolled mobile device or workstation. Appears in the last-seen report request body.
+  relationships:
+  - {type: belongs_to, target: User}
+- name: OTPChallenge
+  description: >-
+    A one-time passcode issued over SMS, email or voice and later verified. Not addressable by id —
+    created and verified by (userId, communityId, tenantId).
+  discovered_by: openapi/1kosmos-blockid-openapi.yml#otpGenerateOTPSMS
+  relationships:
+  - {type: belongs_to, target: User, via: userId}
+- name: AccessCode
+  id_field: code
+  description: >-
+    A redeemable code (e.g. type verification_link) delivered to an email or phone number. Created
+    with PUT, redeemed with POST.
+  fields_observed: [createdby, version, type, emailTo, smsTo]
+  relationships:
+  - {type: belongs_to, target: Community, via: community}
+- name: VerificationSession
+  id_field: sessionId
+  also_known_as: [document share session]
+  description: >-
+    An IDVerify session in which a user scans a document and/or selfie. Created against a dvcID
+    (IDVerify API key), then polled for a result. Statuses: Pending, In Progress, Completed,
+    Expired, Declined. Verification statuses: Failed, Passed, Not performed.
+  discovered_by: openapi/1kosmos-blockid-openapi.yml#idVerificationCreateIDVerificationSession
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: has_many, target: Document, via: document capture}
+  - {type: has_many, target: Event, via: 'E_IDV_* events'}
+- name: Document
+  description: A driver license, passport or national ID scanned in a verification session.
+  types_documented: [Driving License, Passport, ID card, SSN]
+  relationships:
+  - {type: belongs_to, target: VerificationSession}
+  - {type: belongs_to, target: User}
+- name: VerifiableCredential
+  id_field: vcID
+  description: A W3C Verifiable Credential issued from a payload for a given vcType; has a revocable status.
+  fields_observed: ['@context', info, vcType]
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: has_many, target: VerifiablePresentation, via: 'vcs[]'}
+- name: VerifiablePresentation
+  description: A W3C Verifiable Presentation created from one or more Verifiable Credentials, and verifiable on its own.
+  relationships:
+  - {type: has_many, target: VerifiableCredential, via: vcs}
+- name: WorkflowInstance
+  id_field: wfInstanceId
+  also_known_as: [instanceId]
+  description: >-
+    A running IAL2 identity-proofing journey (e.g. workflowId liveid_2doc_ssn) composed of nodes;
+    each node result is fetchable, and a result summary rolls the instance up.
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: has_many, target: WorkflowNode, via: nodeId}
+- name: WorkflowNode
+  id_field: nodeId
+  description: One step of a workflow instance, with its own result.
+  relationships:
+  - {type: belongs_to, target: WorkflowInstance}
+- name: Event
+  id_field: eventName
+  description: >-
+    An audit/telemetry record (E_LOGIN_SUCCEEDED, E_IDV_*). Queried in 90-day windows through the
+    reporting service; see asyncapi/1kosmos-idverify-events.yml.
+  relationships:
+  - {type: belongs_to, target: Community}
+  - {type: belongs_to, target: User, via: user_id}
+- name: Session
+  id_field: sessionId
+  description: >-
+    A UWL 2.0 (Universal Web Login) authentication session created for a web page and completed by
+    the authenticator app. Documented on the developer portal; not present in the Postman collection.
+  source: https://developer.1kosmos.com/devportal/docs/uwl/creates_session/
+  relationships:
+  - {type: belongs_to, target: Community}
+id_conventions:
+  tenant_and_community: 24-character hexadecimal object ids (MongoDB ObjectId shape) — e.g. authModule 68418b901ac4790f690ffdb4
+  sessions_and_instances: UUID v4 — e.g. sessionId 82f67f10-b4e4-4680-9970-5dfcc04ea39e
+  messages: UUID v4 — e.g. messageId 15f9dd86-9a8a-4c66-900a-f711f5acceb1
+  workflows: '{shortid}-{workflow name} — e.g. 586ea2ee-liveid_2doc_ssn'
+gaps:
+- No published component schemas — every entity above is inferred from paths and real examples, not from a schema.
+- Field lists are partial by construction; only fields appearing in published examples are recorded.

@@ -1,0 +1,33 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/1kosmos-blockid-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: licenseKey
+  type: apiKey
+  in: header
+  parameter: licensekey
+  description: The tenant/community license key, ECDSA-encrypted with the shared secret derived
+    from the caller private key and the community public key (see BIDECDSA in the first-party
+    helper SDKs). Sent unencrypted only when the noecdsa header is set.
+  sources:
+  - openapi/1kosmos-blockid-openapi.yml
+- name: publicKey
+  type: apiKey
+  in: header
+  parameter: publickey
+  description: The caller ECDSA public key, used by the service to derive the shared secret
+    that decrypts licensekey and encrypted payloads.
+  sources:
+  - openapi/1kosmos-blockid-openapi.yml
+- name: tenantTag
+  type: apiKey
+  in: header
+  parameter: X-TenantTag
+  description: Tenant tag, required by the reports, user-management and access-code services.
+  sources:
+  - openapi/1kosmos-blockid-openapi.yml

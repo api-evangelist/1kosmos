@@ -1,0 +1,80 @@
+generated: '2026-08-05'
+method: searched
+source: https://docs.1kosmos.com/productdocs/docs/adminx/release-notes/
+scheme: four-part build number (major.minor.build.patch)
+product: AdminX — the BlockID administration console and platform release train
+current_version: 1.12.08.03
+cadence: monthly
+note: >-
+  1Kosmos publishes product release notes per component, not an API changelog. The AdminX train is
+  the closest thing to a platform changelog: it is dated, versioned and covers the features the API
+  surface exposes. Additional per-product notes are listed in lifecycle/1kosmos-lifecycle.yml.
+  Window captured below is the most recent eight releases as published on 2026-08-05.
+entries:
+- version: 1.12.08.03
+  date: '2026-04-11'
+  breaking: false
+  highlights:
+  - Biometric Consent Enforcement for LiveID Authentication
+  - Enhanced Security with Per-User Rate Limiting for OTP and Push Notifications
+  - Custom Login Page Hyperlink Configuration in AdminX
+  - Multi-App Push Notification Support
+  - Passkey Manager Branding Enhancements
+- version: 1.12.04.01
+  date: '2026-03-14'
+  breaking: false
+  highlights:
+  - Prevent Workstation Lockouts with Helpdesk Passcode Fallback
+  - Automatic Push & IVR MFA triggers for RADIUS Auth Proxy Apps
+  - Added New Behavior Authentication Events
+  - Prevent Password Reuse During Self-Service Password Reset
+  - Build Your Own Intuitive Workflow for Verification Journeys [Beta]
+- version: 1.12.01.01
+  date: '2026-02-14'
+  breaking: false
+  highlights:
+  - Introduced Expiry Status Indicators for Enrolled Documents
+  - Ability to Capture Documents Manually When Auto Capture Fails
+  - Ability to Review Sessions Manually
+  - Enhanced Name Matching Functionality for Identity Verification
+  - Certificate Authority Failover Support
+- version: 1.12.00.01
+  date: '2026-01-10'
+  breaking: false
+  highlights:
+  - Login Page Customization Enhancement
+  - 'Auth Proxy: Hostname failover support'
+  - LiveID Performance Optimization
+  - Multiple API enhancements and bug fixes
+- version: 1.11.09.01
+  date: '2025-12-13'
+  breaking: false
+  highlights:
+  - Password Login Support for Shared Accounts
+  - Automatic Camera Selection During Document Scan
+  - LiveID Capture Enhancements
+  - Enhanced security with virtual camera detection
+- version: '1.11.08'
+  date: '2025-11-15'
+  breaking: false
+  highlights:
+  - Added PIN Lockout Notifications During LiveID Authentication
+  - New Error Message for Virtual Camera Detection
+  - Viewing Passkey Events on AdminX Interface
+  - Enhanced Forgot Password Experience
+- version: 1.11.06.01
+  date: '2025-10-10'
+  breaking: false
+  highlights:
+  - Ability to configure Identity Verification flow through UI
+  - Granular Document Controls for ID Verification
+  - Enhanced IAL2 Identity Verification Flow
+  - Login Screen Customizations
+- version: '1.11.04'
+  date: '2025-09-05'
+  breaking: false
+  highlights:
+  - Support for Workday as Source of Truth in SSPR
+  - Typing Behavior Authentication
+  - Support for One-Time IAL2 Identity Verification
+  - Machine ID Support for Orion in Adaptive Authentication

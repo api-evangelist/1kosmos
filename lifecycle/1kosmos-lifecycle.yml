@@ -1,0 +1,56 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://status.1kosmos.com/ + https://docs.1kosmos.com/productdocs/docs/adminx/release-notes/ +
+  https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n + openapi/1kosmos-blockid-openapi.yml
+versioning:
+  scheme: uri-path
+  note: >-
+    Per-service revision segments rather than one platform version. AdminX endpoints carry r1/r2/r3
+    (/api/r1/system/..., /api/r2/otp/generate, /api/r3/otp/verify); IDVerify polling carries /v3/.
+    Product releases are versioned separately as four-part build numbers (e.g. AdminX 1.12.08.03).
+  current:
+    otp_generate: r2
+    otp_verify: r3
+    idverify_result: v3
+    system: r1
+  docs: https://developer.1kosmos.com/devportal/docs/
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  note: >-
+    No deprecation policy, sunset schedule, or RFC 8594 Sunset/Deprecation header support is
+    published anywhere on the developer portal or product docs. Older revisions simply remain
+    callable: /api/r2/otp/verify and /api/r3/otp/verify are both current in the published Postman
+    collection, with r3 labelled the "standardized" endpoint and no stated end-of-life for r2.
+    Recorded as absent — no Deprecation pointer is wired.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment was found on the marketing site or product docs.
+status_page:
+  url: https://status.1kosmos.com/
+  platform: incident.io
+  http_status: 200
+  regions: [US, IN, EU, CA]
+  components_per_region: 4
+  subscribe: true
+  history_window: 90 days of uptime history rendered per region
+  observed: '2026-08-05 — all regions fully operational, 100% over the displayed window'
+release_notes:
+  cadence: roughly monthly
+  products:
+  - {product: AdminX, url: 'https://docs.1kosmos.com/productdocs/docs/adminx/release-notes/'}
+  - {product: AdminX Broker, url: 'https://docs.1kosmos.com/productdocs/docs/adminx-broker/release-notes/'}
+  - {product: IDVerify, url: 'https://docs.1kosmos.com/productdocs/docs/idverify/idverify-release-notes/'}
+  - {product: Mobile, url: 'https://docs.1kosmos.com/productdocs/docs/mobile/release-notes/'}
+  - {product: SSH Login (Linux), url: 'https://docs.1kosmos.com/productdocs/docs/ssh-login/release-notes/linux/'}
+  - {product: Workstation Login (Windows), url: 'https://docs.1kosmos.com/productdocs/docs/workstation-login/release-notes/windows/'}
+  cross_reference: changelog/1kosmos-changelog.yml
+compatibility_matrix: https://docs.1kosmos.com/productdocs/docs/compatibility-matrix/
+gaps:
+- No API-level changelog — release notes track product/console builds, not the REST surface.
+- No deprecation policy and no Sunset/Deprecation header contract.
+- No published SLA.

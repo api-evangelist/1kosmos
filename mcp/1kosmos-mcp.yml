@@ -1,0 +1,169 @@
+generated: '2026-08-05'
+method: derived
+status: candidate
+source: openapi/1kosmos-blockid-openapi.yml
+search:
+  official_server_found: false
+  checked:
+  - https://developer.1kosmos.com/devportal/docs/
+  - https://docs.1kosmos.com/productdocs/
+  - https://github.com/1Kosmos
+  - npm registry (@modelcontextprotocol, 1kosmos)
+  - web search for a 1Kosmos MCP server
+  note: 1Kosmos publishes no MCP server. No mcp.1kosmos.com, no MCP entry in the developer portal or product
+    docs, no MCP repository in the GitHub org, and no registry listing. The tools below are a CANDIDATE
+    surface derived from the REST operations — they are what an MCP server for BlockID could expose, not
+    something 1Kosmos ships. No MCPServer pointer is wired in apis.yml.
+server:
+  name: 1kosmos-blockid
+  transport: null
+  url: null
+auth_note: Any MCP server over this API must carry the tenant DNS, community name and the ECDSA-encrypted
+  license key handshake described in conventions/1kosmos-conventions.yml; there is no bearer token to
+  pass through.
+tools:
+- name: set_up_get_tenant_community_info
+  description: Get Tenant Community Info
+  method: POST
+  path: /api/r1/system/community_info/fetch
+  source_operation: openapi/1kosmos-blockid-openapi.yml#setUpGetTenantCommunityInfo
+- name: set_up_fetch_s_d
+  description: Fetch SD
+  method: GET
+  path: /caas/sd
+  source_operation: openapi/1kosmos-blockid-openapi.yml#setUpFetchSD
+- name: id_verification_create_i_d_verification_session
+  description: Create ID Verification Session
+  method: POST
+  path: /document_share_session/create
+  source_operation: openapi/1kosmos-blockid-openapi.yml#idVerificationCreateIDVerificationSession
+- name: id_verification_poll_i_d_verification_session
+  description: Poll ID Verification Session
+  method: POST
+  path: /v3/document_share_session/result
+  source_operation: openapi/1kosmos-blockid-openapi.yml#idVerificationPollIDVerificationSession
+- name: ial_fetch_i_a_l_of_a_user
+  description: Fetch IAL of a user
+  method: GET
+  path: /api/r1/community/{communityName}/userid/{userId}/ial
+  source_operation: openapi/1kosmos-blockid-openapi.yml#ialFetchIALOfAUser
+- name: reports_events
+  description: Events
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/events
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsEvents
+- name: reports_metrics
+  description: Metrics
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/metrics
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsMetrics
+- name: reports_application_usage_report
+  description: Application Usage Report
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/application_usage_report
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsApplicationUsageReport
+- name: reports_audit_log_report
+  description: Audit Log Report
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/audit_log
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsAuditLogReport
+- name: reports_last_seen_report
+  description: Last Seen Report
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/last_seen_report
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsLastSeenReport
+- name: reports_login_activity_report
+  description: Login Activity Report
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/login_activity_report
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsLoginActivityReport
+- name: reports_passwordless_login_activity_report
+  description: Passwordless Login Activity Report
+  method: POST
+  path: /reports/tenant/{tenantID}/community/{communityID}/passwordless_login_activity_report
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsPasswordlessLoginActivityReport
+- name: otp_generate_o_t_p_s_m_s
+  description: Generate OTP - SMS
+  method: POST
+  path: /api/r2/otp/generate
+  source_operation: openapi/1kosmos-blockid-openapi.yml#otpGenerateOTPSMS
+- name: otp_verify_o_t_p_r2
+  description: Verify OTP R2
+  method: POST
+  path: /api/r2/otp/verify
+  source_operation: openapi/1kosmos-blockid-openapi.yml#otpVerifyOTPR2
+- name: otp_verify_o_t_p_r3
+  description: Verify OTP R3
+  method: POST
+  path: /api/r3/otp/verify
+  source_operation: openapi/1kosmos-blockid-openapi.yml#otpVerifyOTPR3
+- name: user_management_create_user
+  description: Create User
+  method: PUT
+  path: /users-mgmt/tenant/{tenantId}/community/{communityId}/users/create
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementCreateUser
+- name: user_management_fetch_user_details
+  description: Fetch User Details
+  method: POST
+  path: /users-mgmt/tenant/{tenantId}/community/{communityId}/users/fetch
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementFetchUserDetails
+- name: user_management_update_username_as_alias
+  description: Update Username as alias
+  method: POST
+  path: /users-mgmt/tenant/{tenantId}/community/{communityId}/user_properties/update
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementUpdateUsernameAsAlias
+- name: access_code_create_access_code
+  description: Create Access Code
+  method: PUT
+  path: /api/r2/acr/community/{community}/code
+  source_operation: openapi/1kosmos-blockid-openapi.yml#accessCodeCreateAccessCode
+- name: access_code_redeem_access_code
+  description: Redeem Access Code
+  method: POST
+  path: /api/r1/acr/community/{community}/{code}/redeem
+  source_operation: openapi/1kosmos-blockid-openapi.yml#accessCodeRedeemAccessCode
+- name: verifiable_credentials_create_verifiable_credential_from_payload
+  description: Create  Verifiable Credential From Payload
+  method: POST
+  path: /vcs/tenant/{tenantID}/community/{communityID}/vc/from/payload/{vcType}
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsCreateVerifiableCredentialFromPayload
+- name: verifiable_credentials_get_verifiable_credential_status
+  description: Get  Verifiable Credential Status
+  method: GET
+  path: /vcs/tenant/{tenantID}/community/{communityID}/vc/{vcID}/status
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsGetVerifiableCredentialStatus
+- name: verifiable_credentials_verify_verifiable_credential
+  description: Verify Verifiable Credential
+  method: POST
+  path: /vcs/tenant/{tenantID}/community/{communityID}/vc/verify
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsVerifyVerifiableCredential
+- name: verifiable_credentials_issue_verifiable_presentation
+  description: Issue Verifiable Presentation
+  method: POST
+  path: /vcs/tenant/{tenantID}/community/{communityID}/vp/create
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsIssueVerifiablePresentation
+- name: verifiable_credentials_verify_verifiable_presentation
+  description: Verify Verifiable Presentation
+  method: POST
+  path: /vcs/tenant/{tenantID}/community/{communityID}/vp/verify
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsVerifyVerifiablePresentation
+- name: ial2_create_workflow
+  description: Create Workflow
+  method: POST
+  path: /idproofingapi/workflow/workflow_instance/create
+  source_operation: openapi/1kosmos-blockid-openapi.yml#ial2CreateWorkflow
+- name: ial2_result_summary
+  description: result summary
+  method: GET
+  path: /idproofingapi/workflow/workflow_instance/{instanceId}/result_summary
+  source_operation: openapi/1kosmos-blockid-openapi.yml#ial2ResultSummary
+- name: workflow_a_p_i_create_workflow_instance
+  description: Create Workflow Instance
+  method: POST
+  path: /workflowapi/workflow_instance/tenant/{tenantId}/community/{communityId}/create
+  source_operation: openapi/1kosmos-blockid-openapi.yml#workflowAPICreateWorkflowInstance
+- name: workflow_a_p_i_node_result
+  description: Node Result
+  method: GET
+  path: /workflowapi/workflow_instance/{wfInstanceId}/tenant/{tenantId}/community/{communityId}/node/{nodeId}
+  source_operation: openapi/1kosmos-blockid-openapi.yml#workflowAPINodeResult

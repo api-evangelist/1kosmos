@@ -1,0 +1,54 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.1kosmos.com/devportal/docs/oauth2-oidc/
+docs: https://developer.1kosmos.com/devportal/docs/oauth2-oidc/
+note: >-
+  The licensekey-authenticated BlockID platform API declares no OAuth2 security scheme — see
+  authentication/1kosmos-authentication.yml. This file covers the SEPARATE surface on which BlockID
+  acts as an OAuth 2.0 / OpenID Connect authorization server for relying applications. The scope set
+  below is exactly what the developer portal documents; 1Kosmos publishes no scopes reference page,
+  no /.well-known/openid-configuration (404 on every host probed) and no scopes_supported list, so
+  the real scope catalog of a live tenant cannot be enumerated anonymously.
+schemes:
+- name: BlockID OAuth 2.0 / OIDC authorization server
+  source: https://developer.1kosmos.com/devportal/docs/oauth2-oidc/
+  service_discovery_key: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: null
+    tokenUrl: null
+    note: >-
+      Endpoints are tenant-scoped and obtained from the tenant's oauth2 service base URL in the
+      /caas/sd service-discovery document; no absolute URLs are published in the docs. The helper
+      SDKs expose BIDOauth2.requestAuthorizationCode() and BIDOauth2.requestToken().
+  - flow: refreshToken
+    tokenUrl: null
+  grant_types: [authorization_code, refresh_token]
+scopes:
+- scope: openid
+  description: Required for the OpenID Connect flow; requests an ID token.
+  flows: [authorizationCode]
+  sources: [https://developer.1kosmos.com/devportal/docs/oauth2-oidc/]
+- scope: email
+  description: Access to the authenticated user's email address.
+  flows: [authorizationCode]
+  sources: [https://developer.1kosmos.com/devportal/docs/oauth2-oidc/]
+- scope: profile
+  description: Access to the authenticated user's profile attributes.
+  flows: [authorizationCode]
+  sources: [https://developer.1kosmos.com/devportal/docs/oauth2-oidc/]
+documented_scope_strings:
+- {value: openid email profile, used_for: OIDC flow}
+- {value: email profile, used_for: OAuth2 authorization-code flow without OIDC}
+session_scopes:
+  note: >-
+    Distinct from OAuth scopes — the UWL 2.0 session API takes a `scopes` parameter that selects
+    what the authenticator returns in the session payload.
+  documented_values: [device_info]
+  source: https://developer.1kosmos.com/devportal/docs/uwl/creates_session/
+client_registration:
+  self_service: false
+  note: clientId, clientSecret and redirectUri are issued through the BlockID developer dashboard.
+gaps:
+- No published scopes/permissions reference page.
+- No OIDC discovery document, so scopes_supported cannot be read.

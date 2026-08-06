@@ -1,0 +1,151 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/1kosmos-blockid-openapi.yml (derived in turn from the published Postman collection's saved responses)
+format: proprietary
+rfc9457: false
+envelopes:
+- id: code-message
+  shape: '{"code": <int>, "message": "<string>"}'
+  services: [ID Verification, User Management, Verifiable Credentials, Access Code]
+- id: error_code-message-status
+  shape: '{"error_code": <int>, "message": "<string>", "status": false}'
+  services: [OTP]
+- id: errors-array
+  shape: '{"errors": [{"message": "<string>", "param": "<field or header name>"}]}'
+  services: [Reports]
+  note: The only envelope that names the offending field/header.
+problems:
+- status: 400
+  title: dvcID is required
+  message: dvcID is required
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#idVerificationCreateIDVerificationSession
+  remediation: Supply the IDVerify API key (dvcID) issued in the BlockID developer dashboard.
+- status: 400
+  title: dvcID is not allowed to be empty
+  message: dvcID is not allowed to be empty
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#idVerificationPollIDVerificationSession
+- status: 400
+  title: License key header empty
+  message: This header should not be empty
+  param: licensekey
+  envelope: errors-array
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsAuditLogReport
+  remediation: Send the ECDSA-encrypted licensekey header.
+- status: 400
+  title: License key header cannot be decrypted
+  message: This header can't be decrypted
+  param: licensekey
+  envelope: errors-array
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsMetrics
+  remediation: >-
+    The shared secret used to encrypt the license key does not match. Re-fetch the community public
+    key via community_info/fetch and re-derive the shared secret.
+- status: 400
+  title: Report window older than 90 days
+  message: Field should be from current time to minus 90 days
+  param: from
+  envelope: errors-array
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsApplicationUsageReport
+  remediation: Reporting endpoints only serve a rolling 90-day window.
+- status: 400
+  title: Report end date before start date
+  message: Date 'to' must be after 'from'
+  param: to
+  envelope: errors-array
+  source_operation: openapi/1kosmos-blockid-openapi.yml#reportsEvents
+- status: 400
+  title: Verifiable credential payload expired
+  message: info failed custom validation because Expired payload
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsCreateVerifiableCredentialFromPayload
+- status: 400
+  title: Query must be an object
+  message: query must be of type object
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementFetchUserDetails
+- status: 400
+  title: Username required
+  message: username is required
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementCreateUser
+- status: 400
+  title: Attribute does not exist
+  message: Attribute does not exist
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsIssueVerifiablePresentation
+- status: 400
+  title: Unable to load tenant/community
+  message: Unable to load tenant/community
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#otpGenerateOTPSMS
+  remediation: >-
+    The dns / communityName pair does not resolve to a tenant community. Also documented on
+    https://developer.1kosmos.com/devportal/docs/otp/request/ as the 404 case.
+- status: 401
+  title: Invalid or Unauthorized License
+  message: Invalid or Unauthorized License
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementCreateUser
+  remediation: License key is missing, wrong, expired, or not entitled to this community.
+- status: 401
+  title: Unauthorized
+  message: Unauthorized
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsVerifyVerifiableCredential
+- status: 403
+  title: OTP locked for the user
+  message: OTP locked for the user
+  envelope: error_code-message-status
+  source: https://developer.1kosmos.com/devportal/docs/otp/request/
+  method: searched
+  remediation: >-
+    The user has exceeded the OTP attempt threshold. Per-user OTP rate limiting is configured in
+    AdminX (shipped 1.12.08.03).
+- status: 404
+  title: Auth module is not found
+  message: Auth module is not found.
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementFetchUserDetails
+  remediation: The authModule id in the request body does not exist in this community.
+- status: 404
+  title: VC not found
+  message: VC not found
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsGetVerifiableCredentialStatus
+- status: 404
+  title: Invalid OTP
+  message: Invalid OTP
+  envelope: error_code-message-status
+  source_operation: openapi/1kosmos-blockid-openapi.yml#otpVerifyOTPR2
+  note: >-
+    A wrong passcode is reported as 404, not 401 or 422 — a real semantic quirk of this API worth
+    coding defensively against.
+- status: 405
+  title: Function not allowed for this auth module
+  message: This function is not allowed for specified auth module.
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementCreateUser
+- status: 409
+  title: Alias already used
+  message: Alias already used
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#userManagementUpdateUsernameAsAlias
+- status: 500
+  title: Missing destination for access code
+  message: >-
+    Some exception occured while processing the request. smsTo or emailTo are required for this
+    type of code
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#accessCodeCreateAccessCode
+  note: A client-side validation failure returned as 500 rather than 400.
+- status: 500
+  title: Internal Server Error
+  message: Internal Server Error
+  envelope: code-message
+  source_operation: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsVerifyVerifiableCredential
+gaps:
+- No RFC 9457 application/problem+json.
+- No stable machine-readable error identifiers — errors are matched on English message strings.
+- Status-code semantics are inconsistent across services (404 for a wrong OTP, 500 for a missing required field).

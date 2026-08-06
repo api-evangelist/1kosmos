@@ -1,0 +1,86 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://docs.1kosmos.com/productdocs/docs/idverify/idverify-id-verification-events/ +
+  postman/1kosmos-postman-collection.json
+spec_type: EventCatalog
+asyncapi: false
+webhooks: not-documented
+summary: >-
+  1Kosmos names and documents a real event vocabulary, but publishes NO delivery mechanism for it.
+  Events are emitted into the platform and read two ways: rendered in the AdminX console, and pulled
+  through the reporting API's events endpoint in 90-day windows. There is no published webhook
+  catalog, no subscription API, no callback-URL configuration and no AsyncAPI document. The tenant
+  service-discovery response does expose a `webhooks` service key, and a partner integration (Zoho
+  CRM) is described as receiving "1Kosmos callback events", so a webhook facility exists internally —
+  but nothing about it is documented publicly, so no Webhooks pointer is wired for this provider.
+  This artifact records the vocabulary, not a subscribable event surface.
+
+access:
+  console: https://docs.1kosmos.com/productdocs/docs/events-dashboard/
+  api:
+    operation: openapi/1kosmos-blockid-openapi.yml#reportsEvents
+    method: POST
+    path: /reports/tenant/{tenantID}/community/{communityID}/events
+    model: pull (paged query over a from/to window)
+    window: rolling 90 days
+    pagination: {pIndex: zero-based, pSize: page size}
+  customization: >-
+    "events are pre-defined, with no customization options" — administrators cannot define new
+    event types.
+
+events:
+- name: E_IDV_INITIALIZATION
+  domain: identity-verification
+  description: Created when users begin their ID verification process in the Initialization screen.
+- name: E_IDV_USER_CONSENT
+  domain: identity-verification
+  description: Triggered when users give their consent for sharing their information.
+- name: E_IDV_DOCUMENTINSTRUCTION
+  domain: identity-verification
+  description: Triggered when users review the instructions before starting the document scan.
+- name: E_IDV_DOCUMENTPREVIEW
+  domain: identity-verification
+  description: Triggered when users preview their document before capturing it.
+- name: E_IDV_DOCUMENTCAPTURE
+  domain: identity-verification
+  description: Triggered when users scan their documents for capture.
+- name: E_IDV_SELFIEINSTRUCTION
+  domain: identity-verification
+  description: Triggered when users review the instructions before taking their selfie.
+- name: E_IDV_SELFIEPREVIEW
+  domain: identity-verification
+  description: Triggered when users preview their selfie before tapping the capture button.
+- name: E_IDV_SELFIECAPTURE
+  domain: identity-verification
+  description: Triggered when users capture their selfie.
+- name: E_IDV_DOCUMENT_SUBMISSION
+  domain: identity-verification
+  description: Triggered when users submit their scanned document.
+- name: E_IDV_DOCUMENT_VALIDATE
+  domain: identity-verification
+  description: Triggered when the submitted users' documents are validated.
+- name: E_IDV_SESSION_ABANDONED
+  domain: identity-verification
+  description: Triggered when the session is marked as Abandoned.
+- name: E_IDV_SESSION_EXPIRED
+  domain: identity-verification
+  description: Triggered when the session is marked as expired.
+- name: E_LOGIN_SUCCEEDED
+  domain: authentication
+  description: >-
+    Successful login. Observed as an eventName value in the last-seen report request body in the
+    published Postman collection.
+  source: openapi/1kosmos-blockid-openapi.yml#reportsLastSeenReport
+
+related_event_families:
+  note: >-
+    Behavior-authentication events and passkey events are referenced in the AdminX release notes
+    ("Added New Behavior Authentication Events", "Viewing Passkey Events on AdminX Interface") but
+    the individual event names are not published.
+
+gaps:
+- No AsyncAPI document.
+- No public webhook catalog, subscription API or callback-URL configuration.
+- No event payload schemas published — only names and prose descriptions.
+- Delivery is pull-only for API consumers, with a 90-day retention window.

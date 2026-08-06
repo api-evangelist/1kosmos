@@ -1,0 +1,109 @@
+generated: '2026-08-05'
+method: searched
+source: https://github.com/1Kosmos + https://developer.1kosmos.com/devportal/docs/
+summary: >-
+  1Kosmos ships first-party client SDKs for six server languages plus native Android and iOS mobile
+  SDKs, but publishes NONE of them to a public package registry. There is no 1Kosmos package on npm,
+  PyPI, Packagist, NuGet or Maven Central. The server-side "helper file" SDKs are consumed by
+  pointing a package manager at the public GitHub repository at a version tag; the mobile SDKs are
+  consumed from a 1Kosmos-operated Nexus Maven repository (Android) and a credentialed private
+  GitHub repository (iOS). Registry probes recorded below.
+registry_probes:
+- {registry: npm, query: blockid-nodejs-helpers, result: not-published}
+- {registry: npm, query: '1kosmos', result: no-matches}
+- {registry: pypi, query: blockid, result: 404}
+- {registry: packagist, query: '1kosmos', result: no-first-party-matches}
+- {registry: nuget, query: '1kosmos', result: no-matches}
+packages:
+- language: javascript
+  registry: github
+  name: blockid-nodejs-helpers
+  url: https://github.com/1Kosmos/nodejs-helper-files
+  install: 'npm install (dependency: "blockid-nodejs-helpers": "https://github.com/1Kosmos/nodejs-helper-files#v2.0.0")'
+  official: true
+  note: >-
+    Distributed as a git dependency, not an npm package. The repository package.json is marked
+    private:true. Modules: BIDTenant, BIDSessions, BIDOTP, BIDOauth2, BIDUsers, BIDWebAuthn,
+    BIDVerifyDocument, BIDVerifiableCredential, BIDAccessCodes, BIDMessaging, BIDEvents,
+    BIDLicenses, BIDCaas, BIDECDSA.
+- language: java
+  registry: github
+  name: java-helper-files
+  url: https://github.com/1Kosmos/java-helper-files
+  install: clone or vendor the source; dependencies listed in https://github.com/1Kosmos/java-helper-dependencies
+  official: true
+  note: Requires Oracle Java SE 8 or OpenJDK 17.02 LTS per the developer portal prerequisites.
+- language: php
+  registry: github
+  name: php-helper-files
+  url: https://github.com/1Kosmos/php-helper-files
+  install: clone or vendor the source
+  official: true
+  note: Requires PHP 5.3.2 or higher.
+- language: dotnet
+  registry: github
+  name: dotnet-helper-files
+  url: https://github.com/1Kosmos/dotnet-helper-files
+  install: clone or vendor the source
+  official: true
+  note: .NET Framework 4.6.1+, Visual Studio 2017+.
+- language: dotnet
+  registry: github
+  name: dotnetcore-helper-files
+  url: https://github.com/1Kosmos/dotnetcore-helper-files
+  install: clone or vendor the source
+  official: true
+  note: .NET Core 3.1+, Visual Studio 2017+.
+- language: go
+  registry: github
+  name: gohelperfiles
+  url: https://github.com/1Kosmos/gohelperfiles
+  install: go get github.com/1Kosmos/gohelperfiles
+  official: true
+  note: Narrower than the other helper SDKs — ships the BIDECDSA crypto helper and examples.
+- language: javascript
+  registry: github
+  name: js-helper-files
+  url: https://github.com/1Kosmos/js-helper-files
+  install: clone or vendor the source
+  official: true
+  note: Browser-side helper files; last updated 2022.
+- language: kotlin
+  registry: maven
+  name: com.onekosmos.blockid.sdk:blockidsdk
+  version: 1.20.80.69414286
+  url: https://developer.1kosmos.com/devportal/docs/mobile-sdk/android/integration-guide/
+  install: "implementation 'com.onekosmos.blockid.sdk:blockidsdk:1.20.80.69414286'"
+  official: true
+  repository: https://nexus-1k-nonprod.1kosmos.net/repository/maven-releases/
+  access: credentialed
+  note: >-
+    BlockID Android mobile SDK. Not on Maven Central — served from a 1Kosmos-operated Nexus
+    repository that requires credentials published in the integration guide. Credentials are
+    deliberately NOT recorded in this artifact.
+- language: swift
+  registry: cocoapods
+  name: BlockID
+  version: 1.20.80
+  url: https://developer.1kosmos.com/devportal/docs/mobile-sdk/ios/integration-guide/
+  install: "pod 'BlockID', :git => 'https://github.com/1KBlockID/ios-blockidsdk.git', :tag => '1.20.80'"
+  official: true
+  access: credentialed
+  note: >-
+    BlockID iOS mobile SDK. Not on the public CocoaPods trunk — installed from a private GitHub
+    repository that requires a git user and token. iOS 15.0 minimum, CocoaPods 1.15.0+.
+    No Swift Package Manager distribution is documented.
+integrations:
+- name: BlockID plugin for ForgeRock
+  url: https://github.com/1Kosmos/blockid_forgerock_plugin
+  official: true
+- name: 1Kosmos MFA with Amazon Cognito
+  url: https://github.com/1Kosmos/1kosmosmfa-with-amazon-cognito
+  official: true
+- name: Lambda OIDC helper
+  url: https://github.com/1Kosmos/lambda_oidc_helper
+  official: true
+sdk_access:
+  request_url: https://developer.1kosmos.com/devportal/register/
+  contact: developers@1kosmos.com
+  note: SDK and demo-application access is requested through the BlockID developer dashboard.

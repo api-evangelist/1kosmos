@@ -1,0 +1,70 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://developer.1kosmos.com/devportal/ + https://developer.1kosmos.com/devportal/docs/ +
+  https://demo.1kosmos.com/
+summary: >-
+  1Kosmos runs a developer portal with self-service registration, a dashboard that issues the
+  credentials every API call needs, hosted interactive demos for each product surface, and a shared
+  trial tenant used throughout the documentation. There is no test-vs-live key prefix scheme and no
+  magic test values: sandbox separation is by TENANT, not by key mode.
+separation_model: tenant
+test_vs_live:
+  key_prefixes: none
+  note: >-
+    A license key carries no mode marker. You are in a sandbox because you are pointed at a trial
+    tenant DNS name, not because your key is a test key. Moving to production means changing the
+    `dns` value (and the license key issued for that tenant).
+trial_tenant:
+  dns: blockid-trial.1kosmos.net
+  http_status: 200
+  note: >-
+    The trial tenant used in the developer-portal examples. A second host, blockid-dev.1kosmos.net,
+    appears in the OTP documentation examples.
+  also_seen: [blockid-dev.1kosmos.net]
+developer_dashboard:
+  url: https://developer.1kosmos.com/devportal/dashboard/
+  register: https://developer.1kosmos.com/devportal/register/
+  login: https://developer.1kosmos.com/devportal/login/
+  invite: https://developer.1kosmos.com/devportal/request-an-invite/
+  issues:
+  - Your Email Address
+  - Your License Key
+  - Tenant DNS
+  - Community Name
+  - IDVerify API Key (dvcId)
+  note: >-
+    These five values are the complete credential set for the platform API. They are issued to a
+    registered developer; none are published, and none are recorded here.
+hosted_demos:
+- {name: BlockID demo, url: 'https://demo.1kosmos.com/', http_status: 200}
+- {name: Developer portal demo, url: 'https://developer.1kosmos.com/devportal/demo/'}
+- {name: IDVerify demo, url: 'https://developer.1kosmos.com/devportal/docs/idverify/demo/'}
+- {name: Passport verification demo, url: 'https://developer.1kosmos.com/devportal/docs/idverify/passportdemo/'}
+- {name: Magic links demo, url: 'https://developer.1kosmos.com/devportal/docs/magiclinks-demo/'}
+- {name: WebAuthn demo, url: 'https://developer.1kosmos.com/devportal/docs/webauthn-demo/'}
+- {name: OAuth2/OIDC demo, url: 'https://developer.1kosmos.com/devportal/docs/oauth2-oidc/demo/'}
+- {name: UWL demo, url: 'https://developer.1kosmos.com/devportal/docs/uwl/demo/'}
+- {name: Verifiable credentials demo, url: 'https://developer.1kosmos.com/devportal/docs/verifiable-credentials/demo/'}
+collection:
+  name: 1Kosmos Postman Collection
+  url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+  file: postman/1kosmos-postman-collection.json
+  note: >-
+    31 runnable requests across 10 folders. All secrets are empty collection variables the developer
+    fills from the dashboard; the pre-request scripts perform the ECDSA handshake for you, which
+    makes this the fastest way to exercise the API by hand.
+test_values:
+  magic_values: none
+  note: >-
+    No test document images, no synthetic identity fixtures, no simulated decline/failure values and
+    no time-simulation tooling are published. Failure paths are exercised by sending malformed
+    requests, whose responses are captured in errors/1kosmos-problem-types.yml.
+pii_retention:
+  configurable: true
+  parameters: [pii_retention_off, pii_retention_ttl]
+  range: immediate deletion through 7-day retention
+  source: https://developer.1kosmos.com/devportal/docs/postman-responses/responses/
+sdk_access:
+  contact: developers@1kosmos.com
+  note: SDK and demo-application access is requested by email or through the dashboard.

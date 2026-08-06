@@ -1,0 +1,147 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://developer.1kosmos.com/devportal/docs/ +
+  https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n +
+  https://github.com/1Kosmos/nodejs-helper-files (first-party helper SDK source) +
+  openapi/1kosmos-blockid-openapi.yml
+summary: >-
+  BlockID is a tenant-scoped platform: there is no single api.1kosmos.com. Every integration starts
+  from a tenant DNS name, resolves the tenant/community identifiers, discovers the per-service hosts
+  from a service-discovery document, and then calls the individual microservices with an
+  ECDSA-encrypted license key. The cryptographic handshake — not a bearer token — is the defining
+  convention of this API.
+
+service_discovery:
+  supported: true
+  endpoint: GET https://{tenantDNS}/caas/sd
+  operation: setUpFetchSD
+  description: >-
+    Returns the base URL of every microservice in the tenant. Clients are expected to read the host
+    for the service they need from this document rather than hard-coding it.
+  services:
+  - {key: sessions, path: /sessions, purpose: UWL 2.0 authentication sessions}
+  - {key: licenses, path: /licenses, purpose: license validation}
+  - {key: global_caas, path: /caas, purpose: community-as-a-service / community info}
+  - {key: adminconsole, path: /, purpose: AdminX console and the /api/rN endpoints}
+  - {key: authn, path: /authn, purpose: authentication}
+  - {key: authz, path: /authz, purpose: authorization}
+  - {key: acr, path: /acr, purpose: access codes}
+  - {key: webauthn, path: /webauthn, purpose: FIDO2/WebAuthn attestation and assertion}
+  - {key: docuverify, path: /docuverify, purpose: document verification (IDVerify)}
+  - {key: vcs, path: /vcs, purpose: verifiable credentials and presentations}
+  - {key: events, path: /events, purpose: event ingestion}
+  - {key: user_management, path: /users-mgmt, purpose: user CRUD}
+  - {key: reports, path: /reports, purpose: reporting and metrics}
+  - {key: oauth2, path: /oauth2, purpose: OAuth2 / OIDC authorization server}
+  - {key: otp, path: /otp, purpose: one-time passcodes}
+  - {key: rules_engine, path: /rules-engine, purpose: policy rules}
+  - {key: ledger, path: /ledger, purpose: distributed ledger}
+  - {key: idproofing, path: /idproofing, purpose: identity proofing}
+  - {key: walletapi, path: /walletapi, purpose: wallet}
+  - {key: ipfsproxy, path: /ipfsproxy, purpose: IPFS asset proxy}
+  evidence: >-
+    Sample response captured in the published Postman collection ("Fetch SD"), and implemented in
+    BIDTenant.getSD() in the first-party NodeJS helper SDK.
+
+authentication:
+  style: encrypted-api-key
+  headers:
+  - {name: licensekey, required: true, note: 'tenant/community license key, ECDSA-encrypted with a shared secret'}
+  - {name: publickey, required: true, note: 'caller ECDSA public key, so the service can derive the shared secret'}
+  - {name: X-TenantTag, required: conditional, note: 'required by reports, user-management and access-code services'}
+  - {name: noecdsa, required: false, note: 'set to bypass ECDSA encryption of the license key on OTP and access-code calls'}
+  crypto:
+    algorithm: ECDSA (secp256r1) key agreement + AES payload encryption
+    implementation: BIDECDSA in every first-party helper SDK
+    community_public_key_source: POST /api/r1/system/community_info/fetch (operation setUpGetTenantCommunityInfo)
+  oauth2:
+    supported: true
+    note: >-
+      BlockID also acts as an OAuth 2.0 / OpenID Connect authorization server for relying
+      applications. That is a separate surface from the licensekey-authenticated platform API — see
+      scopes/1kosmos-scopes.yml.
+  cross_reference: authentication/1kosmos-authentication.yml
+
+tenancy:
+  model: tenant + community
+  note: >-
+    Almost every resource path is scoped /tenant/{tenantID}/community/{communityID}/. Both
+    identifiers are obtained from the community_info/fetch response before any other call. The
+    tenant's DNS name is the API host.
+  bootstrap_sequence:
+  - POST /api/r1/system/community_info/fetch   # tenantId, communityId, community public key, tenantTag
+  - GET  /caas/sd                              # per-service base URLs
+  - '(client) derive shared secret, encrypt licensekey and requestid'
+
+request_tracing:
+  supported: true
+  header: requestid
+  format: >-
+    An encrypted JSON object carrying a caller-generated uuid, the caller appid, and a timestamp.
+    Built by the helper SDKs; the Postman collection generates it in a pre-request script.
+  response_header: null
+
+idempotency:
+  supported: false
+  note: >-
+    No idempotency key, no request-replay contract and no Idempotency-Key parameter appears in the
+    developer portal, the product documentation, the published Postman collection or any first-party
+    helper SDK. Retrying a create call (a user, an access code, an OTP, a verification session)
+    creates a new resource. Recorded as absent — NOT wired as an Idempotency pointer.
+
+pagination:
+  style: page-index
+  applies_to: [reports, user management]
+  request_fields:
+  - {name: pIndex, type: integer, note: zero-based page index}
+  - {name: pSize, type: integer, note: page size}
+  location: JSON request body (these are POST endpoints)
+  time_window:
+    fields: [from, to]
+    format: 'YYYY-MM-DD HH:mm:ss.SSS'
+    constraint: >-
+      "Field should be from current time to minus 90 days" — the reporting APIs reject a `from`
+      older than 90 days, and require `to` to be after (or equal to) `from`.
+
+versioning:
+  scheme: uri-path
+  note: >-
+    Version segments are per-service, not global. The AdminX endpoints carry r1/r2/r3
+    (/api/r1/..., /api/r2/otp/generate, /api/r3/otp/verify) and the IDVerify result endpoint carries
+    /v3/. Older revisions stay callable alongside newer ones — /api/r2/otp/verify and
+    /api/r3/otp/verify are both published in the current Postman collection, r3 described as the
+    "standardized" endpoint.
+  cross_reference: lifecycle/1kosmos-lifecycle.yml
+
+error_envelope:
+  formats:
+  - shape: '{"code": <int>, "message": "<string>"}'
+    used_by: [ID Verification, User Management, Verifiable Credentials]
+  - shape: '{"error_code": <int>, "message": "<string>", "status": false}'
+    used_by: [OTP]
+  - shape: '{"errors": [{"message": "<string>", "param": "<field or header>"}]}'
+    used_by: [Reports]
+  rfc9457: false
+  note: >-
+    Three different error envelopes coexist across the platform's microservices. No
+    application/problem+json anywhere.
+  cross_reference: errors/1kosmos-problem-types.yml
+
+rate_limiting:
+  documented_headers: false
+  note: >-
+    Per-user rate limiting for OTP and push notifications was shipped in AdminX 1.12.08.03
+    (11 April 2026) and is configured by administrators in AdminX. No rate-limit response headers
+    (X-RateLimit-*, RateLimit-*, Retry-After) and no published quota values are documented, so there
+    is no client-observable rate-limit signal.
+
+payload_encryption:
+  supported: true
+  note: >-
+    Several endpoints take an encrypted envelope rather than a plain body — the workflow API posts
+    {"data": "<encrypted>"} and the user-properties update posts {"data": "<encrypted payload>"}.
+    The helper SDKs perform the encryption; a raw HTTP client must reimplement BIDECDSA.
+
+content_type: application/json
+field_naming: mixed (camelCase dominant; snake_case in report endpoints and some path segments)

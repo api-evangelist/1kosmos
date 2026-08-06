@@ -1,0 +1,60 @@
+generated: '2026-08-05'
+method: probed
+source: live GET of /.well-known/* on every 1Kosmos host in apis.yml and the OpenAPI servers block
+summary: >-
+  No /.well-known/ discovery document was found on any 1Kosmos host. No security.txt (RFC 9116), no
+  OpenID Connect discovery document, no RFC 8414 authorization-server metadata, no api-catalog (RFC
+  9727), no ai-plugin.json, and no A2A agent card. This is recorded as a negative result, not a
+  finding about the product — 1Kosmos is an OIDC/OAuth2 authorization server for its tenants, but it
+  publishes no anonymous discovery document at a well-known path we could reach.
+caveat: >-
+  The tenant hosts (blockid-trial.1kosmos.net, blockid.1kosmos.net) answer HTTP 200 with the
+  BlockID single-page-application HTML shell for EVERY /.well-known/* path, including paths that
+  cannot exist. Those 200s are catch-all responses, not documents, and are recorded as
+  not-a-document below. A path-specific control (/v1/openapi.json) returned a real Tomcat 404 on the
+  same hosts, confirming the catch-all behaviour.
+hosts:
+- host: https://www.1kosmos.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://developer.1kosmos.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://docs.1kosmos.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://blockid-trial.1kosmos.net
+  note: SPA catch-all — every path below returned 200 with text/html, not a document
+  documents:
+  - {path: /.well-known/security.txt, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/openid-configuration, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/oauth-authorization-server, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/api-catalog, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/agent-card.json, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/agent.json, status: 200, document: false, content_type: text/html}
+  - {path: /v1/openapi.json, status: 404, note: control path — proves the 200s above are a catch-all}
+- host: https://blockid.1kosmos.net
+  note: SPA catch-all — same behaviour as blockid-trial.1kosmos.net
+  documents:
+  - {path: /.well-known/security.txt, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/agent-card.json, status: 200, document: false, content_type: text/html}
+  - {path: /.well-known/agent.json, status: 200, document: false, content_type: text/html}
+  - {path: /v1/openapi.json, status: 404, note: control path}
+documents_found: []

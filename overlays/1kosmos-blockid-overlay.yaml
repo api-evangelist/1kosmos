@@ -1,0 +1,39 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for 1Kosmos BlockID Platform API
+  version: 1.0.0
+extends: openapi/1kosmos-blockid-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: 1kosmos
+    x-apievangelist-derivation: postman-collection
+    x-apievangelist-source: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+    x-apievangelist-conventions: conventions/1kosmos-conventions.yml
+    x-apievangelist-errors: errors/1kosmos-problem-types.yml
+    x-apievangelist-data-model: data-model/1kosmos-data-model.yml
+    x-idempotency-supported: false
+    x-rfc9457: false
+- target: $
+  update:
+    x-service-discovery:
+      endpoint: GET /caas/sd
+      note: Per-service base URLs are discovered at runtime; the servers block is the tenant host only.
+- target: $.paths['/reports/tenant/{tenantID}/community/{communityID}/events'].post
+  update:
+    x-pagination:
+      style: page-index
+      params:
+      - pIndex
+      - pSize
+    x-time-window:
+      params:
+      - from
+      - to
+      max_lookback_days: 90
+    x-event-catalog: asyncapi/1kosmos-idverify-events.yml
+- target: $.paths['/api/r2/otp/verify'].post
+  update:
+    x-superseded-by: otpVerifyOTPR3
+    x-note: r3 is described in the published collection as the standardized verify endpoint; r2 remains
+      callable with no announced sunset.

@@ -1,0 +1,3998 @@
+openapi: 3.1.0
+info:
+  title: 1Kosmos BlockID Platform API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity
+    assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials
+    and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived
+    by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n),
+    saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example
+    request body and example response below is carried over from that collection; nothing was invented. Request/response
+    schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation
+    records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the
+    microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at
+    runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net
+        is the trial tenant used throughout the published docs.
+tags:
+- name: Set up
+- name: ID Verification
+- name: IAL
+- name: Reports
+- name: OTP
+- name: User Management
+- name: Access Code
+- name: Verifiable Credentials
+- name: IAL2
+- name: Workflow API
+security:
+- licenseKey: []
+  publicKey: []
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller
+        private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted
+        only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey
+        and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.
+paths:
+  /api/r1/system/community_info/fetch:
+    post:
+      operationId: setUpGetTenantCommunityInfo
+      summary: Get Tenant Community Info
+      description: 'This API is used to fetch the complete details of both the tenant and the community that were
+        set as the environment variables.
+
+
+        These details include configured tenant dns name and the list of other tenant DNS. Additionally, the community
+        details include the logo URL used in the community, tenant tag, and so on. The logo details will be displayed
+        only if you had set the skipLogos parameter in the payload to false.
+
+
+        Mandatory Parmameters
+
+
+        dns - Use the dns name of the tenant as a variable.
+
+
+        communityName - Specify the community name as a variable.
+
+
+        Optional Parameters
+
+        skipLogos - This is a boolean parameter. Specifying this value as false displays the logo details in the
+        response.'
+      tags:
+      - Set up
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              dns: '{{tenantDNS}}'
+              communityName: '{{community_name}}'
+              skipLogos: false
+      responses:
+        '200':
+          description: Tenant Community Info
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                tenant:
+                  id: 5f3d8d0cd********19cf968
+                  firstname: Acme
+                  lastname: Admin
+                  tenanttype: master
+                  tenanttag: acme
+                  name: Acme
+                  otherDNS:
+                  - acme.1kosmos.net
+                  - local.acme.net
+                  - acme-console.1kosmos.com
+                  - localblockid.com
+                  - localhost
+                  - acme-newconsole.example.com
+                  - 73c4-**-**-67-119.ngrok.io
+                  - acme-default.1kosmos.net
+                  - acme-console
+                  displayTenantInfoForPersona: true
+                community:
+                  id: 5f3d8d0cd********19cf969
+                  tenantid: 5f3d8d0cd********19cf968
+                  logo: iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAANIElEQVR4nOzXj7cXdH3HcS/cpW7hjiCbHYU8mUgjcQotdDonZzbF7FRza8M6WkscYrbjZE5SiqudHG55tGUmAbPhtGaKvw6SLo3DGjGFc/OQMMpq/AgwwAOxiSnur3id4zmvx+MPeL3vuef7Pc/vZ/CIP/zBYj
+                  mobileLogo: ''
+                  name: default
+                  publicKey: dkW7xYymDr4Rh4wEGazMdtiDzaGQtzgfby7F/z1eJchUjebTmYxkKcW7cHAg12zFWYEeJF9erjwoKw0BOHqtYw==
+                  accountsPerPerson: 12
+                  personsPerAccount: 20
+                  personLimitRule: reject
+                  otpSeed: null
+                message: null
+      x-postman-request: https://{{tenantDNS}}/api/r1/system/community_info/fetch
+      x-postman-variants:
+      - Get Tenant Community Info
+  /caas/sd:
+    get:
+      operationId: setUpFetchSD
+      summary: Fetch SD
+      description: This API is used to retrieve all microservices associated with your tenant. You must execute
+        this API to know the URLs of each services. For example, if service A want to call service B, it is necessary
+        for service A to know the URL for service B.
+      tags:
+      - Set up
+      responses:
+        '200':
+          description: Successful response
+      x-postman-request: https://{{tenantDNS}}/caas/sd
+      x-postman-variants:
+      - Fetch SD
+  /document_share_session/create:
+    post:
+      operationId: idVerificationCreateIDVerificationSession
+      summary: Create ID Verification Session
+      description: "This API is used to create a session for a specific document type. You can generate a session\
+        \ with one of the supported documents:\n\nidcard\n\ndriving license\n\npassport\n\nNote: The response displays\
+        \ the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization\
+        \ tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper\
+        \ that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is\
+        \ using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID, tenantDNS,\
+        \ community name, and the type of document for which you want to create a verification session.\n\ndocumentType:\n\
+        For Drivers License: set documentType: \"dl_object\"\nFor Passport: set documentType: \"ppt_object\"\nFor\
+        \ Any other ID Card: set documentType: \"idcard_object\" \n\nNote: You must use your own tenant DNS and\
+        \ community name.\n\nOptional Parameters\n\nusername - Specify the user for whom the session is created.\n\
+        \nfirstname - Specify the first name of the user for whom the session is created.\n\nlastname - Specify\
+        \ the last name of the user for whom the session is created.\n\nuid - A unique identifier which help in\
+        \ mapping the session ID to the user performing the verification.\n\nView Sample Response\nPostman Responses"
+      tags:
+      - ID Verification
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string),
+          "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                dvcID: default dvcid
+                sessionRequest:
+                  tenantDNS: 1k-dev.1kosmos.net
+                  communityName: default
+                  documentType: idcard_object
+                  user:
+                    username: john.doe
+                    lastname: doe
+      responses:
+        '200':
+          description: 200 Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                sessionId: e0833902-1741-4f25-a92e-516393112940
+                url: https://acme.1kosmos.net/idproofing/session/e0833902-1741-4f25-a92e-516393112940
+        '400':
+          description: 400 Bad Response
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: dvcID is required
+      x-postman-request: /document_share_session/create
+      x-postman-variants:
+      - Create ID Verification Session
+  /v3/document_share_session/result:
+    post:
+      operationId: idVerificationPollIDVerificationSession
+      summary: Poll ID Verification Session
+      description: 'The /result API displays the complete session details along with the verification status in
+        the encrypted format.
+
+
+        Note: To view the results in the decrypted format, click the Visualization tab in the response section when
+        you run this API in your postman. Otherwise, you can use your own helper that is compatible with ECDSA to
+        view the result in the decrypted format.
+
+
+        Authorization
+
+        This API is using the license key to authorize the request.
+
+
+        Mandatory Parameters
+
+        data - Specify the dvcID and sessionID which you would have received in the response of the create session
+        API.
+
+
+        Optional Parameters
+
+        NA
+
+
+        View Sample Response
+
+        Postman Responses'
+      tags:
+      - ID Verification
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string),
+          "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                dvcID: tania_web_dvcid
+                sessionId: 82f67f10-b4e4-4680-9970-5dfcc04ea39e
+      responses:
+        '200':
+          description: 200 Success Response 1
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: vlTj05byMjznI/UuAcQt8um1mlHPh4cvSabjsKOyPuYYaXimOUCHMSPKy6T/5rcsHu5CN7AmHbAseP2MA96I+1YOt0iSeFi/qneFAFJBy2i3XpefqkyO+M/bj0tusgHi48y59W7DiRs37d4=
+                publicKey: 4tW63RBUPYX7Vo0pUUCbgacZd1kCbq18mbSKJskOFGqmegPjRqIZg5Z+3JJNQCDWCo0CMDI/RDke+cKyWKx2nw==
+        '400':
+          description: 400 Bad Response - DVCID cannot be empty
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: dvcID is not allowed to be empty
+      x-postman-request: /v3/document_share_session/result
+      x-postman-variants:
+      - Poll ID Verification Session
+  /api/r1/community/{communityName}/userid/{userId}/ial:
+    get:
+      operationId: ialFetchIALOfAUser
+      summary: Fetch IAL of a user
+      description: "This API retrieves the Identity Assurance Level(s) of users based on their username. It also\
+        \ shows the user's identity documents that were submitted as proof of identity. The API indicates whether\
+        \ the user falls under the IAL1 or IAL2 category.\n\nNote: The proofs will only be displayed only if the\
+        \ user's identity documents have been verified by certified third-party organizations such as AAMVA, IDRND,\
+        \ and so on.\n\nPrerequisites:\n\nUsers are required to have at least one of the following documents enrolled\
+        \ in their web wallet.\n\nDriving License\n\nPassport\n\nSSN\n\nYou must use the tenant DNS, public key\
+        \ and private key specific to your organization. For more information, reach out to your 1Kosmos representative.\n\
+        \nResponses:\n\n1Kosmos's API responses are encrypted using Elliptic Curve Digital Signature Agorithm (ECDSA)\
+        \ to ensure secure data transmission. To view the responses in the decrypted format, you must use a helper\
+        \ that is compatible with ECDSA.\n\nThis API generates the following types of responses:\n\nScenario 1:\n\
+        \nIf the user has not enrolled any of their documents to the web wallet, their did value would be blank:\n\
+        \nEncrypted Response\nDecrypted Response\n\nMmE2MzVhNjJlNGQyMzQzMrODkyiatZgbfMl3dDOyaosXLRLeSMyiFyDwpOYVEWMxsb1pFcYJBWj33dzzK8z95DDr+Vbum7Bq8ctfObpyGadBcK+aPfS2YNKxpeAkIhu9AktSGIUHA2KM5wPZB+aDisFQ+vhB2YtOdjrc3R+wshZZzOAgWD5amhHkb7/5mAhUO9dMJ7QTJVaGh1U1y7KQ\n\
+        {  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"30620813-265f-4386-be49-26aa3af330f7\"\
+        ,  \n\"username\": \"jondoe\"  \n},  \n\"did\": {}  \n}\n\nScenario 2:\n\nIf the user is IAL1 certified,\
+        \ the did displays its value and the assurance level of the user.\n\nNote: The proofs will only be displayed\
+        \ in the response if the user's identity documents have been verified by certified third-party organizations\
+        \ such as AAMVA.\n\nEncrypted Response\nDecrypted Response\n\n\"NGMyN2I2NzM2ZjRkNWQ4ZINj/3r0jBLOAbzAUe4Ob+vEtCpWME8nphfiI97G1l/lKj8VMeSQUiKrzUIxv2E2StEniVZx4bF8cIsi29l5SThwxxG09NrNlELNFt9X2RsprxZcOODAhzNmfs750VctbNymsrM2+oL0n50oh1zzc+oXIRrwgY64rJdKinISpYpKVdQHfO8vNvRt1KlZ6joyLh3nYdDMPHbeWMN6TAtLL/BEnOeb922lfi+9piuwyDqWNZoRYByvMYknfE+/Tw5+RZ+LFwMDBGJbbPAlmp7Fu16xpZT48+nU3ShU\"\
+        \  \n}\n{  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"e855ddfd-7ef0-4d34-8fad-d5b919059619\"\
+        ,  \n\"username\": \"john\"  \n},  \n\"did\": {  \n\"ab78ea7df3a4b2fbb2b37fa60b08204ca6e701db\": {  \n\"\
+        value\": \"IAL1\",  \n\"proofs\": []  \n}  \n}  \n}\n\nScenario 3:\n\nIf the user is IAL2 certified, the\
+        \ DID will display its value along with the assurance level and the proof that was verified to obtain IAL2\
+        \ certification.\n\nEncrypted Response\nDecrypted Response\n\n\"NjY5YThjZmJjZDc4M2ExZCR/WvXNjyDAX84S3ETZTDO57lUrgPLl1dnn0IT6oGhWltvWRfPCpPmJTdv0LE2aHlI/s49DaQReDkjenegp/pAGbgbJ0cW7SvnKUkLO2nonv+eeT1Km8SiURkPKZBqGOKVJ7uV3dzKGD6pFVNS9vh1euxbbrAGV+d65EsbLG8saKK/d1rwXO22v3NcjwCbKguJgluUiL7DD87eGXX0rPo8lVKYawdJ1ywea6n/3kKFzN9v96MugaFN1pxhmlpI4dJr8XsEQsiOgn664vMa+Jfgk56QI1F+Y6KvYcDEllfTp0Cecn8rO/X9BdLM/fSyS6exVqLc0wNyjx+P0rMDlD48cV/38XUabALysSAjecYDerxmMxBZVKo4h4+ZzcWlzg2tsPlsZb64vJcKsWRenbvHf4NjsTF3B5mxiTRM9zRxKOXmcHm++d4s/Wtfvc1e4NtGE9syAUYKBdMYW3gJ78WGURCIMfVQzo4LkCIFVS3Tf6l+kFRIPC3rHbjJmNc/o2QdmmIxvMvUWkkCGev1IxRl0Sncuug9lRO3UtBd6tQcR6SHORVdtYJOaIY3U4xGgM3gw4scDzTMtr9Vt7ZJtxIImEtBtSe/dulFklSL24DjbFUXRCSaeafbOqKTcpcWLi+1vC4LuRoWwgd2MEBdaBC7C1ZNEEfbzsqtopa72h0vNaI34vaGv5vfB/Noi9tO1OLmBFGe0Rl60ODyP8f6LKUB7K0e0yuQ23cnzuazsSjzkq4zt8jLXtaUE+Jx+/CirfOBS83wBibBI5+dpy4O1kmmqWooCLbpBxGYinNhfMD9qD4Nmb7fYPMYXipyCwD1x9dm6RpgkDdxAh8IAXpVVJAWDSZhThrfiU9WvWlMla2zINU8TqF0jEeNB1B98N1O9JoeIH88gPGYIq/HoXhMdlaqEn3ZflNuuautIn/YNmycULNdgj3KjGX4vgiJQDFC2EGnzhKUfBboEH4ld5vrDyG4GUcKBnQ0QW/PAR8s1CcEjPPMkgPJLef5OiCiVkknvj1w40YdOP4H7CghhBuxKAwzEQmWiOAVvHf94s8wX7MJlU9G8v66R4QkmBqlCpL5MfPhgC4RnwoL0Tw54X0+qOgEsqhWCDLLN2f3VCYa9r5+4ASU1OIKVOiGgj5NMDPVHT50jM2RJibguQ+GA5icSybf0j5u4Mfha7vp/bI+xr728hI4YYFjnVl4YQ1IWpUmiTp6sHfRP0opIFZIFgHQ9gayvVrCJ9YKTEksg3dwg99FuJn8CzuF8Cq6b6faaTtCPt8o/foNIvXyCsC0gi/MVq75LZgBRf3lPOIe+8+dBv2yNvJBndRfgK1iRBIIo8ni9sjP5B+I3OewJLUAlSr6NQVIBwhG/6xgNSnNhuGfPt06iUYM+bBk+NaLrVBRJRQkAdkV8wiiE16nAN33YvpM4CD9OElXSC2KH78c75fwqIs8PGt7PLLFfVIk5ykPxcLraoGCB6o2DvJNV4t5IRv3YK0Ceujt4sH6yQbmg/dEtTuDscV8iMG3CtjrvWPPKYQgXw8xc1Sev/J3EKhpbVhIunz31sgnQAwIUe4nZkymeXGEJJNIqbtcCAcBRK8r4DIezetnHPoPt39UaoBmomkRkCj9Tpv7DxSdLwSRUI5k7RytVuJosokFFazWMT61hCqFXin1v9cTfNvkYU7gf7uP+BJ66kc2iaKbTRFjpXmw7zyhuyxR+lftPBxRIdVQhuDquG6SXW0f4uR5VCnCOvG5g7lAqgYD2kCZdzmlAGOWlfCDQhAvzSUvJ0auLyP01/08AydDyufMW3LwLue8i+q2QC9Mf/iajYf+xUj/cA+BNnoh+Pr4HZxzk66uQQbPIpte8Ur7/Vzz8du8dEYeR6RkJSH7Be+Yo/N37mLxc5Ld7jtAjDtY9kC+0/fJVjMQ8OjTag+BDFJBwllT3u8FWB8vpLIhWkrint8HZdmz4/6n4CLpjTgMl+qY9l5zpyydd7yAZdfkGMVf/OoXb53WM86n4sjTOhWTfqZfP7VqTWCJvy54V/zsoYiTNjxxHjknTYy8mX0fDJIlvidcmvEmPT+MZKV4SvEbQ4gPd8xruF6KNfhkDcf/ejAxGeRs4ZEwXL6zktNjXuOq//czGSw==\"\
+        \n{  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"c3f4ef6a-8a3e-478b-a01c-eba38d2a5427\"\
+        ,  \n\"username\": \"bhargavi\"  \n},  \n\"did\": {  \n\"94adb4156f52329548de4a3c6ede5a89d140bcc6\": { \
+        \ \n\"value\": \"IAL2\",  \n\"proofs\": [  \n{  \n\"type\": \"ssn_affidavit\",  \n\"proof\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovLzFrLWRldi4xa29zbW9zLm5ldC9kZWZhdWx0IiwiaXNzIjoiaHR0cHM6Ly8xay1kZXYuMWtvc21vcy5uZXQvYWRtaW4vZGVmYXVsdCIsImlzc3VlciI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpZG9jIn0sInJlY2lwaWVudCI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpIn0sImRvY3VtZW50Ijp7InR5cGUiOiJzc25fYWZmaWRhdml0IiwiZG9lIjoiMjAyNTA4MTAiLCJpZF9oYXNoIjoiZDllNjc2MmRkMWM4ZWFmNmQ2MWIzYzYxOTJmYzQwOGQ0ZDZkNWYxMTc2ZDBjMjkxNjliYzI0ZTcxYzNmMjc0YWQyN2ZjZDU4MTFiMzEzZDY4MWY3ZTU1ZWMwMmQ3M2Q0OTljOTU0NTViNmI1YmI1MDNhY2Y1NzRmYmE4ZmZlODUifSwidHMiOjE3NDA3MzkzMDA4OTQsInB1cnBvc2UiOlsiaWFsIl0sImlhdCI6MTc0MDczOTMwMCwiZXhwIjoxNzU0NzgzOTk5fQ.A07aCM2zWxo8f1VQlIxV49O9MWbRYWUOqaCD2xUvmI8\"\
+        \  \n},  \n{  \n\"type\": \"dl_affidavit\",  \n\"proof\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovLzFrLWRldi4xa29zbW9zLm5ldC9kZWZhdWx0IiwiaXNzIjoiaHR0cHM6Ly8xay1kZXYuMWtvc21vcy5uZXQvYWRtaW4vZGVmYXVsdCIsImlzc3VlciI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpZG9jIn0sInJlY2lwaWVudCI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpIn0sImRvY3VtZW50Ijp7InR5cGUiOiJkbF9hZmZpZGF2aXQiLCJkb2UiOiIyMDI1MDUxMCIsImlkX2hhc2giOiJkOWU2NzYyZGQxYzhlYWY2ZDYxYjNjNjE5MmZjNDA4ZDRkNmQ1ZjExNzZkMGMyOTE2OWJjMjRlNzFjM2YyNzRhZDI3ZmNkNTgxMWIzMTNkNjgxZjdlNTVlYzAyZDczZDQ5OWM5NTQ1NWI2YjViYjUwM2FjZjU3NGZiYThmZmU4NSJ9LCJ0cyI6MTc0MDczOTI3NzYwNCwicHVycG9zZSI6WyJpYWwiXSwiaWF0IjoxNzQwNzM5Mjc3LCJleHAiOjE3NDY4MzUxOTl9.wz7EUaO1HVk9kYh9UNn4wcJG9zpT2mu9y78xOW1d4Ts\"\
+        \  \n}  \n]  \n}  \n}  \n}\n\nSample Response Parameters:\n\nThe following table provides the sample response\
+        \ parameters:\n\nParameter\nDescription\n\nauthModuleID\n\nuid\nUnique Identifier\n\nusername\nName of the\
+        \ user\n\ndid\ndid of the wallet\n\nvalue\nDisplays whether the user belongs to IAL1 or IAL2 category.\n\
+        \nproofs\nType of document present in the wallet."
+      tags:
+      - IAL
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: tenant_name
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: community_name
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: IAL2 with proofs
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: NWIyZmRmM2IwOWU0ODVlOHW7KSKvLTeyCyad1UW0P/Byh9FBZV2fA4Odsi2NlPGDHUzmDJFwQPpPaPUGYaEGQvj3We1a2lzRYLiuJNFkC4mRxApsAtCP5Hw0hReFCsqw6/qXyaY8jBD/ULmsN4HWeejdjlUZjoQqc1GAGP/nerFvYizPA/6eqlRx8mkk3kqQEpRHDxjY3c2QeH35gGwX2Xi88q03A1GFBuFiAj276u5qGY6/TgA5Tw8M5AC6bL0P33EfZ4Wu0y1vhkNOaQ0DIFJGFAs9sthOBbe6xipX3SgBkNtc+okhWX8Y6kn91uO3XRXUKgDnJlEcHydUHLxcxGMUZ97oR2HX3VqdQOPGBBiW9vvkvPsIh7jLrO+SlG2UB78VHbtaA96YQnRpxwRckWIKuRoModim+RoCxwT4dKA/rUT9gBMwg5TwRTGUAOiJpySlY8pp5JzFJodyf0hZJqvATYO5/GSlmW5a86MCbOuCd3Q9FnXeKKIlEwbgX/Zh1C9fIGalOgTe+MUmXYEYk0VGfBzNwekZ5Wv1+Hf7OPc7qWufAPpUVcuGYC4szcPCgP3nb/8GpI8T7/xGXeFc+y/hOfxaq1yrzUArEa5UMboP8DoX27+0suWQ+KuyHmnw0VehAp3nor+6YSZhu52/OI0Zhw67AHEGg8Tvs18FbnRBRSlx7YtLQR02OdqLlUmmpovX7tUz/RJVAVNnvhzrdh2bNXi4AMG1VWOQrlSMxrQCKE4RauYlr17fYhHREgK8owA7wvjtQajUvNvPNU5VcxGfQ/ky51xEZWpY7zkWT0lPDpacc4HYcd84FLDb0QLPBjCv6ZtEaMm5CYuQhybDh016A0XidgtOOSdchLl/KE+znlIytihyRGEpsjWb0tvhRWea+p+7oLiNz9VWfhwBAugnU8GI4HCJhXuoA0gOvd7ESYggYttJjpL+86R73aWTihUgssNUaom66gkkqHppJoXE9hJ0umZMnKq9zyhm4dS/OHYJvZsBlDm5hf62+d/Cns29SMGc/m3nCnAJXBOC7jwurmeCUOYIBMnub76DHxwIhd7LxW0O/jlLLUd/sE1S13fpU+ns0WvJQODtQ3Vg7+FkfzoT0Ep7OV1Yy8lSaR2mVUE7aHVIQwcCx5cyS3ddwZb7FFq0JyMoaWkJsS/u5jmgc6f5kL0ycmdlWpAcX1O3HmSUp+vRwrOp7B0ObeoGk+D+5WnAZlBpXj4GMK2yzB177QkzF/2qWRiTt5apZK2IhqZ5lRCRmmGai3ZnxZRn/fDkqOtVEjJGOYyexKnDRpTmBKU8eXqCXbw7guF2iEnRT0mqrvDx81Cco6WSifxNNGnd4qxHQ3hD4+RTiH7T2OTQbHMOFn4bQAgWDQxSxRy7wde8om3bhmuQreou6iy+gx9Dz1D29fEiD1Zr4OSGXRdIdl2tWckU4m2Fne8uT2GckvyOUi1hAb9O8MgKNweQmLJ79PJ8FhfJdjYuxIhFtn/kZXGGKxcY70l+PR5nzJbM9Hco3N9B+tE4BpDYrr0kqODPu2yilwfOPD11sUqp7XfmYpkchejpdt9nlWcr4o5lQkCxQGztDndD15rREh0twpKSjZNkGx72GXvpe0r9YzSNR7eNENodXEflXAy/xhkD7elTuQKDQNXY4dJuJFKA3DNCuR+5EaQmxz5oGECbZ7QN9tyhvJmsCy7HUrL71jagVuAurZRTz0tJpifcbSS7LJhlWBxTFLLZCdnshbI06n2D1qH3kfBtFfAZo4ym2PA+0pnSSBZD9O08itJtj2FAFde/84IK4eZMA4Bm9S6fKh5ZUaSHLLb81lfbm7dZAEiHUJxbNrYrU8YfvIClLbp1TQ1DOcv185cVNaFOfNAFICV4dtmwOiK1JvHQVKYgQ8FoV3TgQpYQYd4DocNUGSOVJLpnCimGe8s2/P654t523BNIDxChjdd1rPH3lXAYwwH26pt5fPwPfdCeEeITkpYnwngaYswsszsk0+bMzcTqfo3xCvVeeOcNDomvl4w1gkmtsydVJncxTuJzrlUPxLgU8kWfkzzRdIz1q/aXet/7T+nRLghzs5Rer6AuXTGD4wDuM7Xq/WINtRrYMc0LZJrOA75kKGoMQpVdMBjZOj+g1Ih7gzUYA5Hu2g==
+      x-postman-request: '{{tenantDNS}}/api/r1/community/{{community_name}}/userid/johndoe/ial'
+      x-postman-variants:
+      - Fetch IAL of a user
+  /reports/tenant/{tenantID}/community/{communityID}/events:
+    post:
+      operationId: reportsEvents
+      summary: Events
+      description: "API Request Description\nThis endpoint allows you to retrieve event data for a specific community\
+        \ within a tenant.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/events\n\
+        \nRequest Parameters\n\npSize (integer): The number of records to return per page. In the example, it is\
+        \ set to 10.\n\npIndex (integer): The page index for pagination. In the example, it is set to 1.\n\nfrom\
+        \ (string): The start date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS.\
+        \ In the example, it is 2025-05-01 00:00:00.000.\n\nto (string): The end date and time for the events to\
+        \ be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-10 00:00:00.000.\n\n\
+        query (object): An object containing the search criteria for the events. In the example, it includes:\n\n\
+        event_name (string): The name of the event to filter by. In the example, it is set to \"E_IDV_DOCUMENT_VALIDATE\"\
+        .\n\nExpected Response\n\nStatus Code: 200 OK\n\nContent-Type: application/json\n\nResponse Body:\n\npage\
+        \ (object): Contains pagination information.\n\ntotal (integer): Total number of records available.\n\n\
+        pSize (integer): The size of the current page.\n\npIndex (integer): The current page index.\n\ndata (array):\
+        \ An array of event data objects. If no events are found, this will be an empty array.\n\nExample Response\n\
+        {\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n  \"data\": []\n}\n\nNotes\n\
+        \nEnsure that you provide valid tenantID and communityID in the URL.\n\nThe request requires authorization\
+        \ headers which must be included for successful execution.\n\nThe response may vary based on the provided\
+        \ date range and query parameters."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              pSize: 10
+              pIndex: 1
+              from: '2025-05-01 00:00:00.000'
+              to: '2025-05-10 00:00:00.000'
+              query:
+                event_name: E_IDV_DOCUMENT_VALIDATE
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  total: 0
+                  pSize: 10
+                  pIndex: 1
+                data: []
+        '400':
+          description: Incorrect From-To Dates
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: Field should be from current time to minus 90 days
+                  param: from
+                - message: Date 'to' must be after or equal to 'from'
+                  param: to
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/events'
+      x-postman-variants:
+      - Events
+  /reports/tenant/{tenantID}/community/{communityID}/metrics:
+    post:
+      operationId: reportsMetrics
+      summary: Metrics
+      description: "Request Description\nThis API endpoint is used to submit metrics data for a specific community\
+        \ within a tenant. The purpose of this request is to track and analyze various metrics related to community\
+        \ activities.\n\nRequest Parameters\nThe request must include a JSON body with the following parameters:\n\
+        \nmetricsName (string): The name of the metric you want to report (e.g., \"M_GT_SUCCESSFUL_AUTHENTICATION\"\
+        ).\n\nfrom (string): The start date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\
+        \nto (string): The end date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\nResponse\
+        \ Structure\nThe API responds with a JSON object containing the following field:\n\ncount (integer): The\
+        \ number of records that match the provided metrics criteria. For example, a response of {\"count\":0} indicates\
+        \ that there were no records found for the specified metrics within the given date range.\n\nExample Request\n\
+        {\n  \"metricsName\": \"M_GT_SUCCESSFUL_AUTHENTICATION\",\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"\
+        to\": \"2025-05-01 00:00:00.000\"\n}\n\nExample Response\n{\n  \"count\": 0\n}"
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              metricsName: M_GT_SUCCESSFUL_AUTHENTICATIONS
+              from: '2025-05-01 00:00:00.000'
+              to: '2025-05-01 00:00:00.000'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                count: 172
+        '400':
+          description: Bad/Missing License Key
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: This header can't be decrypted
+                  param: licensekey
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/metrics'
+      x-postman-variants:
+      - Metrics
+  /reports/tenant/{tenantID}/community/{communityID}/application_usage_report:
+    post:
+      operationId: reportsApplicationUsageReport
+      summary: Application Usage Report
+      description: "Request Description\nThis API endpoint allows you to generate an application usage report for\
+        \ a specific tenant and community within the client application.\n\nRequest Method\n\nPOST\n\nRequest URL\n\
+        \n{{client_api}}/reports/tenant/:tenantID/community/:communityID/application_usage_report\n\nRequest Body\n\
+        The request body must be in JSON format and should contain the following parameters:\n\nfrom (string): The\
+        \ start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string): The end date\
+        \ and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\npSize (integer): The number of records\
+        \ to return per page.\n\npIndex (integer): The index of the page to return.\n\nExample Payload:\n\n{\n \
+        \ \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"pSize\": 10,\n  \"\
+        pIndex\": 0\n}\n\nExpected Response\nThe response will be a JSON object containing:\n\npage: An object with\
+        \ pagination details.\n\ntotal (integer): The total number of records available.\n\npSize (integer): The\
+        \ number of records per page.\n\npIndex (integer): The current page index.\n\ndata: An array of objects\
+        \ representing the application usage events. Each object may include fields such as:\n\nevent_name (string):\
+        \ The name of the event.\n\nevent_ts (integer): The timestamp of the event.\n\nuser_id (string): The ID\
+        \ of the user associated with the event.\n\nAdditional fields related to the event and user details.\n\n\
+        Example Response:\n\n{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n \
+        \ \"data\": []\n}\n\nNotes\n\nEnsure that the tenantID and communityID in the URL are replaced with valid\
+        \ identifiers.\n\nThe request requires appropriate authorization headers to be included.\n\nThe response\
+        \ may vary based on the data available for the specified time range."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              from: '2025-05-01 00:00:00.000'
+              to: '2026-06-01 00:00:00.000'
+              pSize: 10
+              pIndex: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  total: 4
+                  pSize: 10
+                  pIndex: 0
+                data:
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1751206568534
+                  version: v1
+                  journey_id: 47d5f941-608c-4464-80f9-92e32347803d
+                  session_id: a73a8d5f-10ef-447b-97bf-f6e0495340b3
+                  client_ip_address: 213.174.29.76
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/137.0.0.0 Safari/537.36
+                  user_id: andrii.ziazin@1kosmos.com
+                  user_status: active
+                  user_email: andrii.ziazin@1kosmos.com
+                  user_firstname: andrii
+                  user_lastname: ziazin
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 213.174.29.76
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Chrome
+                  auth_device_app_version: 137.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: Ukraine
+                  region: Poltava Oblast
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: f64c7fc8-8ae5-48d3-bc62-70b09a312a37
+                  timestamp: '2025-06-29 14:16:08.534'
+                  epoch_time: '1751206568'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1751203011828
+                  version: v1
+                  journey_id: 97dc6371-03a2-4ef0-8b3f-31ccea6d40ff
+                  session_id: 0b2b9ce7-1d74-4057-a0a4-ba507dae4d91
+                  client_ip_address: 213.174.29.76
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML,
+                    like Gecko) Version/18.5 Safari/605.1.15
+                  user_id: andrii.ziazin@1kosmos.com
+                  user_status: active
+                  user_email: andrii.ziazin@1kosmos.com
+                  user_firstname: andrii
+                  user_lastname: ziazin
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 213.174.29.76
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Safari
+                  auth_device_app_version: '18.5'
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: Ukraine
+                  region: Poltava Oblast
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: baa8a5ce-f1a7-4eee-8156-1e177f9ae365
+                  timestamp: '2025-06-29 13:16:51.828'
+                  epoch_time: '1751203011'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1747298595672
+                  version: v1
+                  journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                  session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                  client_ip_address: 3.231.117.156
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                  user_id: andrii.ziazin@1kosmos.com
+                  user_status: active
+                  user_email: andrii.ziazin@1kosmos.com
+                  user_firstname: andrii
+                  user_lastname: ziazin
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 3.231.117.156
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Edge
+                  auth_device_app_version: 136.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: United States
+                  region: Virginia
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: da65e059-2542-4283-a6b3-11f6a94d187d
+                  timestamp: '2025-05-15 08:43:15.672'
+                  epoch_time: '1747298595'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1747297942920
+                  version: v1
+                  journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                  session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                  client_ip_address: 3.231.117.156
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                  user_id: andrii.ziazin@1kosmos.com
+                  user_status: active
+                  user_email: andrii.ziazin@1kosmos.com
+                  user_firstname: andrii
+                  user_lastname: ziazin
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 3.231.117.156
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Edge
+                  auth_device_app_version: 136.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: United States
+                  region: Virginia
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: be926b44-1da0-4859-8a88-a38c3110a801
+                  timestamp: '2025-05-15 08:32:22.920'
+                  epoch_time: '1747297942'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+        '400':
+          description: Incorrect From-To Dates
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: Field should be from current time to minus 90 days
+                  param: from
+                - message: Date 'to' must be after 'from'
+                  param: to
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/application_usage_report'
+      x-postman-variants:
+      - Application Usage Report
+  /reports/tenant/{tenantID}/community/{communityID}/audit_log:
+    post:
+      operationId: reportsAuditLogReport
+      summary: Audit Log Report
+      description: "Request Description\nThis is a POST request to retrieve the audit log for a specific community\
+        \ within a tenant.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/audit_log\n\
+        \nRequest Body:\nThe request body should be in JSON format and include the following parameters:\n\npSize\
+        \ (integer): The number of records to return per page.\n\npIndex (integer): The index of the page to retrieve.\n\
+        \nfrom (string): The start date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto\
+        \ (string): The end date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nExample Request\
+        \ Body:\n\n{\n  \"pSize\": 5,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"\
+        2026-06-01 00:00:00.000\"\n}\n\nExpected Response:\nThe response will be in JSON format and will contain\
+        \ the following structure:\n\npage: An object containing pagination information.\n\ntotal (integer): The\
+        \ total number of records available.\n\npSize (integer): The number of records returned per page.\n\npIndex\
+        \ (integer): The current page index.\n\ndata: An object containing the audit log events.\n\nauditLogEvents\
+        \ (array): A list of audit log events, where each event includes:\n\nevent_name (string): The name of the\
+        \ event.\n\nevent_ts (integer): The timestamp of the event.\n\ntenant_id (string): The ID of the tenant.\n\
+        \ncommunity_id (string): The ID of the community.\n\neventCategory (string): The category of the event.\n\
+        \ntype (string): The type of the event.\n\nsp_type (string): The service provider type.\n\nsp_name (string):\
+        \ The name of the service provider.\n\nsp_id (string): The ID of the service provider.\n\nold_authRequestSignRequired\
+        \ (boolean): Indicates if the old auth request sign is required.\n\nnew_authRequestSignRequired (boolean):\
+        \ Indicates if the new auth request sign is required.\n\nnew_encryptAssertion (boolean): Indicates if the\
+        \ new encrypt assertion is enabled.\n\nnew_encryptionAlgorithm (string): The new encryption algorithm used.\n\
+        \nnew_keyTransportAlgorithm (string): The new key transport algorithm used.\n\nuser_id (string): The ID\
+        \ of the user associated with the event.\n\nuser_name (string): The name of the user associated with the\
+        \ event.\n\nconnection_ip_address (string): The IP address from which the connection was made.\n\nconnection_useragent\
+        \ (string): The user agent string of the connection.\n\nevent_id (string): The unique identifier for the\
+        \ event.\n\ntimestamp (string): The timestamp of the event.\n\nepoch_time (string): The epoch time of the\
+        \ event.\n\neventName (string): The name of the event.\n\nNotes:\n\nEnsure that the request headers include\
+        \ the necessary authorization tokens and keys.\n\nThe from and to parameters should be carefully set to\
+        \ ensure they fall within the range of available audit logs."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              pSize: 5
+              pIndex: 0
+              from: '2025-05-01 00:00:00.000'
+              to: '2026-06-01 00:00:00.000'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  total: 24
+                  pSize: 5
+                  pIndex: 0
+                data:
+                  auditLogEvents:
+                  - event_name: E_SP_MODIFIED
+                    event_ts: 1751202999164
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    eventCategory: AUDIT_LOG
+                    type: event
+                    sp_type: saml
+                    sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                    sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                    old_authRequestSignRequired: true
+                    new_authRequestSignRequired: false
+                    new_encryptAssertion: false
+                    new_encryptionAlgorithm: http://www.w3.org/2001/04/xmlenc#aes256-cbc
+                    new_keyTransportAlgorithm: http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p
+                    user_id: john.doe@1kosmos.com
+                    user_name: john.doe@1kosmos.com
+                    connection_ip_address: 213.174.29.76
+                    connection_useragent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                      like Gecko) Chrome/137.0.0.0 Safari/537.36
+                    event_id: 4c58079e-5985-4c7c-b33e-518ef76b601e
+                    timestamp: '2025-06-29 13:16:39.164'
+                    epoch_time: '1751202999'
+                    eventName: E_SP_MODIFIED
+                  - event_name: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                    event_ts: 1751022757842
+                    user_id: rahulauth
+                    user_name: rahulauth
+                    connection_ip_address: 117.220.184.164
+                    connection_useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+                      Gecko) Chrome/137.0.0.0 Safari/537.36
+                    directory_id: 6593c7653eeff32662cfef76
+                    directory_name: DB for default  community
+                    directory_type: db
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    eventCategory: AUDIT_LOG
+                    type: event
+                    old_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Face
+                      descriptions:
+                      - Must contain 8 characters with at least one special character and one number.
+                      allowed: true
+                    new_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Fingerprint
+                      allowed: true
+                      description: Must contain 8 characters with at least one special character and one number.
+                    event_id: fa68f181-69c4-4c87-9427-31bc840e6027
+                    timestamp: '2025-06-27 11:12:37.842'
+                    epoch_time: '1751022757'
+                    eventName: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                  - event_name: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                    event_ts: 1751019105416
+                    user_id: rahulauth
+                    user_name: rahulauth
+                    connection_ip_address: 117.220.184.164
+                    connection_useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+                      Gecko) Chrome/137.0.0.0 Safari/537.36
+                    directory_id: 6593c7653eeff32662cfef76
+                    directory_name: DB for default  community
+                    directory_type: db
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    eventCategory: AUDIT_LOG
+                    type: event
+                    old_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Fingerprint
+                      descriptions:
+                      - Must contain 8 characters with at least one special character and one number.
+                      allowed: true
+                    new_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Face
+                      allowed: true
+                      description: Must contain 8 characters with at least one special character and one number.
+                    event_id: 9a36c40d-ed6d-4410-abd1-ebc53898f172
+                    timestamp: '2025-06-27 10:11:45.416'
+                    epoch_time: '1751019105'
+                    eventName: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                  - event_name: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                    event_ts: 1751018188277
+                    user_id: rahulauth
+                    user_name: rahulauth
+                    connection_ip_address: 117.220.184.164
+                    connection_useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+                      Gecko) Chrome/137.0.0.0 Safari/537.36
+                    directory_id: 6593c7653eeff32662cfef76
+                    directory_name: DB for default  community
+                    directory_type: db
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    eventCategory: AUDIT_LOG
+                    type: event
+                    old_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Face
+                      descriptions:
+                      - Must contain 8 characters with at least one special character and one number.
+                      allowed: true
+                    new_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Fingerprint
+                      allowed: true
+                      description: Must contain 8 characters with at least one special character and one number.
+                    event_id: 347b264a-b993-4b2c-98af-72685a4a72a9
+                    timestamp: '2025-06-27 09:56:28.277'
+                    epoch_time: '1751018188'
+                    eventName: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                  - event_name: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+                    event_ts: 1751018129803
+                    user_id: rahulauth
+                    user_name: rahulauth
+                    connection_ip_address: 117.220.184.164
+                    connection_useragent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+                      Gecko) Chrome/137.0.0.0 Safari/537.36
+                    directory_id: 6593c7653eeff32662cfef76
+                    directory_name: DB for default  community
+                    directory_type: db
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    eventCategory: AUDIT_LOG
+                    type: event
+                    old_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Fingerprint
+                      descriptions:
+                      - Must contain 8 characters with at least one special character and one number.
+                      allowed: true
+                    new_config_passwordPolicy:
+                      rules:
+                        min_enabled: true
+                        min_special_enabled: true
+                        min_numbers_enabled: true
+                        special_chars_allowed_enabled: true
+                        min_alpha_caps_enabled: true
+                        noUsername: true
+                        noUsername_enabled: true
+                        allowInRow_enabled: true
+                        min: 8
+                        min_special: 1
+                        min_numbers: 1
+                        special_chars_allowed: '!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~'
+                        min_alpha_caps: 1
+                        allowInRow: 3
+                      authtype: Face
+                      allowed: true
+                      description: Must contain 8 characters with at least one special character and one number.
+                    event_id: d4232ecb-4dd1-4382-957e-ede84ec0846a
+                    timestamp: '2025-06-27 09:55:29.803'
+                    epoch_time: '1751018129'
+                    eventName: E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED
+        '400':
+          description: Bad/Missing License Key
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: This header should not be empty
+                  param: licensekey
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/audit_log'
+      x-postman-variants:
+      - Audit Log Report
+  /reports/tenant/{tenantID}/community/{communityID}/last_seen_report:
+    post:
+      operationId: reportsLastSeenReport
+      summary: Last Seen Report
+      description: "Request Description\nThis is a POST request to retrieve the last seen report for a specific\
+        \ user in a community.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/last_seen_report\n\
+        \nRequest Body:\nThe request requires a JSON payload with the following parameters:\n\nuser_id (string):\
+        \ The unique identifier for the user.\n\ndevice_id (string): The unique identifier for the device used by\
+        \ the user.\n\neventName (string): The name of the event being reported (e.g., login success).\n\nExample\
+        \ Request Body:\n\n{\n  \"user_id\": \"rahulauth\",\n  \"device_id\": \"4991d8a02a256d0e\",\n  \"eventName\"\
+        : \"E_LOGIN_SUCCEEDED\"\n}\n\nExpected Response:\nThe response will return a JSON object containing an array\
+        \ of data with the following fields:\n\ndata (array): An array of event records, each containing:\n\ntype\
+        \ (string): Type of the event.\n\nevent_ts (integer): Timestamp of the event.\n\nversion (string): Version\
+        \ of the event.\n\njourney_id (string): Identifier for the journey.\n\nsession_id (string): Identifier for\
+        \ the session.\n\nclient_ip_address (string): IP address of the client.\n\ncaller_user_agent (string): User\
+        \ agent of the caller.\n\nlogin_state (string): Current login state of the user.\n\nuser_id (string): User\
+        \ identifier.\n\nuser_status (string): Status of the user.\n\nuser_email (string): Email of the user.\n\n\
+        user_firstname (string): First name of the user.\n\nuser_lastname (string): Last name of the user.\n\nsource_user_directory\
+        \ (string): Source user directory.\n\ntenant_dns (string): DNS of the tenant.\n\ntenant_tag (string): Tag\
+        \ of the tenant.\n\nservice_name (string): Name of the service.\n\nserver_ip (string): IP address of the\
+        \ server.\n\nauth_method (string): Authentication method used.\n\ndevice_id (string): Device identifier.\n\
+        \nauth_device_os (string): Operating system of the authentication device.\n\nauth_device_name (string):\
+        \ Name of the authentication device.\n\nauth_device_app_name (string): Application name on the authentication\
+        \ device.\n\nauth_device_app_version (string): Version of the application on the authentication device.\n\
+        \nauth_device_ip_address (string): IP address of the authentication device.\n\nauth_device_latitude (float):\
+        \ Latitude of the authentication device.\n\nauth_device_longitude (float): Longitude of the authentication\
+        \ device.\n\nmoduleId (string): Identifier for the module.\n\nfactsSubmitted (object): Details of the submitted\
+        \ facts.\n\nauthFactor (string): Authentication factor used.\n\nsessionUrl (string): URL for the session.\n\
+        \nauthJourneysMatched (array): List of matched authentication journeys.\n\nuser_role (string): Role of the\
+        \ user.\n\nevent_id (string): Identifier for the event.\n\ntimestamp (string): Timestamp of the response.\n\
+        \nepoch_time (integer): Epoch time of the event.\n\ntenant_id (string): Identifier for the tenant.\n\ncommunity_id\
+        \ (string): Identifier for the community.\n\neventName (string): Name of the event.\n\nNotes\n\nEnsure that\
+        \ the necessary headers are included in the request, particularly for authorization.\n\nThe request and\
+        \ response structures may vary based on the specific tenant and community configurations."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              user_id: rahulauth
+              device_id: 4991d8a02a256d0e
+              eventName: E_LOGIN_SUCCEEDED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                - type: event
+                  event_ts: 1751022167293
+                  version: v1
+                  journey_id: e5b46a18-ec28-4231-bdb4-481e6699ea67
+                  session_id: d3f4ce55-e67b-4c0c-bf7b-a0332cbb605c
+                  client_ip_address: 117.220.184.164
+                  caller_user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+                    Chrome/137.0.0.0 Safari/537.36
+                  login_state: SUCCESS
+                  user_id: rahulauth
+                  user_status: active
+                  user_email: rahul.saini+1230@1kosmos.com
+                  user_firstname: rahul
+                  user_lastname: Auth
+                  source_user_directory: db
+                  tenant_dns: https://1k-uat.1kosmos.net
+                  tenant_tag: 1kosmos
+                  service_name: athena
+                  server_ip: 10.8.29.162
+                  auth_method: push
+                  device_id: 4991d8a02a256d0e
+                  auth_device_os: android
+                  auth_device_name: Rahul's Samsung A73
+                  auth_device_app_name: 1Kosmos
+                  auth_device_app_version: 1.20.40.685AB0BF
+                  auth_device_ip_address: 117.220.184.164
+                  auth_device_latitude: 29.16525183
+                  auth_device_longitude: 78.4822457
+                  moduleId: 6593c7653eeff32662cfef76
+                  factsSubmitted:
+                    applicationId: adminx
+                    machine_id: 72cbaa22-873c-424e-b6a4-9b7d14979b6e
+                    machine_name: 72cbaa22-873c-424e-b6a4-9b7d14979b6e
+                    machine_domain: notavailable
+                    machine_os: ''
+                    machine_os_version: ''
+                    machine_mac_addr: ''
+                    machine_ip: ''
+                    groups: []
+                    userTrustedLocations: []
+                    mobileLocation:
+                      lat: 29.16525183
+                      lon: 78.4822457
+                    authModuleId: 6593c7653eeff32662cfef76
+                    authenticationMethods:
+                    - uwl
+                    username: rahulauth
+                    machine_user: rahulauth@72cbaa22-873c-424e-b6a4-9b7d14979b6e
+                    IP: 117.220.184.164
+                  authFactor: LiveID
+                  sessionUrl: https://1k-uat.1kosmos.net/sessions/session/05e0aa6f-30dd-4fe4-b1ac-11eedc36e69e
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  user_role: community-admin
+                  event_id: 726ad726-e803-41bd-bffd-9e3b04869a2d
+                  timestamp: '2025-06-27 11:02:47.318'
+                  epoch_time: 1751022167
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  eventName: E_LOGIN_SUCCEEDED
+        '400':
+          description: Incorrect From-To Dates
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: Field should be from current time to minus 90 days
+                  param: from
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/last_seen_report'
+      x-postman-variants:
+      - Last Seen Report
+  /reports/tenant/{tenantID}/community/{communityID}/login_activity_report:
+    post:
+      operationId: reportsLoginActivityReport
+      summary: Login Activity Report
+      description: "Request Description\nThis is an HTTP POST request to the endpoint {{client_api}}/reports/tenant/:tenantID/community/:communityID/login_activity_report.\n\
+        \nRequest Parameters\nThe request body should be in JSON format and includes the following parameters:\n\
+        \npSize (integer): The number of records to return per page.\n\npIndex (integer): The page index for pagination.\n\
+        \nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string):\
+        \ The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\neventName (string): The\
+        \ name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n\
+        \  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\
+        \n}\n\nExpected Response Format\nThe response will be in JSON format and will include the following structure:\n\
+        \npage: An object containing pagination details.\n\ntotal (integer): Total number of records available.\n\
+        \npSize (integer): The size of the page.\n\npIndex (integer): The current page index.\n\ndata: An object\
+        \ containing the activity and login events.\n\nactivityEvents: An array of objects representing activity\
+        \ events, each with various attributes including event_name, event_ts, user_id, etc.\n\nloginEvents: An\
+        \ array of objects representing login events, each with attributes including type, event_ts, user_id, etc.\n\
+        \nThis request is designed to retrieve login activity reports for a specified tenant and community within\
+        \ a defined date range."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              pSize: 10
+              pIndex: 0
+              from: '2025-05-01 00:00:00.000'
+              to: '2026-06-01 00:00:00.000'
+              eventName: E_SP_REDIRECT_SUCCEEDED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  total: 4
+                  pSize: 10
+                  pIndex: 0
+                data:
+                  activityEvents:
+                  - event_name: E_SP_REDIRECT_SUCCEEDED
+                    event_ts: 1751206568534
+                    version: v1
+                    journey_id: 47d5f941-608c-4464-80f9-92e32347803d
+                    session_id: a73a8d5f-10ef-447b-97bf-f6e0495340b3
+                    client_ip_address: 213.174.29.76
+                    caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                      like Gecko) Chrome/137.0.0.0 Safari/537.36
+                    user_id: john.doe@1kosmos.com
+                    user_status: active
+                    user_email: john.doe@1kosmos.com
+                    user_firstname: john
+                    user_lastname: doe
+                    source_user_directory: db
+                    source_user_directory_name: DB for default  community
+                    caller_ip: 213.174.29.76
+                    tenant_dns: 1k-uat.1kosmos.net
+                    auth_method: otp
+                    auth_device_os: Mac OS
+                    auth_device_app_name: Chrome
+                    auth_device_app_version: 137.0.0.0
+                    sp_type: saml
+                    sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                    sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                    country: Ukraine
+                    region: Poltava Oblast
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    type: event
+                    authJourneysMatched:
+                    - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                      name: default
+                    aliasUsed: unknown
+                    event_id: f64c7fc8-8ae5-48d3-bc62-70b09a312a37
+                    timestamp: '2025-06-29 14:16:08.534'
+                    epoch_time: '1751206568'
+                    eventName: E_SP_REDIRECT_SUCCEEDED
+                  - event_name: E_SP_REDIRECT_SUCCEEDED
+                    event_ts: 1751203011828
+                    version: v1
+                    journey_id: 97dc6371-03a2-4ef0-8b3f-31ccea6d40ff
+                    session_id: 0b2b9ce7-1d74-4057-a0a4-ba507dae4d91
+                    client_ip_address: 213.174.29.76
+                    caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML,
+                      like Gecko) Version/18.5 Safari/605.1.15
+                    user_id: john.doe@1kosmos.com
+                    user_status: active
+                    user_email: john.doe@1kosmos.com
+                    user_firstname: john
+                    user_lastname: doe
+                    source_user_directory: db
+                    source_user_directory_name: DB for default  community
+                    caller_ip: 213.174.29.76
+                    tenant_dns: 1k-uat.1kosmos.net
+                    auth_method: otp
+                    auth_device_os: Mac OS
+                    auth_device_app_name: Safari
+                    auth_device_app_version: '18.5'
+                    sp_type: saml
+                    sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                    sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                    country: Ukraine
+                    region: Poltava Oblast
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    type: event
+                    authJourneysMatched:
+                    - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                      name: default
+                    aliasUsed: unknown
+                    event_id: baa8a5ce-f1a7-4eee-8156-1e177f9ae365
+                    timestamp: '2025-06-29 13:16:51.828'
+                    epoch_time: '1751203011'
+                    eventName: E_SP_REDIRECT_SUCCEEDED
+                  - event_name: E_SP_REDIRECT_SUCCEEDED
+                    event_ts: 1747298595672
+                    version: v1
+                    journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                    session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                    client_ip_address: 3.231.117.156
+                    caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                      like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                    user_id: john.doe@1kosmos.com
+                    user_status: active
+                    user_email: john.doe@1kosmos.com
+                    user_firstname: john
+                    user_lastname: doe
+                    source_user_directory: db
+                    source_user_directory_name: DB for default  community
+                    caller_ip: 3.231.117.156
+                    tenant_dns: 1k-uat.1kosmos.net
+                    auth_method: otp
+                    auth_device_os: Mac OS
+                    auth_device_app_name: Edge
+                    auth_device_app_version: 136.0.0.0
+                    sp_type: saml
+                    sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                    sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                    country: United States
+                    region: Virginia
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    type: event
+                    authJourneysMatched:
+                    - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                      name: default
+                    aliasUsed: unknown
+                    event_id: da65e059-2542-4283-a6b3-11f6a94d187d
+                    timestamp: '2025-05-15 08:43:15.672'
+                    epoch_time: '1747298595'
+                    eventName: E_SP_REDIRECT_SUCCEEDED
+                  - event_name: E_SP_REDIRECT_SUCCEEDED
+                    event_ts: 1747297942920
+                    version: v1
+                    journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                    session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                    client_ip_address: 3.231.117.156
+                    caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                      like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                    user_id: john.doe@1kosmos.com
+                    user_status: active
+                    user_email: john.doe@1kosmos.com
+                    user_firstname: john
+                    user_lastname: doe
+                    source_user_directory: db
+                    source_user_directory_name: DB for default  community
+                    caller_ip: 3.231.117.156
+                    tenant_dns: 1k-uat.1kosmos.net
+                    auth_method: otp
+                    auth_device_os: Mac OS
+                    auth_device_app_name: Edge
+                    auth_device_app_version: 136.0.0.0
+                    sp_type: saml
+                    sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                    sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                    country: United States
+                    region: Virginia
+                    tenant_id: 6593c75e2aa12e3349e11a68
+                    community_id: 6593c75e2aa12e3349e11a69
+                    type: event
+                    authJourneysMatched:
+                    - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                      name: default
+                    aliasUsed: unknown
+                    event_id: be926b44-1da0-4859-8a88-a38c3110a801
+                    timestamp: '2025-05-15 08:32:22.920'
+                    epoch_time: '1747297942'
+                    eventName: E_SP_REDIRECT_SUCCEEDED
+                  loginEvents:
+                  - 0b2b9ce7-1d74-4057-a0a4-ba507dae4d91:
+                      type: event
+                      event_ts: 1751202708130
+                      version: v1
+                      journey_id: 97dc6371-03a2-4ef0-8b3f-31ccea6d40ff
+                      session_id: 0b2b9ce7-1d74-4057-a0a4-ba507dae4d91
+                      client_ip_address: 213.174.29.76
+                      caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML,
+                        like Gecko) Version/18.5 Safari/605.1.15
+                      login_state: SUCCESS
+                      user_id: john.doe@1kosmos.com
+                      user_status: active
+                      user_email: john.doe@1kosmos.com
+                      user_firstname: john
+                      user_lastname: doe
+                      source_user_directory: db
+                      tenant_dns: https://1k-uat.1kosmos.net
+                      tenant_tag: 1kosmos
+                      service_name: athena
+                      server_ip: 10.8.29.162
+                      auth_method: otp
+                      auth_device_os: none
+                      auth_device_name: not available
+                      auth_device_app_name: not available
+                      auth_device_app_version: not available
+                      auth_device_latitude: 0
+                      auth_device_longitude: 0
+                      moduleId: 6593c7653eeff32662cfef76
+                      otp_type: user-generated
+                      factsSubmitted:
+                        applicationId: 679b39e07ce125a22a6ce4ff
+                        machine_id: C02G31S6Q05Q
+                        machine_name: john-doe-DESKTOP0203
+                        machine_domain: john-doe-DESKTOP0203
+                        machine_os: macOS
+                        machine_os_version: 15.5.0
+                        machine_mac_addr:
+                        - ae:61:c9:dc:35:67
+                        - ae:61:c9:dc:35:68
+                        - 80:3f:5d:fd:fd:22
+                        - 36:3e:50:1c:95:80
+                        - 3c:06:30:1f:0c:9e
+                        - 36:3e:50:1c:95:80
+                        - 36:3e:50:1c:95:84
+                        machine_ip:
+                        - 192.168.0.216
+                        agent_version: 1.1.1.0.67E6D07A
+                        groups: []
+                        userTrustedLocations: []
+                        authModuleId: 6593c7653eeff32662cfef76
+                        authenticationMethods:
+                        - password
+                        - otp
+                        username: john.doe@1kosmos.com
+                        machine_user: john.doe@1kosmos.com@john-doe-DESKTOP0203
+                        IP: 213.174.29.76
+                      authFactor: ''
+                      sessionUrl: ''
+                      authJourneysMatched:
+                      - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                        name: default
+                      user_role: community-admin
+                      event_id: 4c640aaa-5e6f-404d-b0ce-76c33952c535
+                      timestamp: '2025-06-29 13:11:48.130'
+                      epoch_time: '1751202708'
+                      tenant_id: 6593c75e2aa12e3349e11a68
+                      community_id: 6593c75e2aa12e3349e11a69
+                      eventName: E_LOGIN_SUCCEEDED
+                  - a73a8d5f-10ef-447b-97bf-f6e0495340b3:
+                      type: event
+                      event_ts: 1751202898170
+                      version: v1
+                      journey_id: 56233866-9cf4-4390-84c3-0814fc0d89da
+                      session_id: a73a8d5f-10ef-447b-97bf-f6e0495340b3
+                      client_ip_address: 213.174.29.76
+                      caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                        like Gecko) Chrome/137.0.0.0 Safari/537.36
+                      login_state: SUCCESS
+                      user_id: john.doe@1kosmos.com
+                      user_status: active
+                      user_email: john.doe@1kosmos.com
+                      user_firstname: john
+                      user_lastname: doe
+                      source_user_directory: db
+                      tenant_dns: https://1k-uat.1kosmos.net
+                      tenant_tag: 1kosmos
+                      service_name: athena
+                      server_ip: 10.8.29.162
+                      auth_method: otp
+                      auth_device_os: none
+                      auth_device_name: not available
+                      auth_device_app_name: not available
+                      auth_device_app_version: not available
+                      auth_device_latitude: 0
+                      auth_device_longitude: 0
+                      moduleId: 6593c7653eeff32662cfef76
+                      otp_type: user-generated
+                      factsSubmitted:
+                        applicationId: adminx
+                        machine_id: C02G31S6Q05Q
+                        machine_name: john-doe-DESKTOP0203
+                        machine_domain: john-doe-DESKTOP0203
+                        machine_os: macOS
+                        machine_os_version: 15.5.0
+                        machine_mac_addr:
+                        - ae:61:c9:dc:35:67
+                        - ae:61:c9:dc:35:68
+                        - 80:3f:5d:fd:fd:22
+                        - 36:3e:50:1c:95:80
+                        - 3c:06:30:1f:0c:9e
+                        - 36:3e:50:1c:95:80
+                        - 36:3e:50:1c:95:84
+                        machine_ip:
+                        - 192.168.0.216
+                        agent_version: 1.1.1.0.67E6D07A
+                        groups: []
+                        userTrustedLocations: []
+                        authModuleId: 6593c7653eeff32662cfef76
+                        authenticationMethods:
+                        - password
+                        - otp
+                        username: john.doe@1kosmos.com
+                        machine_user: john.doe@1kosmos.com@john-doe-DESKTOP0203
+                        IP: 213.174.29.76
+                      authFactor: ''
+                      sessionUrl: ''
+                      authJourneysMatched:
+                      - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                        name: default
+                      user_role: community-admin
+                      event_id: 93fa8d81-50a9-470f-b21b-68f2878bbf90
+                      timestamp: '2025-06-29 13:14:58.170'
+                      epoch_time: '1751202898'
+                      tenant_id: 6593c75e2aa12e3349e11a68
+                      community_id: 6593c75e2aa12e3349e11a69
+                      eventName: E_LOGIN_SUCCEEDED
+                  - b4e42230-ad93-47a7-a193-6cd52e24e150:
+                      type: event
+                      event_ts: 1747297942350
+                      version: v1
+                      journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                      session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                      client_ip_address: 3.231.117.156
+                      caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                        like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                      login_state: SUCCESS
+                      user_id: john.doe@1kosmos.com
+                      user_status: active
+                      user_email: john.doe@1kosmos.com
+                      user_firstname: john
+                      user_lastname: doe
+                      source_user_directory: db
+                      tenant_dns: https://1k-uat.1kosmos.net
+                      tenant_tag: 1kosmos
+                      service_name: athena
+                      server_ip: 10.8.92.57
+                      auth_method: otp
+                      auth_device_os: none
+                      auth_device_name: not available
+                      auth_device_app_name: not available
+                      auth_device_app_version: not available
+                      auth_device_latitude: 0
+                      auth_device_longitude: 0
+                      moduleId: 6593c7653eeff32662cfef76
+                      otp_type: user-generated
+                      factsSubmitted:
+                        applicationId: 679b39e07ce125a22a6ce4ff
+                        machine_id: C02G31S6Q05Q
+                        machine_name: john-doe-DESKTOP0203
+                        machine_domain: john-doe-DESKTOP0203
+                        machine_os: macOS
+                        machine_os_version: 15.4.1
+                        machine_mac_addr:
+                        - ae:61:c9:dc:35:67
+                        - ae:61:c9:dc:35:68
+                        - 80:3f:5d:fd:fd:22
+                        - 36:3e:50:1c:95:80
+                        - 3c:06:30:1f:0c:9e
+                        - 36:3e:50:1c:95:80
+                        - 36:3e:50:1c:95:84
+                        machine_ip:
+                        - 192.168.0.216
+                        agent_version: 1.1.1.0.67E6D07A
+                        groups: []
+                        userTrustedLocations: []
+                        authModuleId: 6593c7653eeff32662cfef76
+                        authenticationMethods:
+                        - password
+                        - otp
+                        username: john.doe@1kosmos.com
+                        machine_user: john.doe@1kosmos.com@john-doe-DESKTOP0203
+                        IP: 3.231.117.156
+                      authFactor: ''
+                      sessionUrl: ''
+                      authJourneysMatched:
+                      - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                        name: default
+                      user_role: community-admin
+                      event_id: b352eef6-2efb-4f16-ae20-45c2e4e5db17
+                      timestamp: '2025-05-15 08:32:22.350'
+                      epoch_time: '1747297942'
+                      tenant_id: 6593c75e2aa12e3349e11a68
+                      community_id: 6593c75e2aa12e3349e11a69
+                      eventName: E_LOGIN_SUCCEEDED
+        '400':
+          description: Bad/Missing License Key
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: This header should not be empty
+                  param: licensekey
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/login_activity_report'
+      x-postman-variants:
+      - Login Activity Report
+  /reports/tenant/{tenantID}/community/{communityID}/passwordless_login_activity_report:
+    post:
+      operationId: reportsPasswordlessLoginActivityReport
+      summary: Passwordless Login Activity Report
+      description: "Passwordless Login Activity Report Request\nThis request is used to retrieve a report on passwordless\
+        \ login activities for a specific tenant and community. It allows the user to specify a date range and an\
+        \ event name to filter the results.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/passwordless_login_activity_report\n\
+        \nRequest Body\nThe request body must be in JSON format and includes the following parameters:\n\npSize\
+        \ (number): The number of records to return per page.\n\npIndex (number): The index of the page to return.\n\
+        \nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto (string):\
+        \ The end date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\neventName (string): The\
+        \ name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n\
+        \  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\
+        \n}\n\nResponse Structure\nThe response will be in JSON format and contains the following structure:\n\n\
+        page: An object that provides pagination information.\n\ntotal (number): The total number of records available.\n\
+        \npSize (number): The size of the page.\n\npIndex (number): The index of the current page.\n\ndata: An array\
+        \ of objects, each representing a login event with the following fields:\n\nevent_name (string): The name\
+        \ of the event.\n\nevent_ts (number): The timestamp of the event.\n\nversion (string): The version of the\
+        \ event.\n\njourney_id (string): The ID of the user journey.\n\nsession_id (string): The ID of the session.\n\
+        \nclient_ip_address (string): The IP address of the client.\n\ncaller_user_agent (string): The user agent\
+        \ of the caller.\n\nuser_id (string): The ID of the user.\n\nuser_status (string): The status of the user.\n\
+        \nuser_email (string): The email of the user.\n\nuser_firstname (string): The first name of the user.\n\n\
+        user_lastname (string): The last name of the user.\n\nsource_user_directory (string): The source user directory.\n\
+        \nsource_user_directory_name (string): The name of the source user directory.\n\ncaller_ip (string): The\
+        \ IP address of the caller.\n\ntenant_dns (string): The DNS of the tenant.\n\nauth_method (string): The\
+        \ authentication method used.\n\nauth_device_os (string): The operating system of the device used for authentication.\n\
+        \nauth_device_app_name (string): The name of the application used for authentication.\n\nauth_device_app_version\
+        \ (string): The version of the application used for authentication.\n\nsp_type (string): The type of service\
+        \ provider.\n\nsp_name (string): The name of the service provider.\n\nsp_id (string): The ID of the service\
+        \ provider.\n\ncountry (string): The country of the user.\n\nregion (string): The region of the user.\n\n\
+        tenant_id (string): The ID of the tenant.\n\ncommunity_id (string): The ID of the community.\n\ntype (string):\
+        \ The type of event.\n\nauthJourneysMatched (array): An array of matched authentication journeys, each containing:\n\
+        \nid (string): The ID of the journey.\n\nname (string): The name of the journey.\n\naliasUsed (string):\
+        \ The alias used for the event.\n\nevent_id (string): The ID of the event.\n\ntimestamp (string): The timestamp\
+        \ of the event.\n\nepoch_time (number): The epoch time of the event.\n\neventName (string): The name of\
+        \ the event.\n\nThis structure allows for detailed reporting on passwordless login activities, enabling\
+        \ analysis and insights into user interactions."
+      tags:
+      - Reports
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              pSize: 10
+              pIndex: 0
+              from: '2025-05-01 00:00:00.000'
+              to: '2026-06-01 00:00:00.000'
+              eventName: E_SP_REDIRECT_SUCCEEDED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  total: 4
+                  pSize: 10
+                  pIndex: 0
+                data:
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1751206568534
+                  version: v1
+                  journey_id: 47d5f941-608c-4464-80f9-92e32347803d
+                  session_id: a73a8d5f-10ef-447b-97bf-f6e0495340b3
+                  client_ip_address: 213.174.29.76
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/137.0.0.0 Safari/537.36
+                  user_id: john.doe@1kosmos.com
+                  user_status: active
+                  user_email: john.doe@1kosmos.com
+                  user_firstname: john
+                  user_lastname: doe
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 213.174.29.76
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Chrome
+                  auth_device_app_version: 137.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: Ukraine
+                  region: Poltava Oblast
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: f64c7fc8-8ae5-48d3-bc62-70b09a312a37
+                  timestamp: '2025-06-29 14:16:08.534'
+                  epoch_time: '1751206568'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1751203011828
+                  version: v1
+                  journey_id: 97dc6371-03a2-4ef0-8b3f-31ccea6d40ff
+                  session_id: 0b2b9ce7-1d74-4057-a0a4-ba507dae4d91
+                  client_ip_address: 213.174.29.76
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML,
+                    like Gecko) Version/18.5 Safari/605.1.15
+                  user_id: john.doe@1kosmos.com
+                  user_status: active
+                  user_email: john.doe@1kosmos.com
+                  user_firstname: john
+                  user_lastname: doe
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 213.174.29.76
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Safari
+                  auth_device_app_version: '18.5'
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: Ukraine
+                  region: Poltava Oblast
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: baa8a5ce-f1a7-4eee-8156-1e177f9ae365
+                  timestamp: '2025-06-29 13:16:51.828'
+                  epoch_time: '1751203011'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1747298595672
+                  version: v1
+                  journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                  session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                  client_ip_address: 3.231.117.156
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                  user_id: john.doe@1kosmos.com
+                  user_status: active
+                  user_email: john.doe@1kosmos.com
+                  user_firstname: john
+                  user_lastname: doe
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 3.231.117.156
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Edge
+                  auth_device_app_version: 136.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: United States
+                  region: Virginia
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: da65e059-2542-4283-a6b3-11f6a94d187d
+                  timestamp: '2025-05-15 08:43:15.672'
+                  epoch_time: '1747298595'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+                - event_name: E_SP_REDIRECT_SUCCEEDED
+                  event_ts: 1747297942920
+                  version: v1
+                  journey_id: 883b6133-d473-4021-9da4-77b11f59e3d5
+                  session_id: b4e42230-ad93-47a7-a193-6cd52e24e150
+                  client_ip_address: 3.231.117.156
+                  caller_user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
+                    like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0
+                  user_id: john.doe@1kosmos.com
+                  user_status: active
+                  user_email: john.doe@1kosmos.com
+                  user_firstname: john
+                  user_lastname: doe
+                  source_user_directory: db
+                  source_user_directory_name: DB for default  community
+                  caller_ip: 3.231.117.156
+                  tenant_dns: 1k-uat.1kosmos.net
+                  auth_method: otp
+                  auth_device_os: Mac OS
+                  auth_device_app_name: Edge
+                  auth_device_app_version: 136.0.0.0
+                  sp_type: saml
+                  sp_name: https://blockid-uat.1kosmos.net/admin/31102024
+                  sp_id: https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df
+                  country: United States
+                  region: Virginia
+                  tenant_id: 6593c75e2aa12e3349e11a68
+                  community_id: 6593c75e2aa12e3349e11a69
+                  type: event
+                  authJourneysMatched:
+                  - id: 3f3fa44e-83f3-4152-9bf4-66ce8c000302
+                    name: default
+                  aliasUsed: unknown
+                  event_id: be926b44-1da0-4859-8a88-a38c3110a801
+                  timestamp: '2025-05-15 08:32:22.920'
+                  epoch_time: '1747297942'
+                  eventName: E_SP_REDIRECT_SUCCEEDED
+        '400':
+          description: Bad/Missing License Key
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                errors:
+                - message: This header should not be empty
+                  param: licensekey
+      x-postman-request: '{{client_api}}/reports/tenant/:tenantID/community/:communityID/passwordless_login_activity_report'
+      x-postman-variants:
+      - Passwordless Login Activity Report
+  /api/r2/otp/generate:
+    post:
+      operationId: otpGenerateOTPSMS
+      summary: Generate OTP - SMS
+      description: 'Generate OTP via SMS
+
+        This endpoint generates a One-Time Password (OTP) for a specified user within a community. The OTP can be
+        sent via SMS based on the provided parameters.
+
+
+        Request
+
+        Method: POST
+
+        URL: {{client_api}}/api/r2/otp/generate
+
+
+        Request Body
+
+        The request body must be in JSON format and should include the following parameters:
+
+
+        Field Name
+
+        Required Field
+
+        Type
+
+        Description
+
+
+        userId
+
+        Yes
+
+        string
+
+        The unique identifier of the user. It can be User''s ID or UUID or any other transaction ID
+
+
+        communityId
+
+        Yes
+
+        string
+
+        The identifier of the community associated with the user.
+
+
+        tenantId
+
+        Yes
+
+        string
+
+        The identifier for the tenant in which the user exists.
+
+
+        smsTo
+
+        Yes
+
+        string
+
+        The recipient''s phone number for OTP via SMS.
+
+
+        smsISDCode
+
+        Yes
+
+        string
+
+        The International Subscriber Dialing code for the SMS.
+
+
+        smsFrom
+
+        No
+
+        string
+
+        The identifier for the source of the SMS.
+
+
+        smsTemplateB64
+
+        No
+
+        string
+
+        A base64 encoded template for the SMS message.
+
+
+        smsTemplateId
+
+        No
+
+        string
+
+        The identifier for the SMS template.
+
+
+        trace
+
+        No
+
+        boolean
+
+        A flag to enable or disable tracing for the request.
+
+
+        validitySeconds
+
+        No
+
+        integer
+
+        OTP expiration Time
+
+
+        serviceName
+
+        No
+
+        string
+
+        Name of the service for which OTP was generated
+
+
+        Response
+
+        The response will return a status code indicating the result of the OTP generation request.
+
+
+        Status Code: 202 (Accepted)
+
+
+        Content-Type: application/json
+
+
+        Response Body:
+
+
+        messageId (string): An identifier for the message sent. In this case, it may be empty.
+
+
+        info (string): Additional information about the request. This may also be empty.
+
+
+        Notes
+
+
+        Ensure that all parameters are provided correctly to avoid errors.
+
+
+        A 202 status code indicates that the request has been accepted for processing, but the processing is not
+        yet complete.
+
+
+        The email and SMS templates should be properly formatted to ensure successful delivery of the OTP.
+
+
+        If you encounter issues, verify that the userId, communityId, tenantId, and contact details are accurate
+        and formatted correctly.
+
+
+        Error Response
+
+
+        HTTP Status
+
+        Error Message
+
+        Description
+
+
+        400
+
+        This userId or userPublicKey is mandatory
+
+        Request payload without user info
+
+
+        400
+
+        Unable to load tenant/community
+
+        Wrong community ID or tenant ID
+
+
+        401
+
+        Invalid License Key
+
+        Entered License is invalid
+
+
+        403
+
+        OTP locked for the user
+
+        OTP locked for the user
+
+
+        404
+
+        Not Found
+
+        Not Found'
+      tags:
+      - OTP
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+        description: No Data encryption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              Generate OTP - SMS:
+                value:
+                  userId: john.doe
+                  communityId: ''
+                  tenantId: ''
+                  smsTo: '919999999999'
+                  smsISDCode: '91'
+                  smsFrom: 1Kosmos
+                  smsTemplateB64: ''
+                  smsTemplateId: ''
+                  trace: true
+                  serviceName: 1Kosmos
+                  validitySeconds: 120
+              Generate OTP - EMAIL:
+                value:
+                  userId: john.doe
+                  communityId: ''
+                  tenantId: ''
+                  emailFrom: test@1kosmos.com
+                  emailSubject: Email OTP
+                  emailTo: john.doe@1kosmos.com
+                  emailTemplateB64: WW91ciBCbG9ja0lEIHZlcmlmaWNhdGlvbiBjb2RlIGlzOiB7e290cH19
+                  trace: true
+                  validitySeconds: 120
+              Generate OTP - Voice:
+                value:
+                  userId: john.doe
+                  communityId: ''
+                  tenantId: ''
+                  voiceTo: '9999999999'
+                  voiceISDCode: '91'
+                  voiceFrom: 1Kosmos
+                  voiceCampaignId: ''
+                  voiceCallTimeout: 20
+                  voiceTemplateB64: VGhpcyBpcyBhbiBhdXRvbWF0ZWQgY2FsbCBmcm9tIDFLb3Ntb3MuIEFzIHJlcXVlc3RlZCBieSB5b3UsIHRoZSBPbmUgdGltZSBQYXNzd29yZCBpcyB7e290cH19LiBUbyByZXBlYXQsIHBsZWFzZSBwcmVzcyAxLg==
+                  trace: true
+                  serviceName: 1Kosmos
+                  validitySeconds: 120
+      responses:
+        '202':
+          description: SMS & EMAIL OTP - Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                messageId: c3db28f5-afe7-456f-973e-e77096ad68bd
+                info: OTP request accepted
+        '400':
+          description: No Request Body
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Unable to load tenant/community
+        '500':
+          description: Payload without Phone Mobile Number
+      x-postman-request: '{{client_api}}/api/r2/otp/generate'
+      x-postman-variants:
+      - Generate OTP - SMS
+      - Generate OTP - EMAIL
+      - Generate OTP - Voice
+  /api/r2/otp/verify:
+    post:
+      operationId: otpVerifyOTPR2
+      summary: Verify OTP R2
+      description: "Verify OTP Endpoint\nThis endpoint is used to verify a One-Time Password (OTP) submitted by\
+        \ a user during the authentication process. It ensures that the provided OTP corresponds to the user and\
+        \ is valid for the specified community and tenant.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r2/otp/verify\n\
+        \nRequest Body Parameters\nThe request body must be sent in JSON format and should include the following\
+        \ parameters:\n\nField Name\nRequired Field\nType\nDescription\n\ncode\nYes\nstring\nThe OTP code that the\
+        \ user has received and is attempting to verify.\n\nuserId\nYes\nstring\nThe same unique identifier used\
+        \ to generate the OTP.\n\nuserPublicKey\nNo\nstring\nThe public key associated with the user, used for cryptographic\
+        \ verification.\n\ncommunityId\nYes\nstring\nThe identifier for the community to which the user belongs.\n\
+        \ntenantId\nYes\nstring\nThe identifier for the tenant associated with the community.\n\nserviceName\nNo\n\
+        string\nName of the service for which OTP is being verified\n\nResponse\nThe response will be returned in\
+        \ JSON format. The structure of the response may include:\n\nField Name\nType\nDescription\n\nerror_code\n\
+        integer\nA code representing the status of the request. A value of 0 typically indicates no error.\n\nmessage\n\
+        string\nA message providing additional information about the request status. This may be empty or contain\
+        \ relevant info.\n\nstatus\nboolean\nIndicates whether the OTP verification was successful or not.\n\nExample\
+        \ Response\n{\n  \"error_code\": 0,\n  \"message\": \"\",\n  \"status\": true\n}\n\nError Response\n\nHTTP\
+        \ Status\nError Message\nDescription\n\n403\nOTP request locked for the user.\nToo many wrong OTPs & tries\
+        \ a new OTP\n\n410\nOTP match found, but the validity time has expired\nExpired OTP\n\n404\nInvalid OTP\n\
+        Wrong OTP\n\n400\nUnable to load tenant/community\nIncorrect tenant/community\n\n409\nOTP already used\n\
+        OTP already used\n\n410\nOTP match found, but the validity time has expired.\nOTP match found, but the validity\
+        \ time has expired.\n\nAdditional Notes\n\nA 404 status code indicates that the requested resource was not\
+        \ found. This may occur if the userId, communityId, or tenantId does not match any existing records.\n\n\
+        Ensure that the OTP code is valid and has not expired before making the request.\n\nThe response may vary\
+        \ based on the success or failure of the verification process.\n\nThis endpoint is crucial for maintaining\
+        \ secure access to user accounts by validating OTPs during the login process."
+      tags:
+      - OTP
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+        description: No Data encryption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              code: '835096'
+              userId: john.doe
+              communityId: ''
+              tenantId: ''
+      responses:
+        '200':
+          description: Verify OTP - Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                otp_type: user-generated
+                status: 'true'
+        '404':
+          description: Invalid OTP
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error_code: 404
+                message: Invalid OTP
+                status: false
+      x-postman-request: '{{client_api}}/api/r2/otp/verify'
+      x-postman-variants:
+      - Verify OTP R2
+  /api/r3/otp/verify:
+    post:
+      operationId: otpVerifyOTPR3
+      summary: Verify OTP R3
+      description: "Verify OTP Standardized Endpoint\nThis endpoint is used to verify a One-Time Password (OTP)\
+        \ submitted by a user during the authentication process. It ensures that the provided OTP corresponds to\
+        \ the user and is valid for the specified community and tenant with standardized success & error responses.\n\
+        \nRequest\nMethod: POST\nURL: {{client_api}}/api/r3/otp/verify\n\nRequest Body Parameters\nThe request body\
+        \ must be sent in JSON format and should include the following parameters:\n\nField Name\nRequired Field\n\
+        Type\nDescription\n\ncode\nYes\nstring\nThe OTP code that the user has received and is attempting to verify.\n\
+        \nuserId\nYes\nstring\nThe same unique identifier used to generate the OTP.\n\nuserPublicKey\nNo\nstring\n\
+        The public key associated with the user, used for cryptographic verification.\n\ncommunityId\nYes\nstring\n\
+        The identifier for the community to which the user belongs.\n\ntenantId\nYes\nstring\nThe identifier for\
+        \ the tenant associated with the community.\n\nserviceName\nNo\nstring\nName of the service for which OTP\
+        \ is being verified\n\nResponse\nThe response will be returned in JSON format. The structure of the response\
+        \ may include:\n\nField Name\nType\nDescription\n\nerror_code\ninteger\nA code representing the status of\
+        \ the request. A value of 0 typically indicates no error.\n\nerror_message\nstring\nA message providing\
+        \ additional information about the request status. This may be empty or contain relevant info.\n\nmessage\n\
+        string\nA message providing additional information about the request status. This may be empty or contain\
+        \ relevant info.\n\nstatus\nboolean\nIndicates whether the OTP verification was successful or not.\n\nExample\
+        \ Response\n{\n  \"error_code\": 0,\n  \"error_maessage\": \"\",\n  \"message\": \"\",\n  \"status\": true\n\
+        }\n\nError Response\n\nHTTP Status\nError Code\nError Message\nDescription\n\n400\nE10001\nInvalid OTP\n\
+        Wrong OTP\n\n400\nE10002\nOTP already used\nOTP already used\n\n400\nE10003\nOTP match found, but the validity\
+        \ time has expired\nExpired OTP\n\n400\nE11001\nOTP request locked for the user.\nToo many wrong OTPs &\
+        \ user account is locked.\n\n400\nE20001\nUnable to load tenant/community\nIncorrect tenant/community\n\n\
+        401\nE20002\nInvalid License key\nLicense key used is not authorized\n\nAdditional Notes\n\nEnsure that\
+        \ the OTP code is valid and has not expired before making the request.\n\nThe response may vary based on\
+        \ the success or failure of the verification process.\n\nThis endpoint is crucial for maintaining secure\
+        \ access to user accounts by validating OTPs during the authentication process."
+      tags:
+      - OTP
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+        description: No Data encryption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              code: '835096'
+              userId: john.doe
+              communityId: ''
+              tenantId: ''
+      responses:
+        '200':
+          description: Successful response
+      x-postman-request: '{{client_api}}/api/r3/otp/verify'
+      x-postman-variants:
+      - Verify OTP R3
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/users/create:
+    put:
+      operationId: userManagementCreateUser
+      summary: Create User
+      description: 'Fetch Users from Community
+
+        This endpoint allows you to fetch user details from a specified community within a tenant. It is particularly
+        useful for retrieving user information based on specific query parameters.
+
+
+        HTTP Method
+
+        POST
+
+
+        Endpoint
+
+        {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch
+
+
+        Request Parameters
+
+        The request body must be in JSON format and includes the following parameters:
+
+
+        authModule (string): A unique identifier for the authentication module being used.
+
+
+        pIndex (integer): The index of the page to be retrieved, starting from 0.
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        query (object): An object containing the search criteria. In this case, it includes:
+
+
+        username (string): The username of the user to be searched.
+
+
+        attributes (array of strings): An array specifying which attributes to include in the response. Using ["\\\*"]
+        requests all available attributes.
+
+
+        Expected Response Format
+
+        The response will be in JSON format and will include the following structure:
+
+
+        page (object): Contains pagination information.
+
+
+        index (integer): The current page index.
+
+
+        total (integer): The total number of records available.
+
+
+        size (integer): The number of records returned in this response.
+
+
+        data (array): An array of user objects matching the query. Each user object may contain:
+
+
+        username (string): The username of the user.
+
+
+        uid (string): The unique identifier for the user.
+
+
+        dguid (string): The directory GUID for the user.
+
+
+        disabled (boolean): Indicates if the user account is disabled.
+
+
+        status (string): The current status of the user.
+
+
+        roleValue (string): The role assigned to the user.
+
+
+        type (string): The type of user.
+
+
+        moduleId (string): The module ID associated with the user.
+
+
+        onboarding_status (string): The onboarding status of the user.
+
+
+        isLocked (boolean): Indicates if the user account is locked.
+
+
+        mobiles (array): List of mobile numbers associated with the user.
+
+
+        landlines (array): List of landline numbers associated with the user.
+
+
+        firstname (string): The first name of the user.
+
+
+        lastname (string): The last name of the user.
+
+
+        email (string): The email address of the user.
+
+
+        urn (string): The uniform resource name associated with the user.
+
+
+        publicKey (string): A public key for security purposes.
+
+
+        signature_token (string): A token used for signature verification.
+
+
+        Example Responses
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [{ "username": "", "uid": "", "dguid": "", "disabled":
+        true, "status": "", "roleValue": "", "type": "", "moduleId": "", "onboarding_status": "", "isLocked": true,
+        "mobiles": [], "landlines": [], "firstname": "", "lastname": "", "email": "", "urn": "" }], "publicKey":
+        "", "signature_token": ""}
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [], "publicKey": "", "signature_token": ""}
+
+
+        This endpoint is essential for managing user information within a community, allowing for efficient retrieval
+        based on specific criteria.'
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              authModule: 68418b901ac4790f690ffdb4
+              users:
+              - username: postman1
+                password: Password.1
+                firstname: postman
+                lastname: Test
+                email1: postman+11@1kosmos.com
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                requested: 1
+                created: 1
+                failed: 0
+                errors: []
+        '404':
+          description: 'Fail: AuthModule Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 404
+                message: Auth module is not found.
+        '401':
+          description: 'Fail: Unauthorised License'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '400':
+          description: 'Fail: Required username'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: username is required
+        '500':
+          description: 'Fail: Invalid paylad'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 500
+                message: Internal Server Error
+        '405':
+          description: 'Fail: Unauthorised License'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 405
+                message: This function is not allowed for specified auth module.
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//users/create'
+      x-postman-variants:
+      - Create User
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/users/fetch:
+    post:
+      operationId: userManagementFetchUserDetails
+      summary: Fetch User Details
+      description: 'Fetch Users from Community
+
+        This endpoint allows you to fetch user details from a specified community within a tenant. It is particularly
+        useful for retrieving user information based on specific query parameters.
+
+
+        HTTP Method
+
+        POST
+
+
+        Endpoint
+
+        {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch
+
+
+        Request Parameters
+
+        The request body must be in JSON format and includes the following parameters:
+
+
+        authModule (string): A unique identifier for the authentication module being used.
+
+
+        pIndex (integer): The index of the page to be retrieved, starting from 0.
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        query (object): An object containing the search criteria. In this case, it includes:
+
+
+        username (string): The username of the user to be searched.
+
+
+        attributes (array of strings): An array specifying which attributes to include in the response. Using ["\\\*"]
+        requests all available attributes.
+
+
+        Expected Response Format
+
+        The response will be in JSON format and will include the following structure:
+
+
+        page (object): Contains pagination information.
+
+
+        index (integer): The current page index.
+
+
+        total (integer): The total number of records available.
+
+
+        size (integer): The number of records returned in this response.
+
+
+        data (array): An array of user objects matching the query. Each user object may contain:
+
+
+        username (string): The username of the user.
+
+
+        uid (string): The unique identifier for the user.
+
+
+        dguid (string): The directory GUID for the user.
+
+
+        disabled (boolean): Indicates if the user account is disabled.
+
+
+        status (string): The current status of the user.
+
+
+        roleValue (string): The role assigned to the user.
+
+
+        type (string): The type of user.
+
+
+        moduleId (string): The module ID associated with the user.
+
+
+        onboarding_status (string): The onboarding status of the user.
+
+
+        isLocked (boolean): Indicates if the user account is locked.
+
+
+        mobiles (array): List of mobile numbers associated with the user.
+
+
+        landlines (array): List of landline numbers associated with the user.
+
+
+        firstname (string): The first name of the user.
+
+
+        lastname (string): The last name of the user.
+
+
+        email (string): The email address of the user.
+
+
+        urn (string): The uniform resource name associated with the user.
+
+
+        publicKey (string): A public key for security purposes.
+
+
+        signature_token (string): A token used for signature verification.
+
+
+        Example Responses
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [{ "username": "", "uid": "", "dguid": "", "disabled":
+        true, "status": "", "roleValue": "", "type": "", "moduleId": "", "onboarding_status": "", "isLocked": true,
+        "mobiles": [], "landlines": [], "firstname": "", "lastname": "", "email": "", "urn": "" }], "publicKey":
+        "", "signature_token": ""}
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [], "publicKey": "", "signature_token": ""}
+
+
+        This endpoint is essential for managing user information within a community, allowing for efficient retrieval
+        based on specific criteria.'
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              authModule: 68418b901ac4790f690ffdb4
+              pIndex: 0
+              pSize: 25
+              query:
+                username: john.doe
+              attributes:
+              - '*'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  index: 0
+                  total: 1
+                  size: 1
+                data:
+                - username: sarthak
+                  uid: beafb38c-499b-40ef-a62c-b58777f200c6
+                  dguid: beafb38c-499b-40ef-a62c-b58777f200c6
+                  disabled: false
+                  status: active
+                  roleValue: none
+                  type: basic
+                  moduleId: 68418b901ac4790f690ffdb4
+                  onboarding_status: tbd
+                  isLocked: false
+                  mobiles: []
+                  landlines: []
+                  firstname: Sarthak
+                  lastname: M
+                  email: sarthak.mishra@1kosmos.com
+                  urn: urn:blockid:user:dns:1k-dev.1kosmos.net:community:68418b2587942f1d3158a799:mod:68418b901ac4790f690ffdb4:uid:beafb38c-499b-40ef-a62c-b58777f200c6
+                publicKey: 4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==
+                signature_token: 1add97735715f1d1b2a71f6bc32b07a191b0e5cb7848ee162cbea9c01a6abffea995e770fd6f9c806efb777158a32daf60d381de5de101f190f84e26dec0cc58
+        '404':
+          description: 'Fail : Auth Module not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 404
+                message: Auth module is not found.
+                signature_token: 2f3fba2d6068b7fc2e66061f239ae02abd3d39da552428cefcebef926557cf485bd4308c295ecc86932d0a1c3643f3d29ed7673293de6f68244042849900e35f
+        '401':
+          description: 'Fail : Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '400':
+          description: 'Fail: Improper Query'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: query must be of type object
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//users/fetch'
+      x-postman-variants:
+      - Fetch User Details
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/user_properties/update:
+    post:
+      operationId: userManagementUpdateUsernameAsAlias
+      summary: Update Username as alias
+      description: "Update User Properties\nThis endpoint allows you to update user properties within a specific\
+        \ community for a given tenant.\n\nEndpoint\nPOST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update\n\
+        \nRequest Method\nPOST\n\nRequest Parameters\nThe request body should be in JSON format and must include\
+        \ the following parameter:\n\ndata (string): This parameter should contain the payload in ECDSA Encrypted\
+        \ format that holds the user properties you wish to update.\n\nExample Request Body\n\nEncryped Sample Request:\n\
+        \n{\n  \"data\": \"{{payload}}\"\n}\n\nDecrypted Sample Request:\n\n{\n  \"data\": {\n    \"user\": {\n\
+        \      \"username\": \"john.doe\",\n      \"authModuleId\": \"68418b901ac4790f690ffdb4\",\n      \"uid\"\
+        : \"beafb38c-499b-40ef-a62c-b58777f200d4\"\n    },\n    \"aliases\": {\n      \"alias1\": \"doej\",\n  \
+        \    \"alias2\": null,\n      \"alias3\": null,\n      \"alias4\": null,\n      \"alias5\": null,\n    \
+        \  \"alias6\": null,\n      \"alias7\": null,\n      \"alias8\": null\n    }\n  }\n}\n\nExpected Response\n\
+        Upon a successful request, the server will respond with a status code of 200 and a JSON object containing\
+        \ the following fields:\n\ndata (string): This field will contain ECDSA encrypted relevant data related\
+        \ to the update operation. See below to sample decrypted payload:\n\npublicKey (string): This field will\
+        \ return the service's public key.\n\nExample Response\n{\n    \"data\": \"8ngLnqWrCMkTFHXkjnbApJjppNY5E37BmL0VxRzE4BObC+L01IrM+rswO5sgdAMGLMyL0GR/SYcVwxkziT31Q+aWcYe2OQK93TxCzXPcyQi8ehVyI+CHfiG5fJrZK2gBmbNuA6EA/BKd6KeygjD6Rrn3VnqH20ef5Uw9fO8/neGk1i6vhxykmFtu4QcuWKOAQEYTTOqCiA3Lqye6H/tQ9mQLcFe6YPBVsFCJAkZyXlCljtq8QV8/JLE2d16z+g0GiBOX+A2egD3Hu2yEGINhR3iBQxH+DU+OGox/f7Oeop/Uf6WxdZXfS+BIOmavuq/zYxANau99UfUvbYz7gKvNPCTyGcBIjoTlO1mUlmiG3x6vdBQlYMUPvf+BcQKh1Drh5LFqYJP+O/+1kBPlecxwcpF95ueLpOQPpxUGBvalVkDIYjb9fFFDul5atNgVT6+5VLSs5fDNFxOCzVENpJ1bjjDcNkEHGILxI55ea84kfU1kwWqET5WVqO6sUlYYRghXIrLZ3cqfbT1USeqbRRbKgY2k1yH2SkOZSeqkqklnH9Sli3Coq9kskAM=\"\
+        ,\n    \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\"\
+        \n}\n\nAdditional Notes\n\nEnsure that the tenantId and communityId in the URL are correctly specified to\
+        \ target the appropriate user properties.\n\nThe response may vary based on the operation performed, but\
+        \ it will always return the specified fields."
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data: '{{payload}}'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: s2V2UcQKIsQFDWsxX16LPoH0HDmusUnCBGyN6iQQI3Dp8y/dTJy1aU+AcsWgl62H19WOJgeILytYzluxwe8cMrznSmUfWXTzwbtTD49nl3WvQUMSZHkD7+J8HkMce3+3jqFWe4kQMb4IBXciHDJ2mdGv08HylfmQBtBxNEspMdaIVxALWuVS9V1srTtmeXCy9iXiZzLQ0yfSjoEFmcvGpzgtvYZDcmElpheR0GgfuxQ0aqE3qU0nQOOLG30We4eLS10RDlJaNJO5V8b8BPxA83Xo6D9qK7R0FKlh8QkEKBjMZk60ucbPZXgzl7JGqTh2VIehYSzem1/5popySx7l78/IM1MFkzoxZNmXQxrXiiPLxk0QZsh9sR+2t60Vnbmgh8oeiY0xrWVjhoYZzsH9ELQAQBW5tSVsFlpybt9WMNe1gHXh4YJA8Eliy0u3/EM1jfIJmY4yNUX5OWHbn8f8DkVJphY6EXryNJthfYkAFv54zN6ctC8tr5ji3gGMWwEoECChnzwnvPKEpgSWpaMpmhYM4krdaD8mcnlZr52izOi6IIFeHCp3RB0kqOMULYc=
+                publicKey: 4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==
+        '401':
+          description: 'Fail : Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '409':
+          description: 'Fail: Alias already used'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 409
+                message: Alias already used
+        '400':
+          description: 'Fail: Required Username'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: username is required
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//user_properties/update'
+      x-postman-variants:
+      - Update Username as alias
+  /api/r2/acr/community/{community}/code:
+    put:
+      operationId: accessCodeCreateAccessCode
+      summary: Create Access Code
+      description: "Update Community Verification Link\nThis endpoint allows the client to update the verification\
+        \ link for a specific community identified by its code. It utilizes the HTTP PUT method to send the required\
+        \ data.\n\nRequest\nMethod: PUT\nEndpoint: {{client_api}}/api/r2/acr/community/:community/code\n\nRequest\
+        \ Body Parameters\nThe request body must be in JSON format and include the following parameters:\n\nResponse\n\
+        On a successful request, the API will return a JSON response with the following structure:\n\nemailResult\
+        \ (object): Contains the result of the email sending operation.\n\nstatus (boolean): Indicates whether the\
+        \ email was successfully sent.\n\nstatusCode (integer): A code representing the status of the operation.\n\
+        \nmessage (string): A message providing additional information about the operation.\n\nerror (null or object):\
+        \ Contains error details if the operation failed.\n\ngatewayId (null or string): Identifier for the email\
+        \ gateway used.\n\ngatewayName (null or string): Name of the email gateway used.\n\nresultId (string): Identifier\
+        \ for the result of the email operation.\n\nmessageId (null or string): Identifier for the message sent.\n\
+        \nts (integer): Timestamp of the operation.\n\nlink (string): The generated verification link.\n\ncode (string):\
+        \ The code associated with the community.\n\nExample Response\n{\n  \"emailResult\": {\n    \"status\":\
+        \ true,\n    \"statusCode\": 0,\n    \"message\": \"\",\n    \"error\": null,\n    \"gatewayId\": null,\n\
+        \    \"gatewayName\": null,\n    \"resultId\": \"\",\n    \"messageId\": null,\n    \"ts\": 0\n  },\n  \"\
+        link\": \"\",\n  \"code\": \"\"\n}\n\nThis response indicates the success of the email operation and provides\
+        \ the necessary details about the verification link."
+      tags:
+      - Access Code
+      parameters:
+      - name: community
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              createdby: application
+              version: v0
+              type: verification_link
+              emailTo: john.doe@1kosmos.com
+              ttl_seconds: 700
+              emailTemplateB64: Q2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byBsb2cgaW4gdG8gMUtvc21vcyBEZXZlbG9wZXIgRXhwZXJpZW5jZS4gaHR0cHM6Ly9ibG9ja2lkLXRyaWFsLjFrb3Ntb3MubmV0L2RldnBvcnRhbC9kZW1vP2NvZGU9e3tNQUdJQ0xJTkt9fSBUaGlzIGxpbmsgd2lsbCBleHBpcmUgaW4gMjAgbWludXRlcy4=
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                emailResult:
+                  status: true
+                  statusCode: 0
+                  message: https://1k-uat.1kosmos.net/acr
+                  error: null
+                  gatewayId: null
+                  gatewayName: null
+                  resultId: f695243f-1369-4342-93a7-7e3be987fe07
+                  messageId: null
+                  ts: 1750146210
+                link: 7d319855-946f-4922-88f4-fb259b0bff49
+                code: 7d319855-946f-4922-88f4-fb259b0bff49
+        '500':
+          description: 'Fail: Email Required'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Some exception occured while processing the request. smsTo or emailTo are required for
+                  this type of code
+        '400':
+          description: 'Fail: Bad Request'
+      x-postman-request: '{{client_api}}/api/r2/acr/community/:community/code'
+      x-postman-variants:
+      - Create Access Code
+  /api/r1/acr/community/{community}/{code}/redeem:
+    post:
+      operationId: accessCodeRedeemAccessCode
+      summary: Redeem Access Code
+      tags:
+      - Access Code
+      parameters:
+      - name: community
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+      responses:
+        '200':
+          description: Successful response
+      x-postman-request: '{{client_api}}/api/r1/acr/community/:community/:code/redeem'
+      x-postman-variants:
+      - Redeem Access Code
+  /vcs/tenant/{tenantID}/community/{communityID}/vc/from/payload/{vcType}:
+    post:
+      operationId: verifiableCredentialsCreateVerifiableCredentialFromPayload
+      summary: Create  Verifiable Credential From Payload
+      description: "API Endpoint: Create Verifiable Credential\nThis endpoint allows you to create a Verifiable\
+        \ Credential (VC) for a specified tenant and community. It utilizes the HTTP POST method to submit a payload\
+        \ containing user information and related details.\n\nRequest\n\nMethod: POST\n\nEndpoint: {{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/from/payload/:vcType\n\
+        \nURL Parameters\n\ntenantID (string): The unique identifier for the tenant.\n\ncommunityID (string): The\
+        \ unique identifier for the community.\n\nvcType (string): The type of verifiable credential being created.\n\
+        \nRequest Body\nThe request body must be in JSON format and should contain the following keys:\n\nRequest\
+        \ Body Schema\n\nKey\nType\nRequired\nDescription\n\ninfo\nobject\nYes\nContains user and company information\n\
+        \n└── id\nstring\nYes\nUnique identifier\n\n└── firstName\nstring\nYes\nUser's first name\n\n└── lastName\n\
+        string\nYes\nUser's last name\n\n└── companyName\nstring\nYes\nName of the company\n\n└── companyAddress\n\
+        string\nYes\nCompany address\n\n└── department\nstring\nNo\nDepartment name\n\n└── title\nstring\nNo\nJob\
+        \ title\n\n└── doe\nstring\nYes\nDate of employment (format: yyyymmdd)\n\n└── xx\nstring / number / boolean\n\
+        No\nFlexible field\n\ndid\nstring\nYes\nDecentralized Identifier\n\npublicKey\nstring\nYes\nPublic key associated\
+        \ with the DID\n\nissuer\nobject\nYes\nContains issuer details\n\n└── id\nstring\nYes\nIssuer ID\n\n└──\
+        \ xx\nstring\nNo\nOptional field\n\nuserURN\nstring\nNo\nUser's URN\n\nissueVP\nboolean\nYes\nWhether to\
+        \ issue a verifiable presentation\n\nvpRequest\nobject\nYes\nVerifiable Presentation request configuration\n\
+        \n└── attributes\narray of strings\nNo\nAttributes requested in VP\n\n└── ageToProve\nnumber\nNo\nMinimum\
+        \ age required\n\n└── createShareUrl\nboolean\nYes\nWhether to generate a shareable URL\n\nResponse\nOn\
+        \ a successful request, the API will return a response with the following structure:\n\nStatus Code: 200\n\
+        \nContent-Type: application/json\n\nError Response\n\nHTTP Status\nError Message\nDescription\n\n400\nThis\
+        \ userId or userPublicKey is mandatory\nRequest payload without user info\n\n400\nUnable to load tenant/community\n\
+        Wrong community ID or tenant ID\n\n400\nInvalid Payload\nInvalid/Missing Payload\n\n401\nInvalid License\
+        \ Key\nEntered License is invalid\n\nResponse Body\nThe response will include the following keys:\n\nvc\
+        \ (object): The created Verifiable Credential.\n\n@context (array): Context information for the VC.\n\n\
+        id (string): Identifier for the VC.\n\ntype (array): Types associated with the VC.\n\nissuer (object): Issuer\
+        \ details.\n\nid (string): Issuer identifier.\n\ntenantId (string): Tenant identifier.\n\ncommunityId (string):\
+        \ Community identifier.\n\nissuanceDate (string): Date the VC was issued.\n\nexpirationDate (string): Expiration\
+        \ date of the VC.\n\ncredentialSubject (object): Subject information of the VC.\n\nid (string): Subject\
+        \ identifier.\n\nOther personal information fields as provided in the request.\n\nproof (object): Proof\
+        \ details for the VC.\n\ntype (string): Type of proof.\n\ncreated (string): Creation date of the proof.\n\
+        \nverificationMethod (string): Method used for verification.\n\nproofPurpose (string): Purpose of the proof.\n\
+        \nproofValue (string): Value of the proof.\n\nstatusUrl (string): URL to check the status of the VC.\n\n\
+        vcId (string): The unique identifier for the VC.\n\ndownload_url (string): URL to download the VC.\n\nExample\
+        \ Response\n{\n  \"vc\": {\n    \"@context\": [\"\"],\n    \"id\": \"\",\n    \"type\": [\"\"],\n    \"\
+        issuer\": {\n      \"id\": \"\",\n      \"tenantId\": \"\",\n      \"communityId\": \"\"\n    },\n    \"\
+        issuanceDate\": \"\",\n    \"expirationDate\": \"\",\n    \"credentialSubject\": {\n      \"id\": \"\",\n\
+        \      \"firstName\": \"\",\n      \"lastName\": \"\",\n      \"companyName\": \"\",\n      \"companyAddress\"\
+        : \"\",\n      \"department\": \"\",\n      \"title\": \"\",\n      \"doe\": \"\",\n      \"publicKey\"\
+        : \"\"\n    },\n    \"proof\": {\n      \"type\": \"\",\n      \"created\": \"\",\n      \"verificationMethod\"\
+        : \"\",\n      \"proofPurpose\": \"\",\n      \"proofValue\": \"\"\n    },\n    \"statusUrl\": \"\"\n  },\n\
+        \  \"vcId\": \"\",\n  \"download_url\": \"\"\n}"
+      tags:
+      - Verifiable Credentials
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: vcType
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              info:
+                id: '1234'
+                firstName: john
+                lastName: doe
+                companyName: 1kosmos
+                companyAddress: Mumbai
+                department: Mobile
+                title: software engineer
+                doe: '20260211'
+              did: 17db22ab3fdfe09ce1656e193187227f0f3d4769
+              publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+              issuer:
+                id: https://1k-dev.1kosmos.net
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                vc:
+                  '@context':
+                  - https://www.w3.org/2018/credentials/v1
+                  - vc_EmploymentCredential: https://schema.org#vc_EmploymentCredential
+                    firstName: https://schema.org#firstName
+                    lastName: https://schema.org#lastName
+                    companyName: https://schema.org#companyName
+                    companyAddress: https://schema.org#companyAddress
+                    department: https://schema.org#department
+                    title: https://schema.org#title
+                    doe: https://schema.org#doe
+                    publicKey: https://schema.org#publicKey
+                  - https://w3id.org/security/suites/ed25519-2020/v1
+                  id: did:blockid:8d947e38-a497-4d28-bb90-3de7434d36de
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+                  issuanceDate: '2025-06-23T07:33:37.404Z'
+                  expirationDate: '2026-02-11T00:00:00.000Z'
+                  credentialSubject:
+                    id: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    firstName: john
+                    lastName: doe
+                    companyName: 1kosmos
+                    companyAddress: Mumbai
+                    department: Mobile
+                    title: software engineer
+                    doe: '20260211'
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T07:33:37Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: z3EbDE9o1JMGddpRWTVmsF6cqtoESkn5XenSo4yi7D33diff8waQuN4bxWdGMe97bKiDnJAYXmvN144D1Pw2cRBVu
+                  statusUrl: https://1k-dev.1kosmos.net/vcs/tenant/68418b2587942f1d3158a798/community/68418b2587942f1d3158a799/vc/did:blockid:8d947e38-a497-4d28-bb90-3de7434d36de/status
+                vcId: did:blockid:8d947e38-a497-4d28-bb90-3de7434d36de
+                download_url: https://1k-dev.1kosmos.net/vcs/vc/did:blockid:8d947e38-a497-4d28-bb90-3de7434d36de/download
+        '400':
+          description: 'Fail: Expired Payload'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: info failed custom validation because Expired payload
+        '401':
+          description: 'Failed: invalid/Missing License Key'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Unauthorized
+      x-postman-request: '{{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/from/payload/:vcType'
+      x-postman-variants:
+      - Create  Verifiable Credential From Payload
+  /vcs/tenant/{tenantID}/community/{communityID}/vc/{vcID}/status:
+    get:
+      operationId: verifiableCredentialsGetVerifiableCredentialStatus
+      summary: Get  Verifiable Credential Status
+      description: "Endpoint Description\nThis endpoint retrieves the status of a specific verifiable credential\
+        \ (VC) within a community for a given tenant. It provides detailed information about the VC, including its\
+        \ subject, issuer, and proof details.\n\nRequest\nMethod: GET\nURL: {{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/:vcID/status\n\
+        \nPath Parameters\n\ntenantID (string, required): The unique identifier for the tenant.\n\ncommunityID (string,\
+        \ required): The unique identifier for the community.\n\nvcID (string, required): The unique identifier\
+        \ for the verifiable credential.\n\nHeaders\n\nAuthorization (string, optional): Bearer token for authentication\
+        \ (if required by your API).\n\nContent-Type (string, optional): Typically set to application/json.\n\n\
+        Response\nThe response will return a JSON object containing the status of the requested verifiable credential.\n\
+        \nResponse Body Example\n{\n  \"result\": {\n    \"subject\": {\n      \"did\": \"\",\n      \"publicKey\"\
+        : \"\"\n    },\n    \"type\": [\"\"],\n    \"_id\": \"\",\n    \"vcID\": \"\",\n    \"tenantId\": \"\",\n\
+        \    \"communityId\": \"\",\n    \"proof\": {\n      \"type\": \"\",\n      \"created\": \"\",\n      \"\
+        verificationMethod\": \"\",\n      \"proofPurpose\": \"\",\n      \"proofValue\": \"\"\n    },\n    \"issueTS\"\
+        : 0,\n    \"expiryTS\": 0,\n    \"status\": \"\",\n    \"issuer\": {\n      \"id\": \"\",\n      \"tenantId\"\
+        : \"\",\n      \"communityId\": \"\"\n    }\n  }\n}\n\nResponse Fields\n\nresult: Contains the details of\
+        \ the verifiable credential.\n\nsubject: Information about the subject of the VC.\n\ndid: Decentralized\
+        \ Identifier of the subject.\n\npublicKey: Public key associated with the subject.\n\ntype: An array indicating\
+        \ the type of the VC.\n\n_id: Internal identifier for the VC.\n\nvcID: The unique identifier for the verifiable\
+        \ credential.\n\ntenantId: Identifier for the tenant.\n\ncommunityId: Identifier for the community.\n\n\
+        proof: Details about the proof of the VC.\n\ntype: Type of proof.\n\ncreated: Timestamp of when the proof\
+        \ was created.\n\nverificationMethod: Method used for verification.\n\nproofPurpose: Purpose of the proof.\n\
+        \nproofValue: Value of the proof.\n\nissueTS: Timestamp indicating when the VC was issued.\n\nexpiryTS:\
+        \ Timestamp indicating when the VC expires.\n\nstatus: Current status of the VC.\n\nissuer: Information\
+        \ about the issuer of the VC.\n\nid: Identifier for the issuer.\n\ntenantId: Identifier for the issuer's\
+        \ tenant.\n\ncommunityId: Identifier for the issuer's community.\n\nThis endpoint is essential for checking\
+        \ the validity and status of verifiable credentials within a community, ensuring that users can manage and\
+        \ verify their credentials effectively."
+      tags:
+      - Verifiable Credentials
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: vcID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                result:
+                  subject:
+                    did: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  _id: 68591e78dcdbc20b5f4549ee
+                  vcID: did:blockid:670c5e8e-e87e-43ba-a843-9ed2240d57b6
+                  tenantId: 68418b2587942f1d3158a798
+                  communityId: 68418b2587942f1d3158a799
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T09:29:28Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: z48SnxMwZRAsw6wPnWHHqqUYTKDPft8K55dRYxYfUyZRYHCrCEoc9vNyNzoeZGZoTRwA3iu9w2GHqex2hfmb67FRU
+                  issueTS: 1750670968
+                  expiryTS: 1770768000
+                  status: issued
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+        '404':
+          description: 'Failed: VC Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 404
+                message: VC not found
+        '401':
+          description: 'Failed: Invalid/Missing License Key'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Unauthorized
+      x-postman-request: '{{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/:vcID/status'
+      x-postman-variants:
+      - Get  Verifiable Credential Status
+  /vcs/tenant/{tenantID}/community/{communityID}/vc/verify:
+    post:
+      operationId: verifiableCredentialsVerifyVerifiableCredential
+      summary: Verify Verifiable Credential
+      description: "Verify Verifiable Credential\nThis endpoint is used to verify a verifiable credential (VC) for\
+        \ a specific community within a tenant. It checks the authenticity and validity of the provided VC data.\n\
+        \nRequest Format\n\nMethod: POST\n\nEndpoint: {{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/verify\n\
+        \nRequest Body: The request should include a JSON object containing the following structure:\n\n{\n  \"\
+        vc\": {\n    \"@context\": [\"string\"],\n    \"id\": \"string\",\n    \"type\": [\"string\"],\n    \"issuer\"\
+        : {\n      \"id\": \"string\",\n      \"tenantId\": \"string\",\n      \"communityId\": \"string\"\n   \
+        \ },\n    \"issuanceDate\": \"string (ISO 8601 date)\",\n    \"expirationDate\": \"string (ISO 8601 date)\"\
+        ,\n    \"credentialSubject\": {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\"\
+        : \"string\",\n      \"companyName\": \"string\",\n      \"companyAddress\": \"string\",\n      \"department\"\
+        : \"string\",\n      \"title\": \"string\",\n      \"doe\": \"string\",\n      \"publicKey\": \"string\"\
+        \n    },\n    \"proof\": {\n      \"type\": \"string\",\n      \"created\": \"string (ISO 8601 date)\",\n\
+        \      \"verificationMethod\": \"string\",\n      \"proofPurpose\": \"string\",\n      \"proofValue\": \"\
+        string\"\n    },\n    \"statusUrl\": \"string\"\n  }\n}\n\nResponse Format\nThe response will return a JSON\
+        \ object indicating whether the VC was verified and providing the status of the verification. The structure\
+        \ of the response is as follows:\n\n{\n  \"verified\": \"boolean\",\n  \"status\": {\n    \"subject\": {\n\
+        \      \"did\": \"string\",\n      \"publicKey\": \"string\"\n    },\n    \"type\": [\"string\"],\n    \"\
+        _id\": \"string\",\n    \"vcID\": \"string\",\n    \"tenantId\": \"string\",\n    \"communityId\": \"string\"\
+        ,\n    \"proof\": {\n      \"type\": \"string\",\n      \"created\": \"string\",\n      \"verificationMethod\"\
+        : \"string\",\n      \"proofPurpose\": \"string\",\n      \"proofValue\": \"string\"\n    },\n    \"issueTS\"\
+        : \"integer\",\n    \"expiryTS\": \"integer\",\n    \"status\": \"string\",\n    \"issuer\": {\n      \"\
+        id\": \"string\",\n      \"tenantId\": \"string\",\n      \"communityId\": \"string\"\n    }\n  }\n}\n\n\
+        Notes\n\nThe verified field indicates the success of the verification process.\n\nThe status object contains\
+        \ detailed information about the VC and its issuer."
+      tags:
+      - Verifiable Credentials
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vc:
+                '@context':
+                - https://www.w3.org/2018/credentials/v1
+                - vc_EmploymentCredential: https://schema.org#vc_EmploymentCredential
+                  firstName: https://schema.org#firstName
+                  lastName: https://schema.org#lastName
+                  companyName: https://schema.org#companyName
+                  companyAddress: https://schema.org#companyAddress
+                  department: https://schema.org#department
+                  title: https://schema.org#title
+                  doe: https://schema.org#doe
+                  publicKey: https://schema.org#publicKey
+                - https://w3id.org/security/suites/ed25519-2020/v1
+                id: did:blockid:e309fbcf-79c0-4f6b-bf42-72f38d3dd0d1
+                type:
+                - VerifiableCredential
+                - vc_EmploymentCredential
+                issuer:
+                  id: https://1k-dev.1kosmos.net
+                  tenantId: 68418b2587942f1d3158a798
+                  communityId: 68418b2587942f1d3158a799
+                issuanceDate: '2025-06-23T08:18:31.898Z'
+                expirationDate: '2026-02-11T00:00:00.000Z'
+                credentialSubject:
+                  id: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                  firstName: john
+                  lastName: doe
+                  companyName: 1kosmos
+                  companyAddress: Mumbai
+                  department: Mobile
+                  title: software engineer
+                  doe: '20260211'
+                  publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                proof:
+                  type: Ed25519Signature2020
+                  created: '2025-06-23T08:18:31Z'
+                  verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                  proofPurpose: assertionMethod
+                  proofValue: zgvPhr6q63uPJkzvacSbrEa6kxcGHi3TZMdvCrKGsrCexQV2xtJkWLoB8nR4jtJxmVK7rpkd7NNQxajQnAZKh4Lt
+                statusUrl: undefined/tenant/68418b2587942f1d3158a798/community/68418b2587942f1d3158a799/vc/did:blockid:e309fbcf-79c0-4f6b-bf42-72f38d3dd0d1/status
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                verified: true
+                status:
+                  subject:
+                    did: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  _id: 68590dd7dcdbc28d83454946
+                  vcID: did:blockid:e309fbcf-79c0-4f6b-bf42-72f38d3dd0d1
+                  tenantId: 68418b2587942f1d3158a798
+                  communityId: 68418b2587942f1d3158a799
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T08:18:31Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: zgvPhr6q63uPJkzvacSbrEa6kxcGHi3TZMdvCrKGsrCexQV2xtJkWLoB8nR4jtJxmVK7rpkd7NNQxajQnAZKh4Lt
+                  issueTS: 1750666711
+                  expiryTS: 1770768000
+                  status: issued
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+        '500':
+          description: 'Failed: Server Error'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 500
+                message: Internal Server Error
+        '401':
+          description: 'Failed: invalid/Missing License Key'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Unauthorized
+      x-postman-request: '{{client_api}}/vcs/tenant/:tenantID/community/:communityID/vc/verify'
+      x-postman-variants:
+      - Verify Verifiable Credential
+  /vcs/tenant/{tenantID}/community/{communityID}/vp/create:
+    post:
+      operationId: verifiableCredentialsIssueVerifiablePresentation
+      summary: Issue Verifiable Presentation
+      description: 'Create Verifiable Presentation
+
+        This endpoint allows the creation of a Verifiable Presentation (VP) associated with a specific tenant and
+        community. It is used to submit a verifiable credential to the system, which can then be processed and returned
+        in a structured format.
+
+
+        Request Parameters
+
+
+        tenantID (path parameter): The unique identifier for the tenant.
+
+
+        communityID (path parameter): The unique identifier for the community.
+
+
+        Request Body
+
+        The request body must be in JSON format and should include the following structure:
+
+
+        vcs (array): A list of verifiable credentials to be included in the VP.
+
+
+        vc (object): Contains the details of a verifiable credential.
+
+
+        @context (array): Contexts for the credential.
+
+
+        id (string): The unique identifier for the credential.
+
+
+        type (array): The types of the credential (e.g., VerifiableCredential).
+
+
+        issuer (object): Information about the issuer of the credential.
+
+
+        id (string): The identifier of the issuer.
+
+
+        tenantId (string): The tenant ID of the issuer.
+
+
+        communityId (string): The community ID of the issuer.
+
+
+        issuanceDate (string): The date when the credential was issued.
+
+
+        expirationDate (string): The date when the credential expires.
+
+
+        credentialSubject (object): The subject of the credential.
+
+
+        id (string): The identifier of the subject.
+
+
+        firstName (string): The first name of the subject.
+
+
+        lastName (string): The last name of the subject.
+
+
+        companyName (string): The name of the company the subject is associated with.
+
+
+        companyAddress (string): The address of the company.
+
+
+        department (string): The department of the subject.
+
+
+        title (string): The job title of the subject.
+
+
+        dob (string): The date of birth of the subject.
+
+
+        doe (string): The date of expiry.
+
+
+        publicKey (string): The public key associated with the subject.
+
+
+        proof (object): Proof of the credential.
+
+
+        type (string): The type of proof.
+
+
+        created (string): The date when the proof was created.
+
+
+        verificationMethod (string): The method used for verification.
+
+
+        proofPurpose (string): The purpose of the proof.
+
+
+        proofValue (string): The value of the proof.
+
+
+        statusUrl (string): URL for the status of the credential.
+
+
+        Expected Response
+
+        Upon successful execution, the response will return a status code of 200 and a JSON object containing the
+        following structure:
+
+
+        vp (object): The Verifiable Presentation object.
+
+
+        @context (array): Contexts for the VP.
+
+
+        type (array): The types of the VP.
+
+
+        verifiableCredential (array): An array containing the verifiable credentials included in the VP.
+
+
+        Each credential will have similar fields as described in the request body.
+
+
+        proof (object): Proof of the VP, structured similarly to the proof in the credential.
+
+
+        Notes
+
+
+        Ensure that all required fields are populated in the request body to avoid validation errors.
+
+
+        The response will provide the structure of the created Verifiable Presentation, which can be used for further
+        processing or verification.'
+      tags:
+      - Verifiable Credentials
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vcs:
+              - vc:
+                  '@context':
+                  - https://www.w3.org/2018/credentials/v1
+                  - vc_EmploymentCredential: https://schema.org#vc_EmploymentCredential
+                    firstName: https://schema.org#firstName
+                    lastName: https://schema.org#lastName
+                    companyName: https://schema.org#companyName
+                    companyAddress: https://schema.org#companyAddress
+                    department: https://schema.org#department
+                    title: https://schema.org#title
+                    dob: https://schema.org#dob
+                    doe: https://schema.org#doe
+                    publicKey: https://schema.org#publicKey
+                  - https://w3id.org/security/suites/ed25519-2020/v1
+                  id: did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+                  issuanceDate: '2025-06-23T08:57:58.481Z'
+                  expirationDate: '2026-02-11T00:00:00.000Z'
+                  credentialSubject:
+                    id: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    firstName: john
+                    lastName: doe
+                    companyName: 1kosmos
+                    companyAddress: Mumbai
+                    department: Mobile
+                    title: software engineer
+                    dob: '20201226'
+                    doe: '20260211'
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T08:57:58Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: z4o8FzLBjGjoJqofnoMNWq6USCfcMSPZH4nfuwEyaCja81YeLE2tjN6oKpzfzaY9c7ykppEDWRtVWtXKTx8Sfj9h7
+                  statusUrl: https:///1k-dev.1kosmos.net/vcs/tenant/68418b2587942f1d3158a798/community/68418b2587942f1d3158a799/vc/did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072/status
+                attributes:
+                - firstName
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                vp:
+                  '@context':
+                  - https://www.w3.org/2018/credentials/v1
+                  - https://w3id.org/security/suites/ed25519-2020/v1
+                  type:
+                  - VerifiablePresentation
+                  verifiableCredential:
+                  - '@context':
+                    - https://www.w3.org/2018/credentials/v1
+                    - vc_EmploymentCredential: https://schema.org#vc_EmploymentCredential
+                      publicKey: https://schema.org#publicKey
+                      companyName: https://schema.org#companyName
+                    id: did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072
+                    type:
+                    - VerifiableCredential
+                    - vc_EmploymentCredential
+                    issuer:
+                      id: https://1k-dev.1kosmos.net
+                      tenantId: 68418b2587942f1d3158a798
+                      communityId: 68418b2587942f1d3158a799
+                    issuanceDate: '2025-06-23T08:57:58.481Z'
+                    expirationDate: '2026-02-11T00:00:00.000Z'
+                    credentialSubject:
+                      companyName: 1kosmos
+                      id: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                      publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                    proof:
+                      type: Ed25519Signature2020
+                      created: '2025-06-23T08:57:58Z'
+                      verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                      proofPurpose: assertionMethod
+                      proofValue: z4o8FzLBjGjoJqofnoMNWq6USCfcMSPZH4nfuwEyaCja81YeLE2tjN6oKpzfzaY9c7ykppEDWRtVWtXKTx8Sfj9h7
+                    statusUrl: https:///1k-dev.1kosmos.net/vcs/tenant/68418b2587942f1d3158a798/community/68418b2587942f1d3158a799/vc/did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072/status
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T09:13:22Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: z2fjU8eDHWx35GKb5CA5Yr6y7WVWuRMgeJ8He3ijMVa7PhG9QTtRAkt9MyKzrppNRDogyH5dWjRPuc61se45NCgSU
+        '400':
+          description: 'Failed: Invalid Attribute'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: Attribute does not exist
+        '401':
+          description: 'Failed: Missing/Invalid License Key'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Unauthorized
+      x-postman-request: '{{client_api}}/vcs/tenant/:tenantID/community/:communityID/vp/create'
+      x-postman-variants:
+      - Issue Verifiable Presentation
+  /vcs/tenant/{tenantID}/community/{communityID}/vp/verify:
+    post:
+      operationId: verifiableCredentialsVerifyVerifiablePresentation
+      summary: Verify Verifiable Presentation
+      description: "Verify Verifiable Presentation\nThis endpoint is used to verify a Verifiable Presentation (VP)\
+        \ for a specific tenant and community. It allows clients to submit a VP and receive a verification status\
+        \ in return, confirming whether the VP is valid.\n\nRequest\nHTTP Method: POST\nEndpoint: {{client_api}}/vcs/tenant/:tenantID/community/:communityID/vp/verify\n\
+        \nRequest Body\nThe request body must be in JSON format and should contain the following structure:\n\n\
+        {\n  \"vp\": {\n    \"@context\": [<Array of Context URLs>],\n    \"type\": [<Array of Types>],\n    \"\
+        verifiableCredential\": [\n      {\n        \"@context\": [<Array of Context URLs>],\n        \"id\": \"\
+        <Credential ID>\",\n        \"type\": [<Array of Types>],\n        \"issuer\": {\n          \"id\": \"<Issuer\
+        \ ID>\",\n          \"tenantId\": \"<Tenant ID>\",\n          \"communityId\": \"<Community ID>\"\n    \
+        \    },\n        \"issuanceDate\": \"<Issuance Date>\",\n        \"expirationDate\": \"<Expiration Date>\"\
+        ,\n        \"credentialSubject\": {\n          \"firstName\": \"<First Name>\",\n          \"id\": \"<Subject\
+        \ ID>\",\n          \"publicKey\": \"<Public Key>\"\n        },\n        \"proof\": {\n          \"type\"\
+        : \"<Proof Type>\",\n          \"created\": \"<Creation Date>\",\n          \"verificationMethod\": \"<Verification\
+        \ Method>\",\n          \"proofPurpose\": \"<Proof Purpose>\",\n          \"proofValue\": \"<Proof Value>\"\
+        \n        },\n        \"statusUrl\": \"<Status URL>\"\n      }\n    ],\n    \"proof\": {\n      \"type\"\
+        : \"<Proof Type>\",\n      \"created\": \"<Creation Date>\",\n      \"verificationMethod\": \"<Verification\
+        \ Method>\",\n      \"proofPurpose\": \"<Proof Purpose>\",\n      \"proofValue\": \"<Proof Value>\"\n  \
+        \  }\n  }\n}\n\nResponse\nThe response will be in JSON format and will indicate the verification result\
+        \ along with the status of the verifiable credentials. The structure of the response is as follows:\n\n\
+        {\n  \"verified\": <Boolean>,\n  \"vc_status\": [\n    {\n      \"subject\": {\n        \"did\": \"<Subject\
+        \ DID>\",\n        \"publicKey\": \"<Subject Public Key>\"\n      },\n      \"type\": [<Array of Types>],\n\
+        \      \"_id\": \"<Credential ID>\",\n      \"vcID\": \"<Verifiable Credential ID>\",\n      \"tenantId\"\
+        : \"<Tenant ID>\",\n      \"communityId\": \"<Community ID>\",\n      \"proof\": {\n        \"type\": \"\
+        <Proof Type>\",\n        \"created\": \"<Creation Date>\",\n        \"verificationMethod\": \"<Verification\
+        \ Method>\",\n        \"proofPurpose\": \"<Proof Purpose>\",\n        \"proofValue\": \"<Proof Value>\"\n\
+        \      },\n      \"issueTS\": <Issue Timestamp>,\n      \"expiryTS\": <Expiry Timestamp>,\n      \"status\"\
+        : \"<Status>\",\n      \"issuer\": {\n        \"id\": \"<Issuer ID>\",\n        \"tenantId\": \"<Tenant\
+        \ ID>\",\n        \"communityId\": \"<Community ID>\"\n      }\n    }\n  ]\n}\n\nExample Responses\n\n{\"\
+        verified\": true,\"vc_status\": [ { \"subject\": { \"did\": \"\", \"publicKey\": \"\" }, \"type\": [\"\"\
+        ], \"_id\": \"\", \"vcID\": \"\", \"tenantId\": \"\", \"communityId\": \"\", \"proof\": { \"type\": \"\"\
+        , \"created\": \"\", \"verificationMethod\": \"\", \"proofPurpose\": \"\", \"proofValue\": \"\" }, \"issueTS\"\
+        : 0, \"expiryTS\": 0, \"status\": \"\", \"issuer\": { \"id\": \"\", \"tenantId\": \"\", \"communityId\"\
+        : \"\" } }]}\n\nThis endpoint is crucial for ensuring the integrity and validity of verifiable credentials\
+        \ within the specified tenant and community."
+      tags:
+      - Verifiable Credentials
+      parameters:
+      - name: tenantID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: JSON string which should contain "appid (string)", "uuid (string)" and "ts (number)" representing
+          epoch timestamp in seconds - it should not be more or less than 60 seconds from now
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vp:
+                '@context':
+                - https://www.w3.org/2018/credentials/v1
+                - https://w3id.org/security/suites/ed25519-2020/v1
+                type:
+                - VerifiablePresentation
+                verifiableCredential:
+                - '@context':
+                  - https://www.w3.org/2018/credentials/v1
+                  - vc_EmploymentCredential: https://schema.org#vc_EmploymentCredential
+                    publicKey: https://schema.org#publicKey
+                    firstName: https://schema.org#firstName
+                  id: did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+                  issuanceDate: '2025-06-23T08:57:58.481Z'
+                  expirationDate: '2026-02-11T00:00:00.000Z'
+                  credentialSubject:
+                    firstName: john
+                    id: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T08:57:58Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: z4o8FzLBjGjoJqofnoMNWq6USCfcMSPZH4nfuwEyaCja81YeLE2tjN6oKpzfzaY9c7ykppEDWRtVWtXKTx8Sfj9h7
+                  statusUrl: https:///1k-dev.1kosmos.net/vcs/tenant/68418b2587942f1d3158a798/community/68418b2587942f1d3158a799/vc/did:blockid:4bf67a8b-e89f-4ba1-a2b7-d57170d18072/status
+                proof:
+                  type: Ed25519Signature2020
+                  created: '2025-06-23T09:36:24Z'
+                  verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                  proofPurpose: assertionMethod
+                  proofValue: zqhwMsMqjKV9oVqMy2mXzT1nzmGPNLPMjWNnmLwTRvRqRHNxCoKtTAaRbMTceEzLaqabm3TxsMarLPrNgShXBsg1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                verified: true
+                status:
+                  subject:
+                    did: did:17db22ab3fdfe09ce1656e193187227f0f3d4769
+                    publicKey: AdxCJp04PJk82Q0KKU+jzsnY/RKrFEM6AW8qH+M8xpMbUvJc/wuAu4aqLBbsY7RDzAO2Io7x4k/clkHuauYIpQ==
+                  type:
+                  - VerifiableCredential
+                  - vc_EmploymentCredential
+                  _id: 68590dd7dcdbc28d83454946
+                  vcID: did:blockid:e309fbcf-79c0-4f6b-bf42-72f38d3dd0d1
+                  tenantId: 68418b2587942f1d3158a798
+                  communityId: 68418b2587942f1d3158a799
+                  proof:
+                    type: Ed25519Signature2020
+                    created: '2025-06-23T08:18:31Z'
+                    verificationMethod: did:key:blockid:z6MkknnEYdzbBnLW3vQCfeVhwZYdNJ7e1DQECc21PHABWmLn
+                    proofPurpose: assertionMethod
+                    proofValue: zgvPhr6q63uPJkzvacSbrEa6kxcGHi3TZMdvCrKGsrCexQV2xtJkWLoB8nR4jtJxmVK7rpkd7NNQxajQnAZKh4Lt
+                  issueTS: 1750666711
+                  expiryTS: 1770768000
+                  status: issued
+                  issuer:
+                    id: https://1k-dev.1kosmos.net
+                    tenantId: 68418b2587942f1d3158a798
+                    communityId: 68418b2587942f1d3158a799
+        '401':
+          description: 'Failed: Invalid/Missing License Key'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Unauthorized
+      x-postman-request: '{{client_api}}/vcs/tenant/:tenantID/community/:communityID/vp/verify'
+      x-postman-variants:
+      - Verify Verifiable Presentation
+  /idproofingapi/workflow/workflow_instance/create:
+    post:
+      operationId: ial2CreateWorkflow
+      summary: Create Workflow
+      tags:
+      - IAL2
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string),
+          "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                workflowId: 586ea2ee-liveid_2doc_ssn
+                metaData:
+                  firstname: John
+                  lastname: Doe
+                  dob: '19900101'
+      responses:
+        '200':
+          description: Workflow instance
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: 8jHKe7E6ZatoTfeeUXe5UGgpChHF1z9KnxQejSeLZ1XQExmkIrj8eMB70Z8AZbwrU90VAfLVAfjlbvUmC3QKvbXRl+XEW9F2mkh2ztZVyTRg/3a91oNztywM5eGbPUAUxeZ1tEV7iXnVkAEwEmA+kyh8ejYJWwTT3fBiNneHLCieoXIBxNM1/YIB7DzS7Vyxx5GpYroxd1AD75l2YwjGGpaS/p5Ct3URaVB+zCDrJDKllSh1iBItTPe3VSx+nZt8d/sQGYhXNInEgPpk/D4=
+                publicKey: mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==
+      x-postman-request: https://{{tenantDNS}}/idproofingapi/workflow/workflow_instance/create
+      x-postman-variants:
+      - Create Workflow
+  /idproofingapi/workflow/workflow_instance/{instanceId}/result_summary:
+    get:
+      operationId: ial2ResultSummary
+      summary: result summary
+      tags:
+      - IAL2
+      parameters:
+      - name: instanceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string),
+          "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      responses:
+        '200':
+          description: View result
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: KEzgtQeKT8tKmme5yUySWb4eHo+zNEAR4uFMt/v/IhgSUJyQBkb7Ah+ny1VMZZFdA4WQFc6Em+Wc+zb4ceIfDTr550nHSyoEDq6+nMU/s04SyslDE1Ewhvua7+C/JTwFLepvgU0N5Me0hjBVRRj8CHZl2lzM75es7En4iD9vMymnIefwAdTYGWkBQxPGm+u2p1FRDf+Pm+fJl8dxJT9SEcDpWD7NVoppocD7Uo/6mLVMFUo8rO+l990tG+/cisOpeTnv60X7MlfIZ/t6dvpwCSWeMN1VTzRZUrV7MKcVVfTfJPlWpCiYJOQGYEGh5KdsmwkwYpBfx9PaSESWPpsBLNlIVFpt4OpJa3F0HqbocCKhYhayPpkSvTAAoMn0j6w28adDijlxaOWZbFmQKMMwCMIB83jCANpHf/ImJRli3uUBX05myqe2xL/5qP3nm/vTd4lyff7F7Nx5EyzUpqLiKjlCo7z22fu4B/2SJkv/6zIyNz0nEFrH9mUiGl+i2f2Z0WdnPgyEEj3fiwoB8Fhl8XBgKk59SGqC
+                publicKey: mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==
+      x-postman-request: https://{{tenantDNS}}/idproofingapi/workflow/workflow_instance/:instanceId/result_summary
+      x-postman-variants:
+      - result summary
+  /workflowapi/workflow_instance/tenant/{tenantId}/community/{communityId}/create:
+    post:
+      operationId: workflowAPICreateWorkflowInstance
+      summary: Create Workflow Instance
+      tags:
+      - Workflow API
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data: '{{enc_body_data}}'
+      responses:
+        '200':
+          description: Workflow Instance
+      x-postman-request: '{{wf_api}}/workflowapi/workflow_instance/tenant/:tenantId/community/:communityId/create'
+      x-postman-variants:
+      - Create Workflow Instance
+  /workflowapi/workflow_instance/{wfInstanceId}/tenant/{tenantId}/community/{communityId}/node/{nodeId}:
+    get:
+      operationId: workflowAPINodeResult
+      summary: Node Result
+      tags:
+      - Workflow API
+      parameters:
+      - name: wfInstanceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Node Result
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: WRzC2f6cAaJLrday+2vSqtdqzEp0oYu0jxgGhtP9FAyJRSDNWcie2x+re+nwDPnsZRqFJzM8uFh0GuLLCcVuZl7oiMoj5FVjy2Mqhy7ax0KGF6c/LzwkvJ3f24GNTEC+BqNoQkEIWrgGSecKvSS3qrrGkifWuh8IyLs/1l1gmuvvBgXIX5E6pJds4RPoxXsmqch3jUr6sA0KMwto7yiu8qaxxaOhjqR7+r5QAXN/c11X3ID67ZQRoDp3OWXQkUXr4z0AZinariygY1W+23n1WS8Uqb6rpsfYRJVG2NKZN9oRXSXuO6DyYbi2ZxEdVnPzRH/wE4KPx/0Ed7HoH5cTS7io1K5LebOfsnxYR/OaKyyB6RnW7zDmMpKzGO5eCJyRku/kQJJBAPIH89sgOPcXZGfUIydhr4ELnR7bOci+43dmEras4T1FT+H/hMk7G3SYX+HgVIH9PuRlVy49Hn+AAkUMTQscvDeG99RfvATKsFqiKub2jH7q3gp/X88EFj4IibB7UKX7muVm3DlI2lJfpf9/f7Rhj0tx6sxF7nvJNiV/eq4AUJUAAzHJff2SajZ2NzwbbcTmKe8J+ou1jl53uPWlDAC4AA==
+                publicKey: 1hj9IXQjFVGsHidbo/9Uv7sd+eZjzy7Uq2643O2n+yd4XCnr9CWHIO3Kid7AvXMx5yOI+aeAtg1jfKxMkUhauQ==
+                signature_token: aaddd1e69ba2c709a
+      x-postman-request: '{{wf_api}}/workflowapi/workflow_instance/:wfInstanceId/tenant/:tenantId/community/:communityId/node/:nodeId'
+      x-postman-variants:
+      - Node Result

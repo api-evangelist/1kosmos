@@ -1,0 +1,96 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  https://www.1kosmos.com/compliance + https://www.1kosmos.com/company/about +
+  https://www.1kosmos.com/resources/press-center/1kosmos-blockid-approved-as-nist-800-63-3-conformant-fido2-certified +
+  https://www.1kosmos.com/press-releases/1kosmos-adds-soc-2-type-ii-to-long-list-of-technology-certifications/ +
+  openapi/1kosmos-blockid-openapi.yml
+standards:
+- id: nist-sp-800-63-3
+  conforms: true
+  level: IAL2 / AAL2
+  evidence: >-
+    Approved by the Kantara Initiative as a Full Service credential service provider conformant with
+    NIST SP 800-63 rev.3, Class of Approval IAL2 and AAL2.
+  source: https://www.1kosmos.com/resources/press-center/1kosmos-blockid-approved-as-nist-800-63-3-conformant-fido2-certified
+- id: kantara-full-service-csp
+  conforms: true
+  evidence: '"the only Kantara-certified, full-service CSP platform with FedRAMP High authorization"'
+  source: https://www.1kosmos.com/company/about
+- id: fido2
+  conforms: true
+  evidence: FIDO Alliance FIDO2 certification for strong and multi-factor authentication; WebAuthn registration and authentication documented on the developer portal.
+  source: https://developer.1kosmos.com/devportal/docs/webauthn/
+- id: webauthn
+  conforms: true
+  evidence: Attestation and assertion option endpoints are published in the developer portal and implemented in BIDWebAuthn across every first-party helper SDK.
+  source: https://developer.1kosmos.com/devportal/docs/webauthn/registration/
+- id: fedramp-high
+  conforms: true
+  evidence: '"FedRAMP High authorization, delivering government-level security"'
+  source: https://www.1kosmos.com/compliance
+- id: soc2-type-ii
+  conforms: true
+  evidence: 1Kosmos announced receipt of a System and Organization Controls (SOC) 2 Type II certification.
+  source: https://www.1kosmos.com/press-releases/1kosmos-adds-soc-2-type-ii-to-long-list-of-technology-certifications/
+- id: iso-27001
+  conforms: true
+  evidence: ISO 27001 named among the platform certifications for handling and retention of sensitive data.
+  source: https://www.1kosmos.com/press-releases/1kosmos-adds-soc-2-type-ii-to-long-list-of-technology-certifications/
+- id: ibeta-biometrics
+  conforms: true
+  evidence: iBeta Quality Assurance certification for biometric accuracy / presentation attack detection.
+  source: https://www.1kosmos.com/press-releases/1kosmos-adds-soc-2-type-ii-to-long-list-of-technology-certifications/
+- id: w3c-verifiable-credentials
+  conforms: true
+  evidence: >-
+    The Verifiable Credentials endpoints issue and verify documents carrying
+    "@context": ["https://www.w3.org/2018/credentials/v1", ...] and matching Verifiable
+    Presentations, per the request/response examples in the published Postman collection.
+  source: openapi/1kosmos-blockid-openapi.yml#verifiableCredentialsCreateVerifiableCredentialFromPayload
+- id: oauth2
+  conforms: true
+  evidence: >-
+    BlockID runs an OAuth 2.0 authorization server (oauth2 service in the service-discovery
+    document); authorization_code and refresh_token grants are documented on the developer portal.
+  source: https://developer.1kosmos.com/devportal/docs/oauth2-oidc/
+- id: oidc
+  conforms: true
+  evidence: OpenID Connect flow documented with the openid email profile scope set; OIDC application integration documented in the product docs.
+  source: https://docs.1kosmos.com/productdocs/docs/app-integrations/oidc-application/
+- id: saml2
+  conforms: true
+  evidence: Generic SAML application and WS-Fed application integrations documented in the product docs.
+  source: https://docs.1kosmos.com/productdocs/docs/app-integrations/generic-saml-application/
+- id: scim
+  conforms: false
+  evidence: No SCIM 2.0 endpoints or documentation found; user provisioning is via the proprietary /users-mgmt service.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json; three proprietary error envelopes coexist (see errors/1kosmos-problem-types.yml).
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every 1Kosmos host probed (see well-known/1kosmos-well-known.yml).
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 (or an HTML catch-all) on every host probed.
+- id: oidc-discovery
+  conforms: false
+  evidence: >-
+    No anonymous /.well-known/openid-configuration was reachable, despite BlockID acting as an OIDC
+    authorization server. Discovery metadata appears to be tenant-internal.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No deprecation policy or Sunset header contract published.
+- id: openapi
+  conforms: false
+  evidence: >-
+    1Kosmos publishes no OpenAPI. The machine-readable contract it does publish is a Postman
+    collection; openapi/1kosmos-blockid-openapi.yml in this repo is an API Evangelist derivation of
+    that collection, not a provider artifact.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key contract documented anywhere (see conventions/1kosmos-conventions.yml).
+regulatory_context:
+- {regime: FedRAMP, status: authorized, level: High}
+- {regime: NIST SP 800-63-3, status: conformant, level: IAL2/AAL2, assessor: Kantara Initiative}

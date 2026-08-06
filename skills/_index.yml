@@ -1,0 +1,36 @@
+generated: '2026-08-05'
+method: generated
+source: openapi/1kosmos-blockid-openapi.yml + conventions/1kosmos-conventions.yml + errors/1kosmos-problem-types.yml
+note: >-
+  No provider-published Agent Skills or AGENTS.md exists — the developer portal and the GitHub org
+  were checked. These are API Evangelist skills, every step grounded in an operationId that exists
+  verbatim in openapi/1kosmos-blockid-openapi.yml.
+skills:
+- file: 1kosmos-bootstrap-tenant.md
+  name: Bootstrap a 1Kosmos BlockID tenant session
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [setUpGetTenantCommunityInfo, setUpFetchSD]
+- file: 1kosmos-verify-government-id.md
+  name: Verify a government ID document with IDVerify
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [idVerificationCreateIDVerificationSession, idVerificationPollIDVerificationSession]
+- file: 1kosmos-one-time-passcode.md
+  name: Send and verify a one-time passcode
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [otpGenerateOTPSMS, otpVerifyOTPR3, otpVerifyOTPR2]
+- file: 1kosmos-verifiable-credentials.md
+  name: Issue and verify W3C Verifiable Credentials
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [verifiableCredentialsCreateVerifiableCredentialFromPayload, verifiableCredentialsGetVerifiableCredentialStatus,
+    verifiableCredentialsVerifyVerifiableCredential, verifiableCredentialsIssueVerifiablePresentation,
+    verifiableCredentialsVerifyVerifiablePresentation]
+- file: 1kosmos-ial2-proofing-workflow.md
+  name: Run an IAL2 identity-proofing workflow
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [ial2CreateWorkflow, ial2ResultSummary, workflowAPICreateWorkflowInstance, workflowAPINodeResult,
+    ialFetchIALOfAUser]
+- file: 1kosmos-reporting-and-audit.md
+  name: Pull BlockID reports, metrics and audit logs
+  api: openapi/1kosmos-blockid-openapi.yml
+  operations: [reportsEvents, reportsMetrics, reportsAuditLogReport, reportsLoginActivityReport,
+    reportsPasswordlessLoginActivityReport, reportsApplicationUsageReport, reportsLastSeenReport]
