@@ -33,25 +33,160 @@ tags:
 - Security
 - Company
 apis:
-- aid: 1kosmos-blockid
-  name: 1Kosmos BlockID Platform API
-  description: 'The tenant-scoped REST surface of the 1Kosmos BlockID platform: identity
-    verification (IDVerify) document-share sessions, identity assurance level (IAL) lookup, one-time
-    passcode generation and verification, user management, access codes, W3C Verifiable Credential
-    and Verifiable Presentation issuance and verification, IAL2 identity-proofing workflow
-    instances, and reporting/metrics endpoints. Requests are authenticated with an ECDSA-encrypted
-    license key plus the caller public key.'
+- aid: 1kosmos:1kosmos-access-code-api
+  name: 1Kosmos Access Code API
+  description: The Access Code API from 1Kosmos — 2 operation(s) for access code.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - Identity
-  - Authentication
-  - Identity Verification
-  - Verifiable Credentials
-  - One-Time Passcode
+  - Access Code
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-blockid-openapi.yml
+    url: openapi/1kosmos-access-code-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-ial-api
+  name: 1Kosmos IAL API
+  description: The IAL API from 1Kosmos — 1 operation(s) for ial.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - IAL
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-ial-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-ial2-api
+  name: 1Kosmos IAL2 API
+  description: The IAL2 API from 1Kosmos — 2 operation(s) for ial2.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - IAL2
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-ial2-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-id-verification-api
+  name: 1Kosmos ID Verification API
+  description: The ID Verification API from 1Kosmos — 2 operation(s) for id verification.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - ID Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-id-verification-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-otp-api
+  name: 1Kosmos OTP API
+  description: The OTP API from 1Kosmos — 3 operation(s) for otp.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - OTP
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-otp-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-reports-api
+  name: 1Kosmos Reports API
+  description: The Reports API from 1Kosmos — 7 operation(s) for reports.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-reports-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-set-up-api
+  name: 1Kosmos Set up API
+  description: The Set up API from 1Kosmos — 2 operation(s) for set up.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Set up
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-set-up-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-user-management-api
+  name: 1Kosmos User Management API
+  description: The User Management API from 1Kosmos — 3 operation(s) for user management.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-user-management-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verifiable-credentials-api
+  name: 1Kosmos Verifiable Credentials API
+  description: The Verifiable Credentials API from 1Kosmos — 5 operation(s) for verifiable credentials.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verifiable Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verifiable-credentials-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-workflow-api-api
+  name: 1Kosmos Workflow API API
+  description: The Workflow API API from 1Kosmos — 2 operation(s) for workflow api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Workflow API
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-workflow-api-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
@@ -64,6 +199,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: MCPServer
+  url: mcp/1kosmos-mcp.yml
 - type: Website
   url: https://www.1kosmos.com/
 - type: DeveloperPortal
@@ -95,7 +232,7 @@ common:
 - type: Sandbox
   url: sandbox/1kosmos-sandbox.yml
 - type: OpenAPI
-  url: openapi/1kosmos-blockid-openapi.yml
+  url: openapi/_original/1kosmos-blockid-openapi.yml
 - type: Packages
   url: packages/1kosmos-packages.yml
 - type: SDKs
