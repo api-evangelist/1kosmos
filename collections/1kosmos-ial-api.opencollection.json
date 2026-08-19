@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform IAL API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IAL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch IAL of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDNS}/api/r1/community/:communityName/userid/:userId/ial",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "tenant_name",
+                "value": ""
+              },
+              {
+                "name": "community_name",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "communityName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This API retrieves the Identity Assurance Level(s) of users based on their username. It also shows the user's identity documents that were submitted as proof of identity. The API indicates whether the user falls under the IAL1 or IAL2 category.\n\nNote: The proofs will only be displayed only if the user's identity documents have been verified by certified third-party organizations such as AAMVA, IDRND, and so on.\n\nPrerequisites:\n\nUsers are required to have at least one of the following documents e"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

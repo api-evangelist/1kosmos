@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform IAL API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: IAL
+paths:
+  /api/r1/community/{communityName}/userid/{userId}/ial:
+    get:
+      operationId: ialFetchIALOfAUser
+      summary: Fetch IAL of a user
+      description: "This API retrieves the Identity Assurance Level(s) of users based on their username. It also shows the user's identity documents that were submitted as proof of identity. The API indicates whether the user falls under the IAL1 or IAL2 category.\n\nNote: The proofs will only be displayed only if the user's identity documents have been verified by certified third-party organizations such as AAMVA, IDRND, and so on.\n\nPrerequisites:\n\nUsers are required to have at least one of the following documents enrolled in their web wallet.\n\nDriving License\n\nPassport\n\nSSN\n\nYou must use the tenant DNS, public key and private key specific to your organization. For more information, reach out to your 1Kosmos representative.\n\nResponses:\n\n1Kosmos's API responses are encrypted using Elliptic Curve Digital Signature Agorithm (ECDSA) to ensure secure data transmission. To view the responses in the decrypted format, you must use a helper that is compatible with ECDSA.\n\nThis API generates the following types of responses:\n\nScenario 1:\n\nIf the user has not enrolled any of their documents to the web wallet, their did value would be blank:\n\nEncrypted Response\nDecrypted Response\n\nMmE2MzVhNjJlNGQyMzQzMrODkyiatZgbfMl3dDOyaosXLRLeSMyiFyDwpOYVEWMxsb1pFcYJBWj33dzzK8z95DDr+Vbum7Bq8ctfObpyGadBcK+aPfS2YNKxpeAkIhu9AktSGIUHA2KM5wPZB+aDisFQ+vhB2YtOdjrc3R+wshZZzOAgWD5amhHkb7/5mAhUO9dMJ7QTJVaGh1U1y7KQ\n{  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"30620813-265f-4386-be49-26aa3af330f7\",  \n\"username\": \"jondoe\"  \n},  \n\"did\": {}  \n}\n\nScenario 2:\n\nIf the user is IAL1 certified, the did displays its value and the assurance level of the user.\n\nNote: The proofs will only be displayed in the response if the user's identity documents have been verified by certified third-party organizations such as AAMVA.\n\nEncrypted Response\nDecrypted Response\n\n\"NGMyN2I2NzM2ZjRkNWQ4ZINj/3r0jBLOAbzAUe4Ob+vEtCpWME8nphfiI97G1l/lKj8VMeSQUiKrzUIxv2E2StEniVZx4bF8cIsi29l5SThwxxG09NrNlELNFt9X2RsprxZcOODAhzNmfs750VctbNymsrM2+oL0n50oh1zzc+oXIRrwgY64rJdKinISpYpKVdQHfO8vNvRt1KlZ6joyLh3nYdDMPHbeWMN6TAtLL/BEnOeb922lfi+9piuwyDqWNZoRYByvMYknfE+/Tw5+RZ+LFwMDBGJbbPAlmp7Fu16xpZT48+nU3ShU\"  \n}\n{  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"e855ddfd-7ef0-4d34-8fad-d5b919059619\",  \n\"username\": \"john\"  \n},  \n\"did\": {  \n\"ab78ea7df3a4b2fbb2b37fa60b08204ca6e701db\": {  \n\"value\": \"IAL1\",  \n\"proofs\": []  \n}  \n}  \n}\n\nScenario 3:\n\nIf the user is IAL2 certified, the DID will display its value along with the assurance level and the proof that was verified to obtain IAL2 certification.\n\nEncrypted Response\nDecrypted Response\n\n\"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\"\n{  \n\"user\": {  \n\"authModuleId\": \"6087371a80abe60013fb30b5\",  \n\"uid\": \"c3f4ef6a-8a3e-478b-a01c-eba38d2a5427\",  \n\"username\": \"bhargavi\"  \n},  \n\"did\": {  \n\"94adb4156f52329548de4a3c6ede5a89d140bcc6\": {  \n\"value\": \"IAL2\",  \n\"proofs\": [  \n{  \n\"type\": \"ssn_affidavit\",  \n\"proof\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovLzFrLWRldi4xa29zbW9zLm5ldC9kZWZhdWx0IiwiaXNzIjoiaHR0cHM6Ly8xay1kZXYuMWtvc21vcy5uZXQvYWRtaW4vZGVmYXVsdCIsImlzc3VlciI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpZG9jIn0sInJlY2lwaWVudCI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpIn0sImRvY3VtZW50Ijp7InR5cGUiOiJzc25fYWZmaWRhdml0IiwiZG9lIjoiMjAyNTA4MTAiLCJpZF9oYXNoIjoiZDllNjc2MmRkMWM4ZWFmNmQ2MWIzYzYxOTJmYzQwOGQ0ZDZkNWYxMTc2ZDBjMjkxNjliYzI0ZTcxYzNmMjc0YWQyN2ZjZDU4MTFiMzEzZDY4MWY3ZTU1ZWMwMmQ3M2Q0OTljOTU0NTViNmI1YmI1MDNhY2Y1NzRmYmE4ZmZlODUifSwidHMiOjE3NDA3MzkzMDA4OTQsInB1cnBvc2UiOlsiaWFsIl0sImlhdCI6MTc0MDczOTMwMCwiZXhwIjoxNzU0NzgzOTk5fQ.A07aCM2zWxo8f1VQlIxV49O9MWbRYWUOqaCD2xUvmI8\"  \n},  \n{  \n\"type\": \"dl_affidavit\",  \n\"proof\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovLzFrLWRldi4xa29zbW9zLm5ldC9kZWZhdWx0IiwiaXNzIjoiaHR0cHM6Ly8xay1kZXYuMWtvc21vcy5uZXQvYWRtaW4vZGVmYXVsdCIsImlzc3VlciI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpZG9jIn0sInJlY2lwaWVudCI6eyJ1c2VybmFtZSI6ImJoYXJnYXZpIn0sImRvY3VtZW50Ijp7InR5cGUiOiJkbF9hZmZpZGF2aXQiLCJkb2UiOiIyMDI1MDUxMCIsImlkX2hhc2giOiJkOWU2NzYyZGQxYzhlYWY2ZDYxYjNjNjE5MmZjNDA4ZDRkNmQ1ZjExNzZkMGMyOTE2OWJjMjRlNzFjM2YyNzRhZDI3ZmNkNTgxMWIzMTNkNjgxZjdlNTVlYzAyZDczZDQ5OWM5NTQ1NWI2YjViYjUwM2FjZjU3NGZiYThmZmU4NSJ9LCJ0cyI6MTc0MDczOTI3NzYwNCwicHVycG9zZSI6WyJpYWwiXSwiaWF0IjoxNzQwNzM5Mjc3LCJleHAiOjE3NDY4MzUxOTl9.wz7EUaO1HVk9kYh9UNn4wcJG9zpT2mu9y78xOW1d4Ts\"  \n}  \n]  \n}  \n}  \n}\n\nSample Response Parameters:\n\nThe following table provides the sample response parameters:\n\nParameter\nDescription\n\nauthModuleID\n\nuid\nUnique Identifier\n\nusername\nName of the user\n\ndid\ndid of the wallet\n\nvalue\nDisplays whether the user belongs to IAL1 or IAL2 category.\n\nproofs\nType of document present in the wallet."
+      tags:
+      - IAL
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: tenant_name
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: community_name
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: IAL2 with proofs
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: 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
+      x-postman-request: '{{tenantDNS}}/api/r1/community/{{community_name}}/userid/johndoe/ial'
+      x-postman-variants:
+      - Fetch IAL of a user
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

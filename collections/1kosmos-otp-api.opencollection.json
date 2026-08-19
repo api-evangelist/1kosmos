@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform OTP API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OTP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate OTP - SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/api/r2/otp/generate",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "noecdsa",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate OTP via SMS\nThis endpoint generates a One-Time Password (OTP) for a specified user within a community. The OTP can be sent via SMS based on the provided parameters.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r2/otp/generate\n\nRequest Body\nThe request body must be in JSON format and should include the following parameters:\n\nField Name\nRequired Field\nType\nDescription\n\nuserId\nYes\nstring\nThe unique identifier of the user. It can be User's ID or UUID or any other transaction ID\n\ncommunityI"
+        },
+        {
+          "info": {
+            "name": "Verify OTP R2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/api/r2/otp/verify",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "noecdsa",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify OTP Endpoint\nThis endpoint is used to verify a One-Time Password (OTP) submitted by a user during the authentication process. It ensures that the provided OTP corresponds to the user and is valid for the specified community and tenant.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r2/otp/verify\n\nRequest Body Parameters\nThe request body must be sent in JSON format and should include the following parameters:\n\nField Name\nRequired Field\nType\nDescription\n\ncode\nYes\nstring\nThe OTP code that the"
+        },
+        {
+          "info": {
+            "name": "Verify OTP R3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/api/r3/otp/verify",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "noecdsa",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify OTP Standardized Endpoint\nThis endpoint is used to verify a One-Time Password (OTP) submitted by a user during the authentication process. It ensures that the provided OTP corresponds to the user and is valid for the specified community and tenant with standardized success & error responses.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r3/otp/verify\n\nRequest Body Parameters\nThe request body must be sent in JSON format and should include the following parameters:\n\nField Name\nRequired Fiel"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

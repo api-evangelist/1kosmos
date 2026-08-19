@@ -1,0 +1,309 @@
+{
+  "item": [
+    {
+      "id": "03a9a6e1-3ed1-48ff-99a7-a0f0380b8be6",
+      "name": "IAL2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0f1dbcd-de8a-4987-ae55-73088255a885",
+          "name": "Create Workflow",
+          "request": {
+            "name": "Create Workflow",
+            "description": {},
+            "url": {
+              "path": [
+                "idproofingapi",
+                "workflow",
+                "workflow_instance",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1e190d7f-57f9-4cfb-a4a9-0e7c7e2d2260",
+              "name": "Workflow instance",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "idproofingapi",
+                    "workflow",
+                    "workflow_instance",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"workflowId\": \"586ea2ee-liveid_2doc_ssn\",\n    \"metaData\": {\n      \"firstname\": \"John\",\n      \"lastname\": \"Doe\",\n      \"dob\": \"19900101\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"8jHKe7E6ZatoTfeeUXe5UGgpChHF1z9KnxQejSeLZ1XQExmkIrj8eMB70Z8AZbwrU90VAfLVAfjlbvUmC3QKvbXRl+XEW9F2mkh2ztZVyTRg/3a91oNztywM5eGbPUAUxeZ1tEV7iXnVkAEwEmA+kyh8ejYJWwTT3fBiNneHLCieoXIBxNM1/YIB7DzS7Vyxx5GpYroxd1AD75l2YwjGGpaS/p5Ct3URaVB+zCDrJDKllSh1iBItTPe3VSx+nZt8d/sQGYhXNInEgPpk/D4=\",\n  \"publicKey\": \"mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "453b2fe5-09b2-46f9-8b56-13450cf1928c",
+          "name": "result summary",
+          "request": {
+            "name": "result summary",
+            "description": {},
+            "url": {
+              "path": [
+                "idproofingapi",
+                "workflow",
+                "workflow_instance",
+                ":instanceId",
+                "result_summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instanceId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "296a9da9-d9fa-405b-a2df-3f2bc7b4e9a2",
+              "name": "View result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "idproofingapi",
+                    "workflow",
+                    "workflow_instance",
+                    ":instanceId",
+                    "result_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instanceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"KEzgtQeKT8tKmme5yUySWb4eHo+zNEAR4uFMt/v/IhgSUJyQBkb7Ah+ny1VMZZFdA4WQFc6Em+Wc+zb4ceIfDTr550nHSyoEDq6+nMU/s04SyslDE1Ewhvua7+C/JTwFLepvgU0N5Me0hjBVRRj8CHZl2lzM75es7En4iD9vMymnIefwAdTYGWkBQxPGm+u2p1FRDf+Pm+fJl8dxJT9SEcDpWD7NVoppocD7Uo/6mLVMFUo8rO+l990tG+/cisOpeTnv60X7MlfIZ/t6dvpwCSWeMN1VTzRZUrV7MKcVVfTfJPlWpCiYJOQGYEGh5KdsmwkwYpBfx9PaSESWPpsBLNlIVFpt4OpJa3F0HqbocCKhYhayPpkSvTAAoMn0j6w28adDijlxaOWZbFmQKMMwCMIB83jCANpHf/ImJRli3uUBX05myqe2xL/5qP3nm/vTd4lyff7F7Nx5EyzUpqLiKjlCo7z22fu4B/2SJkv/6zIyNz0nEFrH9mUiGl+i2f2Z0WdnPgyEEj3fiwoB8Fhl8XBgKk59SGqC\",\n  \"publicKey\": \"mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "47a53107-d1d1-45b9-bfe1-a4d637fa749d",
+    "name": "1Kosmos BlockID Platform IAL2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,694 @@
+{
+  "item": [
+    {
+      "id": "cf677b43-9aff-406c-96c1-e95ea478ba2b",
+      "name": "OTP",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "136aa98b-c5fb-4bc9-b171-61db297e2fa5",
+          "name": "Generate OTP - SMS",
+          "request": {
+            "name": "Generate OTP - SMS",
+            "description": {
+              "content": "Generate OTP via SMS\nThis endpoint generates a One-Time Password (OTP) for a specified user within a community. The OTP can be sent via SMS based on the provided parameters.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r2/otp/generate\n\nRequest Body\nThe request body must be in JSON format and should include the following parameters:\n\nField Name\nRequired Field\nType\nDescription\n\nuserId\nYes\nstring\nThe unique identifier of the user. It can be User's ID or UUID or any other transaction ID\n\ncommunityId\nYes\nstring\nThe identifier of the community associated with the user.\n\ntenantId\nYes\nstring\nThe identifier for the tenant in which the user exists.\n\nsmsTo\nYes\nstring\nThe recipient's phone number for OTP via SMS.\n\nsmsISDCode\nYes\nstring\nThe International Subscriber Dialing code for the SMS.\n\nsmsFrom\nNo\nstring\nThe identifier for the source of the SMS.\n\nsmsTemplateB64\nNo\nstring\nA base64 encoded template for the SMS message.\n\nsmsTemplateId\nNo\nstring\nThe identifier for the SMS template.\n\ntrace\nNo\nboolean\nA flag to enable or disable tracing for the request.\n\nvaliditySeconds\nNo\ninteger\nOTP expiration Time\n\nserviceName\nNo\nstring\nName of the service for which OTP was generated\n\nResponse\nThe response will return a status code indicating the result of the OTP generation request.\n\nStatus Code: 202 (Accepted)\n\nContent-Type: application/json\n\nResponse Body:\n\nmessageId (string): An identifier for the message sent. In this case, it may be empty.\n\ninfo (string): Additional information about the request. This may also be empty.\n\nNotes\n\nEnsure that all parameters are provided correctly to avoid errors.\n\nA 202 status code indicates that the request has been accepted for processing, but the processing is not yet complete.\n\nThe email and SMS templates should be properly formatted to ensure successful delivery of the OTP.\n\nIf you encounter issues, verify that the userId, communityId, tenantId, and contact details are accurate and formatted correctly.\n\nError Response\n\nHTTP Status\nError Message\nDescription\n\n400\nThis userId or userPublicKey is mandatory\nRequest payload without user info\n\n400\nUnable to load tenant/community\nWrong community ID or tenant ID\n\n401\nInvalid License Key\nEntered License is invalid\n\n403\nOTP locked for the user\nOTP locked for the user\n\n404\nNot Found\nNot Found",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "r2",
+                "otp",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "No Data encryption",
+                "key": "noecdsa",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdb35e44-adcc-4df3-bbb1-96547def0dc2",
+              "name": "SMS & EMAIL OTP - Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "otp",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\",\n  \"smsTo\": \"919999999999\",\n  \"smsISDCode\": \"91\",\n  \"smsFrom\": \"1Kosmos\",\n  \"smsTemplateB64\": \"\",\n  \"smsTemplateId\": \"\",\n  \"trace\": true,\n  \"serviceName\": \"1Kosmos\",\n  \"validitySeconds\": 120\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messageId\": \"c3db28f5-afe7-456f-973e-e77096ad68bd\",\n  \"info\": \"OTP request accepted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19bc0a8a-07cd-4d23-98c9-467c16ded8e9",
+              "name": "No Request Body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "otp",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\",\n  \"smsTo\": \"919999999999\",\n  \"smsISDCode\": \"91\",\n  \"smsFrom\": \"1Kosmos\",\n  \"smsTemplateB64\": \"\",\n  \"smsTemplateId\": \"\",\n  \"trace\": true,\n  \"serviceName\": \"1Kosmos\",\n  \"validitySeconds\": 120\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unable to load tenant/community\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6bf2d62-7f02-45e8-9825-ed53a456df8d",
+              "name": "Payload without Phone Mobile Number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "otp",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\",\n  \"smsTo\": \"919999999999\",\n  \"smsISDCode\": \"91\",\n  \"smsFrom\": \"1Kosmos\",\n  \"smsTemplateB64\": \"\",\n  \"smsTemplateId\": \"\",\n  \"trace\": true,\n  \"serviceName\": \"1Kosmos\",\n  \"validitySeconds\": 120\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2d506dc-4262-4f93-a8ef-4d21f2c23492",
+          "name": "Verify OTP R2",
+          "request": {
+            "name": "Verify OTP R2",
+            "description": {
+              "content": "Verify OTP Endpoint\nThis endpoint is used to verify a One-Time Password (OTP) submitted by a user during the authentication process. It ensures that the provided OTP corresponds to the user and is valid for the specified community and tenant.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r2/otp/verify\n\nRequest Body Parameters\nThe request body must be sent in JSON format and should include the following parameters:\n\nField Name\nRequired Field\nType\nDescription\n\ncode\nYes\nstring\nThe OTP code that the user has received and is attempting to verify.\n\nuserId\nYes\nstring\nThe same unique identifier used to generate the OTP.\n\nuserPublicKey\nNo\nstring\nThe public key associated with the user, used for cryptographic verification.\n\ncommunityId\nYes\nstring\nThe identifier for the community to which the user belongs.\n\ntenantId\nYes\nstring\nThe identifier for the tenant associated with the community.\n\nserviceName\nNo\nstring\nName of the service for which OTP is being verified\n\nResponse\nThe response will be returned in JSON format. The structure of the response may include:\n\nField Name\nType\nDescription\n\nerror_code\ninteger\nA code representing the status of the request. A value of 0 typically indicates no error.\n\nmessage\nstring\nA message providing additional information about the request status. This may be empty or contain relevant info.\n\nstatus\nboolean\nIndicates whether the OTP verification was successful or not.\n\nExample Response\n{\n  \"error_code\": 0,\n  \"message\": \"\",\n  \"status\": true\n}\n\nError Response\n\nHTTP Status\nError Message\nDescription\n\n403\nOTP request locked for the user.\nToo many wrong OTPs & tries a new OTP\n\n410\nOTP match found, but the validity time has expired\nExpired OTP\n\n404\nInvalid OTP\nWrong OTP\n\n400\nUnable to load tenant/community\nIncorrect tenant/community\n\n409\nOTP already used\nOTP already used\n\n410\nOTP match found, but the validity time has expired.\nOTP match found, but the validity time has expired.\n\nAdditional Notes\n\nA 404 status code indicates that the requested resource was not found. This may occur if the userId, communityId, or tenantId does not match any existing records.\n\nEnsure that the OTP code is valid and has not expired before making the request.\n\nThe response may vary based on the success or failure of the verification process.\n\nThis endpoint is crucial for maintaining secure access to user accounts by validating OTPs during the login process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "r2",
+                "otp",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "No Data encryption",
+                "key": "noecdsa",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76e88398-edea-40da-acdf-fc6f7aa7e427",
+              "name": "Verify OTP - Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "otp",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"835096\",\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"otp_type\": \"user-generated\",\n  \"status\": \"true\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "238b1713-76be-4c9c-b56f-66e2b7995afc",
+              "name": "Invalid OTP",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "otp",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"835096\",\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_code\": 404,\n  \"message\": \"Invalid OTP\",\n  \"status\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7191093a-0111-42ef-b803-058948d54597",
+          "name": "Verify OTP R3",
+          "request": {
+            "name": "Verify OTP R3",
+            "description": {
+              "content": "Verify OTP Standardized Endpoint\nThis endpoint is used to verify a One-Time Password (OTP) submitted by a user during the authentication process. It ensures that the provided OTP corresponds to the user and is valid for the specified community and tenant with standardized success & error responses.\n\nRequest\nMethod: POST\nURL: {{client_api}}/api/r3/otp/verify\n\nRequest Body Parameters\nThe request body must be sent in JSON format and should include the following parameters:\n\nField Name\nRequired Field\nType\nDescription\n\ncode\nYes\nstring\nThe OTP code that the user has received and is attempting to verify.\n\nuserId\nYes\nstring\nThe same unique identifier used to generate the OTP.\n\nuserPublicKey\nNo\nstring\nThe public key associated with the user, used for cryptographic verification.\n\ncommunityId\nYes\nstring\nThe identifier for the community to which the user belongs.\n\ntenantId\nYes\nstring\nThe identifier for the tenant associated with the community.\n\nserviceName\nNo\nstring\nName of the service for which OTP is being verified\n\nResponse\nThe response will be returned in JSON format. The structure of the response may include:\n\nField Name\nType\nDescription\n\nerror_code\ninteger\nA code representing the status of the request. A value of 0 typically indicates no error.\n\nerror_message\nstring\nA message providing additional information about the request status. This may be empty or contain relevant info.\n\nmessage\nstring\nA message providing additional information about the request status. This may be empty or contain relevant info.\n\nstatus\nboolean\nIndicates whether the OTP verification was successful or not.\n\nExample Response\n{\n  \"error_code\": 0,\n  \"error_maessage\": \"\",\n  \"message\": \"\",\n  \"status\": true\n}\n\nError Response\n\nHTTP Status\nError Code\nError Message\nDescription\n\n400\nE10001\nInvalid OTP\nWrong OTP\n\n400\nE10002\nOTP already used\nOTP already used\n\n400\nE10003\nOTP match found, but the validity time has expired\nExpired OTP\n\n400\nE11001\nOTP request locked for the user.\nToo many wrong OTPs & user account is locked.\n\n400\nE20001\nUnable to load tenant/community\nIncorrect tenant/community\n\n401\nE20002\nInvalid License key\nLicense key used is not authorized\n\nAdditional Notes\n\nEnsure that the OTP code is valid and has not expired before making the request.\n\nThe response may vary based on the success or failure of the verification process.\n\nThis endpoint is crucial for maintaining secure access to user accounts by validating OTPs during the authentication process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "r3",
+                "otp",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "No Data encryption",
+                "key": "noecdsa",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8fde853e-1704-45be-8323-e4d26f679976",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r3",
+                    "otp",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON string which should contain \"appid (string)\", \"uuid (string)\" and \"ts (number)\" representing epoch timestamp in seconds - it should not be more or less than 60 seconds from now",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "No Data encryption",
+                    "key": "noecdsa",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"835096\",\n  \"userId\": \"john.doe\",\n  \"communityId\": \"\",\n  \"tenantId\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "90c6a3a1-7260-4c6e-9fa0-7879eb13d8cb",
+    "name": "1Kosmos BlockID Platform OTP API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

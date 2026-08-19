@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform Access Code API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Code",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenantDNS}/api/r2/acr/community/:community/code",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "noecdsa",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "community",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Community Verification Link\nThis endpoint allows the client to update the verification link for a specific community identified by its code. It utilizes the HTTP PUT method to send the required data.\n\nRequest\nMethod: PUT\nEndpoint: {{client_api}}/api/r2/acr/community/:community/code\n\nRequest Body Parameters\nThe request body must be in JSON format and include the following parameters:\n\nResponse\nOn a successful request, the API will return a JSON response with the following structure:\n\nemail"
+        },
+        {
+          "info": {
+            "name": "Redeem Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/api/r1/acr/community/:community/:code/redeem",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              },
+              {
+                "name": "noecdsa",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "community",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Redeem Access Code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

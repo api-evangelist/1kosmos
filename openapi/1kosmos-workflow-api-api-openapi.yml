@@ -1,0 +1,126 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform Workflow API API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: Workflow API
+paths:
+  /workflowapi/workflow_instance/tenant/{tenantId}/community/{communityId}/create:
+    post:
+      operationId: workflowAPICreateWorkflowInstance
+      summary: Create Workflow Instance
+      tags:
+      - Workflow API
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data: '{{enc_body_data}}'
+      responses:
+        '200':
+          description: Workflow Instance
+      x-postman-request: '{{wf_api}}/workflowapi/workflow_instance/tenant/:tenantId/community/:communityId/create'
+      x-postman-variants:
+      - Create Workflow Instance
+  /workflowapi/workflow_instance/{wfInstanceId}/tenant/{tenantId}/community/{communityId}/node/{nodeId}:
+    get:
+      operationId: workflowAPINodeResult
+      summary: Node Result
+      tags:
+      - Workflow API
+      parameters:
+      - name: wfInstanceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Node Result
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: WRzC2f6cAaJLrday+2vSqtdqzEp0oYu0jxgGhtP9FAyJRSDNWcie2x+re+nwDPnsZRqFJzM8uFh0GuLLCcVuZl7oiMoj5FVjy2Mqhy7ax0KGF6c/LzwkvJ3f24GNTEC+BqNoQkEIWrgGSecKvSS3qrrGkifWuh8IyLs/1l1gmuvvBgXIX5E6pJds4RPoxXsmqch3jUr6sA0KMwto7yiu8qaxxaOhjqR7+r5QAXN/c11X3ID67ZQRoDp3OWXQkUXr4z0AZinariygY1W+23n1WS8Uqb6rpsfYRJVG2NKZN9oRXSXuO6DyYbi2ZxEdVnPzRH/wE4KPx/0Ed7HoH5cTS7io1K5LebOfsnxYR/OaKyyB6RnW7zDmMpKzGO5eCJyRku/kQJJBAPIH89sgOPcXZGfUIydhr4ELnR7bOci+43dmEras4T1FT+H/hMk7G3SYX+HgVIH9PuRlVy49Hn+AAkUMTQscvDeG99RfvATKsFqiKub2jH7q3gp/X88EFj4IibB7UKX7muVm3DlI2lJfpf9/f7Rhj0tx6sxF7nvJNiV/eq4AUJUAAzHJff2SajZ2NzwbbcTmKe8J+ou1jl53uPWlDAC4AA==
+                publicKey: 1hj9IXQjFVGsHidbo/9Uv7sd+eZjzy7Uq2643O2n+yd4XCnr9CWHIO3Kid7AvXMx5yOI+aeAtg1jfKxMkUhauQ==
+                signature_token: aaddd1e69ba2c709a
+      x-postman-request: '{{wf_api}}/workflowapi/workflow_instance/:wfInstanceId/tenant/:tenantId/community/:communityId/node/:nodeId'
+      x-postman-variants:
+      - Node Result
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

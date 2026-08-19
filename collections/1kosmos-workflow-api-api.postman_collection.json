@@ -1,0 +1,385 @@
+{
+  "item": [
+    {
+      "id": "6b9fa98f-76e1-492c-b135-5d1e41c616d6",
+      "name": "Workflow API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d5420152-247e-4fb9-8add-fddbb5950fc8",
+          "name": "Create Workflow Instance",
+          "request": {
+            "name": "Create Workflow Instance",
+            "description": {},
+            "url": {
+              "path": [
+                "workflowapi",
+                "workflow_instance",
+                "tenant",
+                ":tenantId",
+                "community",
+                ":communityId",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestId",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "613bb074-152a-48dd-b3ba-63f5f254f620",
+              "name": "Workflow Instance",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflowapi",
+                    "workflow_instance",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestId",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"{{enc_body_data}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7a4ea3b-8949-4daa-93a3-f495602810f1",
+          "name": "Node Result",
+          "request": {
+            "name": "Node Result",
+            "description": {},
+            "url": {
+              "path": [
+                "workflowapi",
+                "workflow_instance",
+                ":wfInstanceId",
+                "tenant",
+                ":tenantId",
+                "community",
+                ":communityId",
+                "node",
+                ":nodeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "wfInstanceId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "nodeId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d69f3bda-d73c-4363-ae06-cec1cdf389b6",
+              "name": "Node Result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflowapi",
+                    "workflow_instance",
+                    ":wfInstanceId",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "node",
+                    ":nodeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "wfInstanceId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "nodeId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"WRzC2f6cAaJLrday+2vSqtdqzEp0oYu0jxgGhtP9FAyJRSDNWcie2x+re+nwDPnsZRqFJzM8uFh0GuLLCcVuZl7oiMoj5FVjy2Mqhy7ax0KGF6c/LzwkvJ3f24GNTEC+BqNoQkEIWrgGSecKvSS3qrrGkifWuh8IyLs/1l1gmuvvBgXIX5E6pJds4RPoxXsmqch3jUr6sA0KMwto7yiu8qaxxaOhjqR7+r5QAXN/c11X3ID67ZQRoDp3OWXQkUXr4z0AZinariygY1W+23n1WS8Uqb6rpsfYRJVG2NKZN9oRXSXuO6DyYbi2ZxEdVnPzRH/wE4KPx/0Ed7HoH5cTS7io1K5LebOfsnxYR/OaKyyB6RnW7zDmMpKzGO5eCJyRku/kQJJBAPIH89sgOPcXZGfUIydhr4ELnR7bOci+43dmEras4T1FT+H/hMk7G3SYX+HgVIH9PuRlVy49Hn+AAkUMTQscvDeG99RfvATKsFqiKub2jH7q3gp/X88EFj4IibB7UKX7muVm3DlI2lJfpf9/f7Rhj0tx6sxF7nvJNiV/eq4AUJUAAzHJff2SajZ2NzwbbcTmKe8J+ou1jl53uPWlDAC4AA==\",\n  \"publicKey\": \"1hj9IXQjFVGsHidbo/9Uv7sd+eZjzy7Uq2643O2n+yd4XCnr9CWHIO3Kid7AvXMx5yOI+aeAtg1jfKxMkUhauQ==\",\n  \"signature_token\": \"aaddd1e69ba2c709a\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aac65297-af0c-40ed-b5cd-b081e6fe2240",
+    "name": "1Kosmos BlockID Platform Workflow API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

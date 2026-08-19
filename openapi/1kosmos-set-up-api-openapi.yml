@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform Set up API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: Set up
+paths:
+  /api/r1/system/community_info/fetch:
+    post:
+      operationId: setUpGetTenantCommunityInfo
+      summary: Get Tenant Community Info
+      description: 'This API is used to fetch the complete details of both the tenant and the community that were set as the environment variables.
+
+
+        These details include configured tenant dns name and the list of other tenant DNS. Additionally, the community details include the logo URL used in the community, tenant tag, and so on. The logo details will be displayed only if you had set the skipLogos parameter in the payload to false.
+
+
+        Mandatory Parmameters
+
+
+        dns - Use the dns name of the tenant as a variable.
+
+
+        communityName - Specify the community name as a variable.
+
+
+        Optional Parameters
+
+        skipLogos - This is a boolean parameter. Specifying this value as false displays the logo details in the response.'
+      tags:
+      - Set up
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              dns: '{{tenantDNS}}'
+              communityName: '{{community_name}}'
+              skipLogos: false
+      responses:
+        '200':
+          description: Tenant Community Info
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                tenant:
+                  id: 5f3d8d0cd********19cf968
+                  firstname: Acme
+                  lastname: Admin
+                  tenanttype: master
+                  tenanttag: acme
+                  name: Acme
+                  otherDNS:
+                  - acme.1kosmos.net
+                  - local.acme.net
+                  - acme-console.1kosmos.com
+                  - localblockid.com
+                  - localhost
+                  - acme-newconsole.example.com
+                  - 73c4-**-**-67-119.ngrok.io
+                  - acme-default.1kosmos.net
+                  - acme-console
+                  displayTenantInfoForPersona: true
+                community:
+                  id: 5f3d8d0cd********19cf969
+                  tenantid: 5f3d8d0cd********19cf968
+                  logo: iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAANIElEQVR4nOzXj7cXdH3HcS/cpW7hjiCbHYU8mUgjcQotdDonZzbF7FRza8M6WkscYrbjZE5SiqudHG55tGUmAbPhtGaKvw6SLo3DGjGFc/OQMMpq/AgwwAOxiSnur3id4zmvx+MPeL3vuef7Pc/vZ/CIP/zBYj
+                  mobileLogo: ''
+                  name: default
+                  publicKey: dkW7xYymDr4Rh4wEGazMdtiDzaGQtzgfby7F/z1eJchUjebTmYxkKcW7cHAg12zFWYEeJF9erjwoKw0BOHqtYw==
+                  accountsPerPerson: 12
+                  personsPerAccount: 20
+                  personLimitRule: reject
+                  otpSeed: null
+                message: null
+      x-postman-request: https://{{tenantDNS}}/api/r1/system/community_info/fetch
+      x-postman-variants:
+      - Get Tenant Community Info
+  /caas/sd:
+    get:
+      operationId: setUpFetchSD
+      summary: Fetch SD
+      description: This API is used to retrieve all microservices associated with your tenant. You must execute this API to know the URLs of each services. For example, if service A want to call service B, it is necessary for service A to know the URL for service B.
+      tags:
+      - Set up
+      responses:
+        '200':
+          description: Successful response
+      x-postman-request: https://{{tenantDNS}}/caas/sd
+      x-postman-variants:
+      - Fetch SD
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

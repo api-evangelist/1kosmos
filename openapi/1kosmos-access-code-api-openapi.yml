@@ -1,0 +1,153 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform Access Code API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: Access Code
+paths:
+  /api/r2/acr/community/{community}/code:
+    put:
+      operationId: accessCodeCreateAccessCode
+      summary: Create Access Code
+      description: "Update Community Verification Link\nThis endpoint allows the client to update the verification link for a specific community identified by its code. It utilizes the HTTP PUT method to send the required data.\n\nRequest\nMethod: PUT\nEndpoint: {{client_api}}/api/r2/acr/community/:community/code\n\nRequest Body Parameters\nThe request body must be in JSON format and include the following parameters:\n\nResponse\nOn a successful request, the API will return a JSON response with the following structure:\n\nemailResult (object): Contains the result of the email sending operation.\n\nstatus (boolean): Indicates whether the email was successfully sent.\n\nstatusCode (integer): A code representing the status of the operation.\n\nmessage (string): A message providing additional information about the operation.\n\nerror (null or object): Contains error details if the operation failed.\n\ngatewayId (null or string): Identifier for the email gateway used.\n\ngatewayName (null or string): Name of the email gateway used.\n\nresultId (string): Identifier for the result of the email operation.\n\nmessageId (null or string): Identifier for the message sent.\n\nts (integer): Timestamp of the operation.\n\nlink (string): The generated verification link.\n\ncode (string): The code associated with the community.\n\nExample Response\n{\n  \"emailResult\": {\n    \"status\": true,\n    \"statusCode\": 0,\n    \"message\": \"\",\n    \"error\": null,\n    \"gatewayId\": null,\n    \"gatewayName\": null,\n    \"resultId\": \"\",\n    \"messageId\": null,\n    \"ts\": 0\n  },\n  \"link\": \"\",\n  \"code\": \"\"\n}\n\nThis response indicates the success of the email operation and provides the necessary details about the verification link."
+      tags:
+      - Access Code
+      parameters:
+      - name: community
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              createdby: application
+              version: v0
+              type: verification_link
+              emailTo: john.doe@1kosmos.com
+              ttl_seconds: 700
+              emailTemplateB64: Q2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byBsb2cgaW4gdG8gMUtvc21vcyBEZXZlbG9wZXIgRXhwZXJpZW5jZS4gaHR0cHM6Ly9ibG9ja2lkLXRyaWFsLjFrb3Ntb3MubmV0L2RldnBvcnRhbC9kZW1vP2NvZGU9e3tNQUdJQ0xJTkt9fSBUaGlzIGxpbmsgd2lsbCBleHBpcmUgaW4gMjAgbWludXRlcy4=
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                emailResult:
+                  status: true
+                  statusCode: 0
+                  message: https://1k-uat.1kosmos.net/acr
+                  error: null
+                  gatewayId: null
+                  gatewayName: null
+                  resultId: f695243f-1369-4342-93a7-7e3be987fe07
+                  messageId: null
+                  ts: 1750146210
+                link: 7d319855-946f-4922-88f4-fb259b0bff49
+                code: 7d319855-946f-4922-88f4-fb259b0bff49
+        '500':
+          description: 'Fail: Email Required'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Some exception occured while processing the request. smsTo or emailTo are required for this type of code
+        '400':
+          description: 'Fail: Bad Request'
+      x-postman-request: '{{client_api}}/api/r2/acr/community/:community/code'
+      x-postman-variants:
+      - Create Access Code
+  /api/r1/acr/community/{community}/{code}/redeem:
+    post:
+      operationId: accessCodeRedeemAccessCode
+      summary: Redeem Access Code
+      tags:
+      - Access Code
+      parameters:
+      - name: community
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: noecdsa
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example: {}
+      responses:
+        '200':
+          description: Successful response
+      x-postman-request: '{{client_api}}/api/r1/acr/community/:community/:code/redeem'
+      x-postman-variants:
+      - Redeem Access Code
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

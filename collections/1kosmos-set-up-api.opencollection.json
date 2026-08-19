@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform Set up API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Set up",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tenant Community Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/api/r1/system/community_info/fetch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is used to fetch the complete details of both the tenant and the community that were set as the environment variables.\n\nThese details include configured tenant dns name and the list of other tenant DNS. Additionally, the community details include the logo URL used in the community, tenant tag, and so on. The logo details will be displayed only if you had set the skipLogos parameter in the payload to false.\n\nMandatory Parmameters\n\ndns - Use the dns name of the tenant as a variable.\n\ncomm"
+        },
+        {
+          "info": {
+            "name": "Fetch SD",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDNS}/caas/sd"
+          },
+          "docs": "This API is used to retrieve all microservices associated with your tenant. You must execute this API to know the URLs of each services. For example, if service A want to call service B, it is necessary for service A to know the URL for service B."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

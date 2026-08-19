@@ -1,0 +1,445 @@
+{
+  "item": [
+    {
+      "id": "ad23cfc5-c4cc-4e95-87c1-4c082ee2186c",
+      "name": "ID Verification",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c1fb152e-3d3f-4ebd-b730-230be05f1e1b",
+          "name": "Create ID Verification Session",
+          "request": {
+            "name": "Create ID Verification Session",
+            "description": {
+              "content": "This API is used to create a session for a specific document type. You can generate a session with one of the supported documents:\n\nidcard\n\ndriving license\n\npassport\n\nNote: The response displays the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID, tenantDNS, community name, and the type of document for which you want to create a verification session.\n\ndocumentType:\nFor Drivers License: set documentType: \"dl_object\"\nFor Passport: set documentType: \"ppt_object\"\nFor Any other ID Card: set documentType: \"idcard_object\" \n\nNote: You must use your own tenant DNS and community name.\n\nOptional Parameters\n\nusername - Specify the user for whom the session is created.\n\nfirstname - Specify the first name of the user for whom the session is created.\n\nlastname - Specify the last name of the user for whom the session is created.\n\nuid - A unique identifier which help in mapping the session ID to the user performing the verification.\n\nView Sample Response\nPostman Responses",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_share_session",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab468650-5567-4f6d-ad7a-41b056214f6a",
+              "name": "200 Success Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_share_session",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"dvcID\": \"default dvcid\",\n    \"sessionRequest\": {\n      \"tenantDNS\": \"1k-dev.1kosmos.net\",\n      \"communityName\": \"default\",\n      \"documentType\": \"idcard_object\",\n      \"user\": {\n        \"username\": \"john.doe\",\n        \"lastname\": \"doe\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sessionId\": \"e0833902-1741-4f25-a92e-516393112940\",\n  \"url\": \"https://acme.1kosmos.net/idproofing/session/e0833902-1741-4f25-a92e-516393112940\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d821e65b-b14d-407b-90a1-b75c2ba7c1b7",
+              "name": "400 Bad Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_share_session",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"dvcID\": \"default dvcid\",\n    \"sessionRequest\": {\n      \"tenantDNS\": \"1k-dev.1kosmos.net\",\n      \"communityName\": \"default\",\n      \"documentType\": \"idcard_object\",\n      \"user\": {\n        \"username\": \"john.doe\",\n        \"lastname\": \"doe\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"dvcID is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16af10e1-cab3-4404-bff1-24b0e96bc08b",
+          "name": "Poll ID Verification Session",
+          "request": {
+            "name": "Poll ID Verification Session",
+            "description": {
+              "content": "The /result API displays the complete session details along with the verification status in the encrypted format.\n\nNote: To view the results in the decrypted format, click the Visualization tab in the response section when you run this API in your postman. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID and sessionID which you would have received in the response of the create session API.\n\nOptional Parameters\nNA\n\nView Sample Response\nPostman Responses",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "document_share_session",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                "key": "requestid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ff37930-1e19-40f1-a11c-66a01ca7f54c",
+              "name": "200 Success Response 1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "document_share_session",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"dvcID\": \"tania_web_dvcid\",\n    \"sessionId\": \"82f67f10-b4e4-4680-9970-5dfcc04ea39e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"vlTj05byMjznI/UuAcQt8um1mlHPh4cvSabjsKOyPuYYaXimOUCHMSPKy6T/5rcsHu5CN7AmHbAseP2MA96I+1YOt0iSeFi/qneFAFJBy2i3XpefqkyO+M/bj0tusgHi48y59W7DiRs37d4=\",\n  \"publicKey\": \"4tW63RBUPYX7Vo0pUUCbgacZd1kCbq18mbSKJskOFGqmegPjRqIZg5Z+3JJNQCDWCo0CMDI/RDke+cKyWKx2nw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "959cb91b-a2be-4055-b4bf-e6ad3f9848a2",
+              "name": "400 Bad Response - DVCID cannot be empty",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "document_share_session",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This is a JSON string encrypted using ECDSA. It contains the fields such as \"appid\" (string), \"uuid\" (string), and \"ts\" (number), which represents the epoch timestamp in seconds.",
+                    "key": "requestid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"dvcID\": \"tania_web_dvcid\",\n    \"sessionId\": \"82f67f10-b4e4-4680-9970-5dfcc04ea39e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"dvcID is not allowed to be empty\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c100b3b0-fe44-4cb6-abde-490976120609",
+    "name": "1Kosmos BlockID Platform ID Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

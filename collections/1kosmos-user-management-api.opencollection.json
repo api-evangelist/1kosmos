@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform User Management API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenantDNS}/users-mgmt/tenant/:tenantId/community/:communityId/users/create",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch Users from Community\nThis endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.\n\nHTTP Method\nPOST\n\nEndpoint\n{{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch\n\nRequest Parameters\nThe request body must be in JSON format and includes the following parameters:\n\nauthModule (string): A unique identifier for the authentication module being used.\n\n"
+        },
+        {
+          "info": {
+            "name": "Fetch User Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/users-mgmt/tenant/:tenantId/community/:communityId/users/fetch",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch Users from Community\nThis endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.\n\nHTTP Method\nPOST\n\nEndpoint\n{{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch\n\nRequest Parameters\nThe request body must be in JSON format and includes the following parameters:\n\nauthModule (string): A unique identifier for the authentication module being used.\n\n"
+        },
+        {
+          "info": {
+            "name": "Update Username as alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/users-mgmt/tenant/:tenantId/community/:communityId/user_properties/update",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update User Properties\nThis endpoint allows you to update user properties within a specific community for a given tenant.\n\nEndpoint\nPOST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update\n\nRequest Method\nPOST\n\nRequest Parameters\nThe request body should be in JSON format and must include the following parameter:\n\ndata (string): This parameter should contain the payload in ECDSA Encrypted format that holds the user properties you wish to update.\n\nExample Request"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

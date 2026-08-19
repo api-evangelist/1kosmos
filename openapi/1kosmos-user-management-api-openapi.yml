@@ -1,0 +1,553 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform User Management API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: User Management
+paths:
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/users/create:
+    put:
+      operationId: userManagementCreateUser
+      summary: Create User
+      description: 'Fetch Users from Community
+
+        This endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.
+
+
+        HTTP Method
+
+        POST
+
+
+        Endpoint
+
+        {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch
+
+
+        Request Parameters
+
+        The request body must be in JSON format and includes the following parameters:
+
+
+        authModule (string): A unique identifier for the authentication module being used.
+
+
+        pIndex (integer): The index of the page to be retrieved, starting from 0.
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        query (object): An object containing the search criteria. In this case, it includes:
+
+
+        username (string): The username of the user to be searched.
+
+
+        attributes (array of strings): An array specifying which attributes to include in the response. Using ["\\\*"] requests all available attributes.
+
+
+        Expected Response Format
+
+        The response will be in JSON format and will include the following structure:
+
+
+        page (object): Contains pagination information.
+
+
+        index (integer): The current page index.
+
+
+        total (integer): The total number of records available.
+
+
+        size (integer): The number of records returned in this response.
+
+
+        data (array): An array of user objects matching the query. Each user object may contain:
+
+
+        username (string): The username of the user.
+
+
+        uid (string): The unique identifier for the user.
+
+
+        dguid (string): The directory GUID for the user.
+
+
+        disabled (boolean): Indicates if the user account is disabled.
+
+
+        status (string): The current status of the user.
+
+
+        roleValue (string): The role assigned to the user.
+
+
+        type (string): The type of user.
+
+
+        moduleId (string): The module ID associated with the user.
+
+
+        onboarding_status (string): The onboarding status of the user.
+
+
+        isLocked (boolean): Indicates if the user account is locked.
+
+
+        mobiles (array): List of mobile numbers associated with the user.
+
+
+        landlines (array): List of landline numbers associated with the user.
+
+
+        firstname (string): The first name of the user.
+
+
+        lastname (string): The last name of the user.
+
+
+        email (string): The email address of the user.
+
+
+        urn (string): The uniform resource name associated with the user.
+
+
+        publicKey (string): A public key for security purposes.
+
+
+        signature_token (string): A token used for signature verification.
+
+
+        Example Responses
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [{ "username": "", "uid": "", "dguid": "", "disabled": true, "status": "", "roleValue": "", "type": "", "moduleId": "", "onboarding_status": "", "isLocked": true, "mobiles": [], "landlines": [], "firstname": "", "lastname": "", "email": "", "urn": "" }], "publicKey": "", "signature_token": ""}
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [], "publicKey": "", "signature_token": ""}
+
+
+        This endpoint is essential for managing user information within a community, allowing for efficient retrieval based on specific criteria.'
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              authModule: 68418b901ac4790f690ffdb4
+              users:
+              - username: postman1
+                password: Password.1
+                firstname: postman
+                lastname: Test
+                email1: postman+11@1kosmos.com
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                requested: 1
+                created: 1
+                failed: 0
+                errors: []
+        '404':
+          description: 'Fail: AuthModule Not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 404
+                message: Auth module is not found.
+        '401':
+          description: 'Fail: Unauthorised License'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '400':
+          description: 'Fail: Required username'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: username is required
+        '500':
+          description: 'Fail: Invalid paylad'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 500
+                message: Internal Server Error
+        '405':
+          description: 'Fail: Unauthorised License'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 405
+                message: This function is not allowed for specified auth module.
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//users/create'
+      x-postman-variants:
+      - Create User
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/users/fetch:
+    post:
+      operationId: userManagementFetchUserDetails
+      summary: Fetch User Details
+      description: 'Fetch Users from Community
+
+        This endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.
+
+
+        HTTP Method
+
+        POST
+
+
+        Endpoint
+
+        {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch
+
+
+        Request Parameters
+
+        The request body must be in JSON format and includes the following parameters:
+
+
+        authModule (string): A unique identifier for the authentication module being used.
+
+
+        pIndex (integer): The index of the page to be retrieved, starting from 0.
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        query (object): An object containing the search criteria. In this case, it includes:
+
+
+        username (string): The username of the user to be searched.
+
+
+        attributes (array of strings): An array specifying which attributes to include in the response. Using ["\\\*"] requests all available attributes.
+
+
+        Expected Response Format
+
+        The response will be in JSON format and will include the following structure:
+
+
+        page (object): Contains pagination information.
+
+
+        index (integer): The current page index.
+
+
+        total (integer): The total number of records available.
+
+
+        size (integer): The number of records returned in this response.
+
+
+        data (array): An array of user objects matching the query. Each user object may contain:
+
+
+        username (string): The username of the user.
+
+
+        uid (string): The unique identifier for the user.
+
+
+        dguid (string): The directory GUID for the user.
+
+
+        disabled (boolean): Indicates if the user account is disabled.
+
+
+        status (string): The current status of the user.
+
+
+        roleValue (string): The role assigned to the user.
+
+
+        type (string): The type of user.
+
+
+        moduleId (string): The module ID associated with the user.
+
+
+        onboarding_status (string): The onboarding status of the user.
+
+
+        isLocked (boolean): Indicates if the user account is locked.
+
+
+        mobiles (array): List of mobile numbers associated with the user.
+
+
+        landlines (array): List of landline numbers associated with the user.
+
+
+        firstname (string): The first name of the user.
+
+
+        lastname (string): The last name of the user.
+
+
+        email (string): The email address of the user.
+
+
+        urn (string): The uniform resource name associated with the user.
+
+
+        publicKey (string): A public key for security purposes.
+
+
+        signature_token (string): A token used for signature verification.
+
+
+        Example Responses
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [{ "username": "", "uid": "", "dguid": "", "disabled": true, "status": "", "roleValue": "", "type": "", "moduleId": "", "onboarding_status": "", "isLocked": true, "mobiles": [], "landlines": [], "firstname": "", "lastname": "", "email": "", "urn": "" }], "publicKey": "", "signature_token": ""}
+
+
+        { "page": {"index": 0, "total": 0, "size": 0}, "data": [], "publicKey": "", "signature_token": ""}
+
+
+        This endpoint is essential for managing user information within a community, allowing for efficient retrieval based on specific criteria.'
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              authModule: 68418b901ac4790f690ffdb4
+              pIndex: 0
+              pSize: 25
+              query:
+                username: john.doe
+              attributes:
+              - '*'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page:
+                  index: 0
+                  total: 1
+                  size: 1
+                data:
+                - username: sarthak
+                  uid: beafb38c-499b-40ef-a62c-b58777f200c6
+                  dguid: beafb38c-499b-40ef-a62c-b58777f200c6
+                  disabled: false
+                  status: active
+                  roleValue: none
+                  type: basic
+                  moduleId: 68418b901ac4790f690ffdb4
+                  onboarding_status: tbd
+                  isLocked: false
+                  mobiles: []
+                  landlines: []
+                  firstname: Sarthak
+                  lastname: M
+                  email: sarthak.mishra@1kosmos.com
+                  urn: urn:blockid:user:dns:1k-dev.1kosmos.net:community:68418b2587942f1d3158a799:mod:68418b901ac4790f690ffdb4:uid:beafb38c-499b-40ef-a62c-b58777f200c6
+                publicKey: 4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==
+                signature_token: 1add97735715f1d1b2a71f6bc32b07a191b0e5cb7848ee162cbea9c01a6abffea995e770fd6f9c806efb777158a32daf60d381de5de101f190f84e26dec0cc58
+        '404':
+          description: 'Fail : Auth Module not Found'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 404
+                message: Auth module is not found.
+                signature_token: 2f3fba2d6068b7fc2e66061f239ae02abd3d39da552428cefcebef926557cf485bd4308c295ecc86932d0a1c3643f3d29ed7673293de6f68244042849900e35f
+        '401':
+          description: 'Fail : Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '400':
+          description: 'Fail: Improper Query'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: query must be of type object
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//users/fetch'
+      x-postman-variants:
+      - Fetch User Details
+  /users-mgmt/tenant/{tenantId}/community/{communityId}/user_properties/update:
+    post:
+      operationId: userManagementUpdateUsernameAsAlias
+      summary: Update Username as alias
+      description: "Update User Properties\nThis endpoint allows you to update user properties within a specific community for a given tenant.\n\nEndpoint\nPOST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update\n\nRequest Method\nPOST\n\nRequest Parameters\nThe request body should be in JSON format and must include the following parameter:\n\ndata (string): This parameter should contain the payload in ECDSA Encrypted format that holds the user properties you wish to update.\n\nExample Request Body\n\nEncryped Sample Request:\n\n{\n  \"data\": \"{{payload}}\"\n}\n\nDecrypted Sample Request:\n\n{\n  \"data\": {\n    \"user\": {\n      \"username\": \"john.doe\",\n      \"authModuleId\": \"68418b901ac4790f690ffdb4\",\n      \"uid\": \"beafb38c-499b-40ef-a62c-b58777f200d4\"\n    },\n    \"aliases\": {\n      \"alias1\": \"doej\",\n      \"alias2\": null,\n      \"alias3\": null,\n      \"alias4\": null,\n      \"alias5\": null,\n      \"alias6\": null,\n      \"alias7\": null,\n      \"alias8\": null\n    }\n  }\n}\n\nExpected Response\nUpon a successful request, the server will respond with a status code of 200 and a JSON object containing the following fields:\n\ndata (string): This field will contain ECDSA encrypted relevant data related to the update operation. See below to sample decrypted payload:\n\npublicKey (string): This field will return the service's public key.\n\nExample Response\n{\n    \"data\": \"8ngLnqWrCMkTFHXkjnbApJjppNY5E37BmL0VxRzE4BObC+L01IrM+rswO5sgdAMGLMyL0GR/SYcVwxkziT31Q+aWcYe2OQK93TxCzXPcyQi8ehVyI+CHfiG5fJrZK2gBmbNuA6EA/BKd6KeygjD6Rrn3VnqH20ef5Uw9fO8/neGk1i6vhxykmFtu4QcuWKOAQEYTTOqCiA3Lqye6H/tQ9mQLcFe6YPBVsFCJAkZyXlCljtq8QV8/JLE2d16z+g0GiBOX+A2egD3Hu2yEGINhR3iBQxH+DU+OGox/f7Oeop/Uf6WxdZXfS+BIOmavuq/zYxANau99UfUvbYz7gKvNPCTyGcBIjoTlO1mUlmiG3x6vdBQlYMUPvf+BcQKh1Drh5LFqYJP+O/+1kBPlecxwcpF95ueLpOQPpxUGBvalVkDIYjb9fFFDul5atNgVT6+5VLSs5fDNFxOCzVENpJ1bjjDcNkEHGILxI55ea84kfU1kwWqET5WVqO6sUlYYRghXIrLZ3cqfbT1USeqbRRbKgY2k1yH2SkOZSeqkqklnH9Sli3Coq9kskAM=\",\n    \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\"\n}\n\nAdditional Notes\n\nEnsure that the tenantId and communityId in the URL are correctly specified to target the appropriate user properties.\n\nThe response may vary based on the operation performed, but it will always return the specified fields."
+      tags:
+      - User Management
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data: '{{payload}}'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: s2V2UcQKIsQFDWsxX16LPoH0HDmusUnCBGyN6iQQI3Dp8y/dTJy1aU+AcsWgl62H19WOJgeILytYzluxwe8cMrznSmUfWXTzwbtTD49nl3WvQUMSZHkD7+J8HkMce3+3jqFWe4kQMb4IBXciHDJ2mdGv08HylfmQBtBxNEspMdaIVxALWuVS9V1srTtmeXCy9iXiZzLQ0yfSjoEFmcvGpzgtvYZDcmElpheR0GgfuxQ0aqE3qU0nQOOLG30We4eLS10RDlJaNJO5V8b8BPxA83Xo6D9qK7R0FKlh8QkEKBjMZk60ucbPZXgzl7JGqTh2VIehYSzem1/5popySx7l78/IM1MFkzoxZNmXQxrXiiPLxk0QZsh9sR+2t60Vnbmgh8oeiY0xrWVjhoYZzsH9ELQAQBW5tSVsFlpybt9WMNe1gHXh4YJA8Eliy0u3/EM1jfIJmY4yNUX5OWHbn8f8DkVJphY6EXryNJthfYkAFv54zN6ctC8tr5ji3gGMWwEoECChnzwnvPKEpgSWpaMpmhYM4krdaD8mcnlZr52izOi6IIFeHCp3RB0kqOMULYc=
+                publicKey: 4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==
+        '401':
+          description: 'Fail : Unauthorized'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 401
+                message: Invalid or Unauthorized License
+        '409':
+          description: 'Fail: Alias already used'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 409
+                message: Alias already used
+        '400':
+          description: 'Fail: Required Username'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: username is required
+      x-postman-request: '{{client_api}}/users-mgmt/tenant//community//user_properties/update'
+      x-postman-variants:
+      - Update Username as alias
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

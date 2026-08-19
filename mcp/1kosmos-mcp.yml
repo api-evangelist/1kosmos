@@ -167,3 +167,9 @@ tools:
   method: GET
   path: /workflowapi/workflow_instance/{wfInstanceId}/tenant/{tenantId}/community/{communityId}/node/{nodeId}
   source_operation: openapi/1kosmos-blockid-openapi.yml#workflowAPINodeResult
+deployment:
+  mode: none
+  verified: derived
+  tools: 29
+  checked: '2026-08-12'
+  source: catalog MCP census

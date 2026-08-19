@@ -1,0 +1,1477 @@
+{
+  "item": [
+    {
+      "id": "0d7c0469-2226-48f5-9ddf-e2c155925184",
+      "name": "User Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e04f767-dec7-473e-b08e-7fb620878437",
+          "name": "Create User",
+          "request": {
+            "name": "Create User",
+            "description": {
+              "content": "Fetch Users from Community\nThis endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.\n\nHTTP Method\nPOST\n\nEndpoint\n{{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch\n\nRequest Parameters\nThe request body must be in JSON format and includes the following parameters:\n\nauthModule (string): A unique identifier for the authentication module being used.\n\npIndex (integer): The index of the page to be retrieved, starting from 0.\n\npSize (integer): The number of records to return per page.\n\nquery (object): An object containing the search criteria. In this case, it includes:\n\nusername (string): The username of the user to be searched.\n\nattributes (array of strings): An array specifying which attributes to include in the response. Using [\"\\\\\\*\"] requests all available attributes.\n\nExpected Response Format\nThe response will be in JSON format and will include the following structure:\n\npage (object): Contains pagination information.\n\nindex (integer): The current page index.\n\ntotal (integer): The total number of records available.\n\nsize (integer): The number of records returned in this response.\n\ndata (array): An array of user objects matching the query. Each user object may contain:\n\nusername (string): The username of the user.\n\nuid (string): The unique identifier for the user.\n\ndguid (string): The directory GUID for the user.\n\ndisabled (boolean): Indicates if the user account is disabled.\n\nstatus (string): The current status of the user.\n\nroleValue (string): The role assigned to the user.\n\ntype (string): The type of user.\n\nmoduleId (string): The module ID associated with the user.\n\nonboarding_status (string): The onboarding status of the user.\n\nisLocked (boolean): Indicates if the user account is locked.\n\nmobiles (array): List of mobile numbers associated with the user.\n\nlandlines (array): List of landline numbers associated with the user.\n\nfirstname (string): The first name of the user.\n\nlastname (string): The last name of the user.\n\nemail (string): The email address of the user.\n\nurn (string): The uniform resource name associated with the user.\n\npublicKey (string): A public key for security purposes.\n\nsignature_token (string): A token used for signature verification.\n\nExample Responses\n\n{ \"page\": {\"index\": 0, \"total\": 0, \"size\": 0}, \"data\": [{ \"username\": \"\", \"uid\": \"\", \"dguid\": \"\", \"disabled\": true, \"status\": \"\", \"roleValue\": \"\", \"type\": \"\", \"moduleId\": \"\", \"onboarding_status\": \"\", \"isLocked\": true, \"mobiles\": [], \"landlines\": [], \"firstname\": \"\", \"lastname\": \"\", \"email\": \"\", \"urn\": \"\" }], \"publicKey\": \"\", \"signature_token\": \"\"}\n\n{ \"page\": {\"index\": 0, \"total\": 0, \"size\": 0}, \"data\": [], \"publicKey\": \"\", \"signature_token\": \"\"}\n\nThis endpoint is essential for managing user information within a community, allowing for efficient retrieval based on specific criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users-mgmt",
+                "tenant",
+                ":tenantId",
+                "community",
+                ":communityId",
+                "users",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "98e5dc45-8aed-491b-ae19-9eecede59899",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requested\": 1,\n  \"created\": 1,\n  \"failed\": 0,\n  \"errors\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bd7dd21-21c8-4e34-a526-30d0e10e96c8",
+              "name": "Fail: Required username",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"username is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec2f2156-c44f-4661-a7e8-8df95c1203da",
+              "name": "Fail: Unauthorised License",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Invalid or Unauthorized License\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d71d6312-81e5-4b46-a7aa-7f2a2ffa5c25",
+              "name": "Fail: AuthModule Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Auth module is not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b952becb-68e3-4a8a-ba25-f2a3e5fe8983",
+              "name": "Fail: Unauthorised License",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 405,\n  \"message\": \"This function is not allowed for specified auth module.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2c5d161-c755-4e7f-871a-6705f00b93bb",
+              "name": "Fail: Invalid paylad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"users\": [\n    {\n      \"username\": \"postman1\",\n      \"password\": \"Password.1\",\n      \"firstname\": \"postman\",\n      \"lastname\": \"Test\",\n      \"email1\": \"postman+11@1kosmos.com\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 500,\n  \"message\": \"Internal Server Error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6117c941-69cc-44de-bab1-6c64abe11d30",
+          "name": "Fetch User Details",
+          "request": {
+            "name": "Fetch User Details",
+            "description": {
+              "content": "Fetch Users from Community\nThis endpoint allows you to fetch user details from a specified community within a tenant. It is particularly useful for retrieving user information based on specific query parameters.\n\nHTTP Method\nPOST\n\nEndpoint\n{{client_api}}/users-mgmt/tenant/tenantId/community/communityId/users/fetch\n\nRequest Parameters\nThe request body must be in JSON format and includes the following parameters:\n\nauthModule (string): A unique identifier for the authentication module being used.\n\npIndex (integer): The index of the page to be retrieved, starting from 0.\n\npSize (integer): The number of records to return per page.\n\nquery (object): An object containing the search criteria. In this case, it includes:\n\nusername (string): The username of the user to be searched.\n\nattributes (array of strings): An array specifying which attributes to include in the response. Using [\"\\\\\\*\"] requests all available attributes.\n\nExpected Response Format\nThe response will be in JSON format and will include the following structure:\n\npage (object): Contains pagination information.\n\nindex (integer): The current page index.\n\ntotal (integer): The total number of records available.\n\nsize (integer): The number of records returned in this response.\n\ndata (array): An array of user objects matching the query. Each user object may contain:\n\nusername (string): The username of the user.\n\nuid (string): The unique identifier for the user.\n\ndguid (string): The directory GUID for the user.\n\ndisabled (boolean): Indicates if the user account is disabled.\n\nstatus (string): The current status of the user.\n\nroleValue (string): The role assigned to the user.\n\ntype (string): The type of user.\n\nmoduleId (string): The module ID associated with the user.\n\nonboarding_status (string): The onboarding status of the user.\n\nisLocked (boolean): Indicates if the user account is locked.\n\nmobiles (array): List of mobile numbers associated with the user.\n\nlandlines (array): List of landline numbers associated with the user.\n\nfirstname (string): The first name of the user.\n\nlastname (string): The last name of the user.\n\nemail (string): The email address of the user.\n\nurn (string): The uniform resource name associated with the user.\n\npublicKey (string): A public key for security purposes.\n\nsignature_token (string): A token used for signature verification.\n\nExample Responses\n\n{ \"page\": {\"index\": 0, \"total\": 0, \"size\": 0}, \"data\": [{ \"username\": \"\", \"uid\": \"\", \"dguid\": \"\", \"disabled\": true, \"status\": \"\", \"roleValue\": \"\", \"type\": \"\", \"moduleId\": \"\", \"onboarding_status\": \"\", \"isLocked\": true, \"mobiles\": [], \"landlines\": [], \"firstname\": \"\", \"lastname\": \"\", \"email\": \"\", \"urn\": \"\" }], \"publicKey\": \"\", \"signature_token\": \"\"}\n\n{ \"page\": {\"index\": 0, \"total\": 0, \"size\": 0}, \"data\": [], \"publicKey\": \"\", \"signature_token\": \"\"}\n\nThis endpoint is essential for managing user information within a community, allowing for efficient retrieval based on specific criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users-mgmt",
+                "tenant",
+                ":tenantId",
+                "community",
+                ":communityId",
+                "users",
+                "fetch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2706a298-6856-4750-8a08-4a154ab7847b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "fetch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"pIndex\": 0,\n  \"pSize\": 25,\n  \"query\": {\n    \"username\": \"john.doe\"\n  },\n  \"attributes\": [\n    \"*\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"index\": 0,\n    \"total\": 1,\n    \"size\": 1\n  },\n  \"data\": [\n    {\n      \"username\": \"sarthak\",\n      \"uid\": \"beafb38c-499b-40ef-a62c-b58777f200c6\",\n      \"dguid\": \"beafb38c-499b-40ef-a62c-b58777f200c6\",\n      \"disabled\": false,\n      \"status\": \"active\",\n      \"roleValue\": \"none\",\n      \"type\": \"basic\",\n      \"moduleId\": \"68418b901ac4790f690ffdb4\",\n      \"onboarding_status\": \"tbd\",\n      \"isLocked\": false,\n      \"mobiles\": [],\n      \"landlines\": [],\n      \"firstname\": \"Sarthak\",\n      \"lastname\": \"M\",\n      \"email\": \"sarthak.mishra@1kosmos.com\",\n      \"urn\": \"urn:blockid:user:dns:1k-dev.1kosmos.net:community:68418b2587942f1d3158a799:mod:68418b901ac4790f690ffdb4:uid:beafb38c-499b-40ef-a62c-b58777f200c6\"\n    }\n  ],\n  \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\",\n  \"signature_token\": \"1add97735715f1d1b2a71f6bc32b07a191b0e5cb7848ee162cbea9c01a6abffea995e770fd6f9c806efb777158a32daf60d381de5de101f190f84e26dec0cc58\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "758ef389-3699-4b7a-b357-b732fe31df8b",
+              "name": "Fail: Improper Query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "fetch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"pIndex\": 0,\n  \"pSize\": 25,\n  \"query\": {\n    \"username\": \"john.doe\"\n  },\n  \"attributes\": [\n    \"*\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"query must be of type object\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3402ff5c-c218-4e62-840b-3aa35f7fb9b2",
+              "name": "Fail : Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "fetch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"pIndex\": 0,\n  \"pSize\": 25,\n  \"query\": {\n    \"username\": \"john.doe\"\n  },\n  \"attributes\": [\n    \"*\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Invalid or Unauthorized License\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3d8b4f4-2e13-486c-8286-6763a03a9672",
+              "name": "Fail : Auth Module not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "users",
+                    "fetch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authModule\": \"68418b901ac4790f690ffdb4\",\n  \"pIndex\": 0,\n  \"pSize\": 25,\n  \"query\": {\n    \"username\": \"john.doe\"\n  },\n  \"attributes\": [\n    \"*\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Auth module is not found.\",\n  \"signature_token\": \"2f3fba2d6068b7fc2e66061f239ae02abd3d39da552428cefcebef926557cf485bd4308c295ecc86932d0a1c3643f3d29ed7673293de6f68244042849900e35f\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f75c8f80-897f-4609-9311-54340e544b71",
+          "name": "Update Username as alias",
+          "request": {
+            "name": "Update Username as alias",
+            "description": {
+              "content": "Update User Properties\nThis endpoint allows you to update user properties within a specific community for a given tenant.\n\nEndpoint\nPOST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update\n\nRequest Method\nPOST\n\nRequest Parameters\nThe request body should be in JSON format and must include the following parameter:\n\ndata (string): This parameter should contain the payload in ECDSA Encrypted format that holds the user properties you wish to update.\n\nExample Request Body\n\nEncryped Sample Request:\n\n{\n  \"data\": \"{{payload}}\"\n}\n\nDecrypted Sample Request:\n\n{\n  \"data\": {\n    \"user\": {\n      \"username\": \"john.doe\",\n      \"authModuleId\": \"68418b901ac4790f690ffdb4\",\n      \"uid\": \"beafb38c-499b-40ef-a62c-b58777f200d4\"\n    },\n    \"aliases\": {\n      \"alias1\": \"doej\",\n      \"alias2\": null,\n      \"alias3\": null,\n      \"alias4\": null,\n      \"alias5\": null,\n      \"alias6\": null,\n      \"alias7\": null,\n      \"alias8\": null\n    }\n  }\n}\n\nExpected Response\nUpon a successful request, the server will respond with a status code of 200 and a JSON object containing the following fields:\n\ndata (string): This field will contain ECDSA encrypted relevant data related to the update operation. See below to sample decrypted payload:\n\npublicKey (string): This field will return the service's public key.\n\nExample Response\n{\n    \"data\": \"8ngLnqWrCMkTFHXkjnbApJjppNY5E37BmL0VxRzE4BObC+L01IrM+rswO5sgdAMGLMyL0GR/SYcVwxkziT31Q+aWcYe2OQK93TxCzXPcyQi8ehVyI+CHfiG5fJrZK2gBmbNuA6EA/BKd6KeygjD6Rrn3VnqH20ef5Uw9fO8/neGk1i6vhxykmFtu4QcuWKOAQEYTTOqCiA3Lqye6H/tQ9mQLcFe6YPBVsFCJAkZyXlCljtq8QV8/JLE2d16z+g0GiBOX+A2egD3Hu2yEGINhR3iBQxH+DU+OGox/f7Oeop/Uf6WxdZXfS+BIOmavuq/zYxANau99UfUvbYz7gKvNPCTyGcBIjoTlO1mUlmiG3x6vdBQlYMUPvf+BcQKh1Drh5LFqYJP+O/+1kBPlecxwcpF95ueLpOQPpxUGBvalVkDIYjb9fFFDul5atNgVT6+5VLSs5fDNFxOCzVENpJ1bjjDcNkEHGILxI55ea84kfU1kwWqET5WVqO6sUlYYRghXIrLZ3cqfbT1USeqbRRbKgY2k1yH2SkOZSeqkqklnH9Sli3Coq9kskAM=\",\n    \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\"\n}\n\nAdditional Notes\n\nEnsure that the tenantId and communityId in the URL are correctly specified to target the appropriate user properties.\n\nThe response may vary based on the operation performed, but it will always return the specified fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users-mgmt",
+                "tenant",
+                ":tenantId",
+                "community",
+                ":communityId",
+                "user_properties",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b972fb1f-62bf-42a3-a6c5-406c3ad72d79",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "user_properties",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"{{payload}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": \"s2V2UcQKIsQFDWsxX16LPoH0HDmusUnCBGyN6iQQI3Dp8y/dTJy1aU+AcsWgl62H19WOJgeILytYzluxwe8cMrznSmUfWXTzwbtTD49nl3WvQUMSZHkD7+J8HkMce3+3jqFWe4kQMb4IBXciHDJ2mdGv08HylfmQBtBxNEspMdaIVxALWuVS9V1srTtmeXCy9iXiZzLQ0yfSjoEFmcvGpzgtvYZDcmElpheR0GgfuxQ0aqE3qU0nQOOLG30We4eLS10RDlJaNJO5V8b8BPxA83Xo6D9qK7R0FKlh8QkEKBjMZk60ucbPZXgzl7JGqTh2VIehYSzem1/5popySx7l78/IM1MFkzoxZNmXQxrXiiPLxk0QZsh9sR+2t60Vnbmgh8oeiY0xrWVjhoYZzsH9ELQAQBW5tSVsFlpybt9WMNe1gHXh4YJA8Eliy0u3/EM1jfIJmY4yNUX5OWHbn8f8DkVJphY6EXryNJthfYkAFv54zN6ctC8tr5ji3gGMWwEoECChnzwnvPKEpgSWpaMpmhYM4krdaD8mcnlZr52izOi6IIFeHCp3RB0kqOMULYc=\",\n  \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad096d0d-e74a-447b-807f-2de9467d1703",
+              "name": "Fail: Required Username",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "user_properties",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"{{payload}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"username is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "589f6706-9f47-43cc-90d5-ff4b5c1b3463",
+              "name": "Fail : Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "user_properties",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"{{payload}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 401,\n  \"message\": \"Invalid or Unauthorized License\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c470c276-e8ec-4937-a71a-2f48acc86810",
+              "name": "Fail: Alias already used",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users-mgmt",
+                    "tenant",
+                    ":tenantId",
+                    "community",
+                    ":communityId",
+                    "user_properties",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": \"{{payload}}\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 409,\n  \"message\": \"Alias already used\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "642f2f5c-0c55-4f38-81fd-86aa441e6e94",
+    "name": "1Kosmos BlockID Platform User Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

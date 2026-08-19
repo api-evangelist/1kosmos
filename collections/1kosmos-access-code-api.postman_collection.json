@@ -1,0 +1,545 @@
+{
+  "item": [
+    {
+      "id": "038bb051-350a-4865-ac5b-36856e7a0704",
+      "name": "Access Code",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8c6f34d1-4820-4772-a5ae-1f8b592e8604",
+          "name": "Create Access Code",
+          "request": {
+            "name": "Create Access Code",
+            "description": {
+              "content": "Update Community Verification Link\nThis endpoint allows the client to update the verification link for a specific community identified by its code. It utilizes the HTTP PUT method to send the required data.\n\nRequest\nMethod: PUT\nEndpoint: {{client_api}}/api/r2/acr/community/:community/code\n\nRequest Body Parameters\nThe request body must be in JSON format and include the following parameters:\n\nResponse\nOn a successful request, the API will return a JSON response with the following structure:\n\nemailResult (object): Contains the result of the email sending operation.\n\nstatus (boolean): Indicates whether the email was successfully sent.\n\nstatusCode (integer): A code representing the status of the operation.\n\nmessage (string): A message providing additional information about the operation.\n\nerror (null or object): Contains error details if the operation failed.\n\ngatewayId (null or string): Identifier for the email gateway used.\n\ngatewayName (null or string): Name of the email gateway used.\n\nresultId (string): Identifier for the result of the email operation.\n\nmessageId (null or string): Identifier for the message sent.\n\nts (integer): Timestamp of the operation.\n\nlink (string): The generated verification link.\n\ncode (string): The code associated with the community.\n\nExample Response\n{\n  \"emailResult\": {\n    \"status\": true,\n    \"statusCode\": 0,\n    \"message\": \"\",\n    \"error\": null,\n    \"gatewayId\": null,\n    \"gatewayName\": null,\n    \"resultId\": \"\",\n    \"messageId\": null,\n    \"ts\": 0\n  },\n  \"link\": \"\",\n  \"code\": \"\"\n}\n\nThis response indicates the success of the email operation and provides the necessary details about the verification link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "r2",
+                "acr",
+                "community",
+                ":community",
+                "code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "community",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "noecdsa",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53f9e73a-0a6f-4b1b-a327-d56ff9f10309",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "acr",
+                    "community",
+                    ":community",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "community",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "noecdsa",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdby\": \"application\",\n  \"version\": \"v0\",\n  \"type\": \"verification_link\",\n  \"emailTo\": \"john.doe@1kosmos.com\",\n  \"ttl_seconds\": 700,\n  \"emailTemplateB64\": \"Q2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byBsb2cgaW4gdG8gMUtvc21vcyBEZXZlbG9wZXIgRXhwZXJpZW5jZS4gaHR0cHM6Ly9ibG9ja2lkLXRyaWFsLjFrb3Ntb3MubmV0L2RldnBvcnRhbC9kZW1vP2NvZGU9e3tNQUdJQ0xJTkt9fSBUaGlzIGxpbmsgd2lsbCBleHBpcmUgaW4gMjAgbWludXRlcy4=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"emailResult\": {\n    \"status\": true,\n    \"statusCode\": 0,\n    \"message\": \"https://1k-uat.1kosmos.net/acr\",\n    \"error\": null,\n    \"gatewayId\": null,\n    \"gatewayName\": null,\n    \"resultId\": \"f695243f-1369-4342-93a7-7e3be987fe07\",\n    \"messageId\": null,\n    \"ts\": 1750146210\n  },\n  \"link\": \"7d319855-946f-4922-88f4-fb259b0bff49\",\n  \"code\": \"7d319855-946f-4922-88f4-fb259b0bff49\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "755282b7-bf4b-43b3-a094-39e8ff6e6522",
+              "name": "Fail: Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "acr",
+                    "community",
+                    ":community",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "community",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "noecdsa",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdby\": \"application\",\n  \"version\": \"v0\",\n  \"type\": \"verification_link\",\n  \"emailTo\": \"john.doe@1kosmos.com\",\n  \"ttl_seconds\": 700,\n  \"emailTemplateB64\": \"Q2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byBsb2cgaW4gdG8gMUtvc21vcyBEZXZlbG9wZXIgRXhwZXJpZW5jZS4gaHR0cHM6Ly9ibG9ja2lkLXRyaWFsLjFrb3Ntb3MubmV0L2RldnBvcnRhbC9kZW1vP2NvZGU9e3tNQUdJQ0xJTkt9fSBUaGlzIGxpbmsgd2lsbCBleHBpcmUgaW4gMjAgbWludXRlcy4=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e798ecad-3d65-48d7-a1ed-c65bc1dc7459",
+              "name": "Fail: Email Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r2",
+                    "acr",
+                    "community",
+                    ":community",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "community",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "noecdsa",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"createdby\": \"application\",\n  \"version\": \"v0\",\n  \"type\": \"verification_link\",\n  \"emailTo\": \"john.doe@1kosmos.com\",\n  \"ttl_seconds\": 700,\n  \"emailTemplateB64\": \"Q2xpY2sgdGhlIGJ1dHRvbiBiZWxvdyB0byBsb2cgaW4gdG8gMUtvc21vcyBEZXZlbG9wZXIgRXhwZXJpZW5jZS4gaHR0cHM6Ly9ibG9ja2lkLXRyaWFsLjFrb3Ntb3MubmV0L2RldnBvcnRhbC9kZW1vP2NvZGU9e3tNQUdJQ0xJTkt9fSBUaGlzIGxpbmsgd2lsbCBleHBpcmUgaW4gMjAgbWludXRlcy4=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Some exception occured while processing the request. smsTo or emailTo are required for this type of code\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ff06099-c134-401e-adbb-80d9fbdf4af7",
+          "name": "Redeem Access Code",
+          "request": {
+            "name": "Redeem Access Code",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "r1",
+                "acr",
+                "community",
+                ":community",
+                ":code",
+                "redeem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "community",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "disabled": false,
+                "key": "noecdsa",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "403c2e1e-a6b1-4f6e-b0c6-50ff36341a28",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r1",
+                    "acr",
+                    "community",
+                    ":community",
+                    ":code",
+                    "redeem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "community",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "disabled": false,
+                    "key": "noecdsa",
+                    "value": "<string>",
+                    "description": ""
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9052edbd-9b46-44c3-ab70-3f1fad6d7c30",
+    "name": "1Kosmos BlockID Platform Access Code API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

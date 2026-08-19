@@ -1,0 +1,44 @@
+{
+  "provider": "1kosmos",
+  "sources": [
+    "1kosmos-access-code-api-openapi.yml",
+    "1kosmos-ial-api-openapi.yml",
+    "1kosmos-ial2-api-openapi.yml",
+    "1kosmos-id-verification-api-openapi.yml",
+    "1kosmos-otp-api-openapi.yml",
+    "1kosmos-reports-api-openapi.yml",
+    "1kosmos-set-up-api-openapi.yml",
+    "1kosmos-user-management-api-openapi.yml",
+    "1kosmos-verifiable-credentials-api-openapi.yml",
+    "1kosmos-workflow-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "1kosmos-access-code-api-openapi.yml",
+    "1kosmos-ial-api-openapi.yml",
+    "1kosmos-ial2-api-openapi.yml",
+    "1kosmos-id-verification-api-openapi.yml",
+    "1kosmos-otp-api-openapi.yml",
+    "1kosmos-reports-api-openapi.yml",
+    "1kosmos-set-up-api-openapi.yml",
+    "1kosmos-user-management-api-openapi.yml",
+    "1kosmos-verifiable-credentials-api-openapi.yml",
+    "1kosmos-workflow-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1kosmos-access-code-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-ial-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-ial2-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-id-verification-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-otp-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-reports-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-set-up-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-user-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-verifiable-credentials-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "1kosmos-workflow-api-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform ID Verification API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: ID Verification
+paths:
+  /document_share_session/create:
+    post:
+      operationId: idVerificationCreateIDVerificationSession
+      summary: Create ID Verification Session
+      description: "This API is used to create a session for a specific document type. You can generate a session with one of the supported documents:\n\nidcard\n\ndriving license\n\npassport\n\nNote: The response displays the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID, tenantDNS, community name, and the type of document for which you want to create a verification session.\n\ndocumentType:\nFor Drivers License: set documentType: \"dl_object\"\nFor Passport: set documentType: \"ppt_object\"\nFor Any other ID Card: set documentType: \"idcard_object\" \n\nNote: You must use your own tenant DNS and community name.\n\nOptional Parameters\n\nusername - Specify the user for whom the session is created.\n\nfirstname - Specify the first name of the user for whom the session is created.\n\nlastname - Specify the last name of the user for whom the session is created.\n\nuid - A unique identifier which help in mapping the session ID to the user performing the verification.\n\nView Sample Response\nPostman Responses"
+      tags:
+      - ID Verification
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string), "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                dvcID: default dvcid
+                sessionRequest:
+                  tenantDNS: 1k-dev.1kosmos.net
+                  communityName: default
+                  documentType: idcard_object
+                  user:
+                    username: john.doe
+                    lastname: doe
+      responses:
+        '200':
+          description: 200 Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                sessionId: e0833902-1741-4f25-a92e-516393112940
+                url: https://acme.1kosmos.net/idproofing/session/e0833902-1741-4f25-a92e-516393112940
+        '400':
+          description: 400 Bad Response
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: dvcID is required
+      x-postman-request: /document_share_session/create
+      x-postman-variants:
+      - Create ID Verification Session
+  /v3/document_share_session/result:
+    post:
+      operationId: idVerificationPollIDVerificationSession
+      summary: Poll ID Verification Session
+      description: 'The /result API displays the complete session details along with the verification status in the encrypted format.
+
+
+        Note: To view the results in the decrypted format, click the Visualization tab in the response section when you run this API in your postman. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.
+
+
+        Authorization
+
+        This API is using the license key to authorize the request.
+
+
+        Mandatory Parameters
+
+        data - Specify the dvcID and sessionID which you would have received in the response of the create session API.
+
+
+        Optional Parameters
+
+        NA
+
+
+        View Sample Response
+
+        Postman Responses'
+      tags:
+      - ID Verification
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string), "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                dvcID: tania_web_dvcid
+                sessionId: 82f67f10-b4e4-4680-9970-5dfcc04ea39e
+      responses:
+        '200':
+          description: 200 Success Response 1
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: vlTj05byMjznI/UuAcQt8um1mlHPh4cvSabjsKOyPuYYaXimOUCHMSPKy6T/5rcsHu5CN7AmHbAseP2MA96I+1YOt0iSeFi/qneFAFJBy2i3XpefqkyO+M/bj0tusgHi48y59W7DiRs37d4=
+                publicKey: 4tW63RBUPYX7Vo0pUUCbgacZd1kCbq18mbSKJskOFGqmegPjRqIZg5Z+3JJNQCDWCo0CMDI/RDke+cKyWKx2nw==
+        '400':
+          description: 400 Bad Response - DVCID cannot be empty
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 400
+                message: dvcID is not allowed to be empty
+      x-postman-request: /v3/document_share_session/result
+      x-postman-variants:
+      - Poll ID Verification Session
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

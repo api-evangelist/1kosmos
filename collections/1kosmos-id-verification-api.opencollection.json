@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform ID Verification API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ID Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create ID Verification Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/document_share_session/create",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API is used to create a session for a specific document type. You can generate a session with one of the supported documents:\n\nidcard\n\ndriving license\n\npassport\n\nNote: The response displays the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization"
+        },
+        {
+          "info": {
+            "name": "Poll ID Verification Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/v3/document_share_session/result",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The /result API displays the complete session details along with the verification status in the encrypted format.\n\nNote: To view the results in the decrypted format, click the Visualization tab in the response section when you run this API in your postman. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID and sess"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform IAL2 API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IAL2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/idproofingapi/workflow/workflow_instance/create",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Workflow"
+        },
+        {
+          "info": {
+            "name": "result summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDNS}/idproofingapi/workflow/workflow_instance/:instanceId/result_summary",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "result summary"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

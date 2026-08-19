@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform IAL2 API
+  version: '2026-08-05'
+  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+
+
+    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: IAL2
+paths:
+  /idproofingapi/workflow/workflow_instance/create:
+    post:
+      operationId: ial2CreateWorkflow
+      summary: Create Workflow
+      tags:
+      - IAL2
+      parameters:
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string), "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              data:
+                workflowId: 586ea2ee-liveid_2doc_ssn
+                metaData:
+                  firstname: John
+                  lastname: Doe
+                  dob: '19900101'
+      responses:
+        '200':
+          description: Workflow instance
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: 8jHKe7E6ZatoTfeeUXe5UGgpChHF1z9KnxQejSeLZ1XQExmkIrj8eMB70Z8AZbwrU90VAfLVAfjlbvUmC3QKvbXRl+XEW9F2mkh2ztZVyTRg/3a91oNztywM5eGbPUAUxeZ1tEV7iXnVkAEwEmA+kyh8ejYJWwTT3fBiNneHLCieoXIBxNM1/YIB7DzS7Vyxx5GpYroxd1AD75l2YwjGGpaS/p5Ct3URaVB+zCDrJDKllSh1iBItTPe3VSx+nZt8d/sQGYhXNInEgPpk/D4=
+                publicKey: mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==
+      x-postman-request: https://{{tenantDNS}}/idproofingapi/workflow/workflow_instance/create
+      x-postman-variants:
+      - Create Workflow
+  /idproofingapi/workflow/workflow_instance/{instanceId}/result_summary:
+    get:
+      operationId: ial2ResultSummary
+      summary: result summary
+      tags:
+      - IAL2
+      parameters:
+      - name: instanceId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+        description: This is a JSON string encrypted using ECDSA. It contains the fields such as "appid" (string), "uuid" (string), and "ts" (number), which represents the epoch timestamp in seconds.
+      responses:
+        '200':
+          description: View result
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: KEzgtQeKT8tKmme5yUySWb4eHo+zNEAR4uFMt/v/IhgSUJyQBkb7Ah+ny1VMZZFdA4WQFc6Em+Wc+zb4ceIfDTr550nHSyoEDq6+nMU/s04SyslDE1Ewhvua7+C/JTwFLepvgU0N5Me0hjBVRRj8CHZl2lzM75es7En4iD9vMymnIefwAdTYGWkBQxPGm+u2p1FRDf+Pm+fJl8dxJT9SEcDpWD7NVoppocD7Uo/6mLVMFUo8rO+l990tG+/cisOpeTnv60X7MlfIZ/t6dvpwCSWeMN1VTzRZUrV7MKcVVfTfJPlWpCiYJOQGYEGh5KdsmwkwYpBfx9PaSESWPpsBLNlIVFpt4OpJa3F0HqbocCKhYhayPpkSvTAAoMn0j6w28adDijlxaOWZbFmQKMMwCMIB83jCANpHf/ImJRli3uUBX05myqe2xL/5qP3nm/vTd4lyff7F7Nx5EyzUpqLiKjlCo7z22fu4B/2SJkv/6zIyNz0nEFrH9mUiGl+i2f2Z0WdnPgyEEj3fiwoB8Fhl8XBgKk59SGqC
+                publicKey: mZUiu4LrYmECNDn7x73QY2TTeDSs2LpsEbGdk1a9+oIQJCDoNYF26J7jsd6dwHsigOw+zoxr7MxhmBTSd2RPHg==
+      x-postman-request: https://{{tenantDNS}}/idproofingapi/workflow/workflow_instance/:instanceId/result_summary
+      x-postman-variants:
+      - result summary
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.

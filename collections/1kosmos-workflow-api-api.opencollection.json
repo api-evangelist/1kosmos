@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "1Kosmos BlockID Platform Workflow API API",
+    "version": "2026-08-05"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "licensekey",
+      "value": "{{licensekey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Workflow Instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantDNS}/workflowapi/workflow_instance/tenant/:tenantId/community/:communityId/create",
+            "headers": [
+              {
+                "name": "requestId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Workflow Instance"
+        },
+        {
+          "info": {
+            "name": "Node Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantDNS}/workflowapi/workflow_instance/:wfInstanceId/tenant/:tenantId/community/:communityId/node/:nodeId",
+            "headers": [
+              {
+                "name": "requestid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "wfInstanceId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tenantId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Node Result"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

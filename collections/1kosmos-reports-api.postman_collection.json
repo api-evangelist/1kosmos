@@ -1,0 +1,1780 @@
+{
+  "item": [
+    {
+      "id": "24ab44df-1ebf-4207-bfd7-dd21e5b91e8b",
+      "name": "Reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05d3f7af-e451-4315-a9b1-0709aec177ff",
+          "name": "Events",
+          "request": {
+            "name": "Events",
+            "description": {
+              "content": "API Request Description\nThis endpoint allows you to retrieve event data for a specific community within a tenant.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/events\n\nRequest Parameters\n\npSize (integer): The number of records to return per page. In the example, it is set to 10.\n\npIndex (integer): The page index for pagination. In the example, it is set to 1.\n\nfrom (string): The start date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-01 00:00:00.000.\n\nto (string): The end date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-10 00:00:00.000.\n\nquery (object): An object containing the search criteria for the events. In the example, it includes:\n\nevent_name (string): The name of the event to filter by. In the example, it is set to \"E_IDV_DOCUMENT_VALIDATE\".\n\nExpected Response\n\nStatus Code: 200 OK\n\nContent-Type: application/json\n\nResponse Body:\n\npage (object): Contains pagination information.\n\ntotal (integer): Total number of records available.\n\npSize (integer): The size of the current page.\n\npIndex (integer): The current page index.\n\ndata (array): An array of event data objects. If no events are found, this will be an empty array.\n\nExample Response\n{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n  \"data\": []\n}\n\nNotes\n\nEnsure that you provide valid tenantID and communityID in the URL.\n\nThe request requires authorization headers which must be included for successful execution.\n\nThe response may vary based on the provided date range and query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42cccfa6-c749-4fd1-a24d-2783e956936b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 1,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-10 00:00:00.000\",\n  \"query\": {\n    \"event_name\": \"E_IDV_DOCUMENT_VALIDATE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 10,\n    \"pIndex\": 1\n  },\n  \"data\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "851ffac7-55ac-4863-b86d-aa350267ed58",
+              "name": "Incorrect From-To Dates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 1,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-10 00:00:00.000\",\n  \"query\": {\n    \"event_name\": \"E_IDV_DOCUMENT_VALIDATE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Field should be from current time to minus 90 days\",\n      \"param\": \"from\"\n    },\n    {\n      \"message\": \"Date 'to' must be after or equal to 'from'\",\n      \"param\": \"to\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e2a53af-9a4d-45fd-881d-a4388a798aed",
+          "name": "Metrics",
+          "request": {
+            "name": "Metrics",
+            "description": {
+              "content": "Request Description\nThis API endpoint is used to submit metrics data for a specific community within a tenant. The purpose of this request is to track and analyze various metrics related to community activities.\n\nRequest Parameters\nThe request must include a JSON body with the following parameters:\n\nmetricsName (string): The name of the metric you want to report (e.g., \"M_GT_SUCCESSFUL_AUTHENTICATION\").\n\nfrom (string): The start date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\nto (string): The end date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\nResponse Structure\nThe API responds with a JSON object containing the following field:\n\ncount (integer): The number of records that match the provided metrics criteria. For example, a response of {\"count\":0} indicates that there were no records found for the specified metrics within the given date range.\n\nExample Request\n{\n  \"metricsName\": \"M_GT_SUCCESSFUL_AUTHENTICATION\",\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-01 00:00:00.000\"\n}\n\nExample Response\n{\n  \"count\": 0\n}",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f18e4991-b76a-4595-8aed-b8edb04b9867",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metricsName\": \"M_GT_SUCCESSFUL_AUTHENTICATIONS\",\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-01 00:00:00.000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 172\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d56276af-0b6c-4e6d-975e-e1dbc13869e4",
+              "name": "Bad/Missing License Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metricsName\": \"M_GT_SUCCESSFUL_AUTHENTICATIONS\",\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-01 00:00:00.000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"This header can't be decrypted\",\n      \"param\": \"licensekey\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb344063-9118-4b2e-857f-185f502fd148",
+          "name": "Application Usage Report",
+          "request": {
+            "name": "Application Usage Report",
+            "description": {
+              "content": "Request Description\nThis API endpoint allows you to generate an application usage report for a specific tenant and community within the client application.\n\nRequest Method\n\nPOST\n\nRequest URL\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/application_usage_report\n\nRequest Body\nThe request body must be in JSON format and should contain the following parameters:\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The index of the page to return.\n\nExample Payload:\n\n{\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"pSize\": 10,\n  \"pIndex\": 0\n}\n\nExpected Response\nThe response will be a JSON object containing:\n\npage: An object with pagination details.\n\ntotal (integer): The total number of records available.\n\npSize (integer): The number of records per page.\n\npIndex (integer): The current page index.\n\ndata: An array of objects representing the application usage events. Each object may include fields such as:\n\nevent_name (string): The name of the event.\n\nevent_ts (integer): The timestamp of the event.\n\nuser_id (string): The ID of the user associated with the event.\n\nAdditional fields related to the event and user details.\n\nExample Response:\n\n{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n  \"data\": []\n}\n\nNotes\n\nEnsure that the tenantID and communityID in the URL are replaced with valid identifiers.\n\nThe request requires appropriate authorization headers to be included.\n\nThe response may vary based on the data available for the specified time range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "application_usage_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "645a23c8-3cb6-4235-bb7a-e46be1d7d2e7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "application_usage_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"pSize\": 10,\n  \"pIndex\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"total\": 4,\n    \"pSize\": 10,\n    \"pIndex\": 0\n  },\n  \"data\": [\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1751206568534,\n      \"version\": \"v1\",\n      \"journey_id\": \"47d5f941-608c-4464-80f9-92e32347803d\",\n      \"session_id\": \"a73a8d5f-10ef-447b-97bf-f6e0495340b3\",\n      \"client_ip_address\": \"213.174.29.76\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n      \"user_id\": \"andrii.ziazin@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"andrii.ziazin@1kosmos.com\",\n      \"user_firstname\": \"andrii\",\n      \"user_lastname\": \"ziazin\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"213.174.29.76\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Chrome\",\n      \"auth_device_app_version\": \"137.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"Ukraine\",\n      \"region\": \"Poltava Oblast\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"f64c7fc8-8ae5-48d3-bc62-70b09a312a37\",\n      \"timestamp\": \"2025-06-29 14:16:08.534\",\n      \"epoch_time\": \"1751206568\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1751203011828,\n      \"version\": \"v1\",\n      \"journey_id\": \"97dc6371-03a2-4ef0-8b3f-31ccea6d40ff\",\n      \"session_id\": \"0b2b9ce7-1d74-4057-a0a4-ba507dae4d91\",\n      \"client_ip_address\": \"213.174.29.76\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15\",\n      \"user_id\": \"andrii.ziazin@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"andrii.ziazin@1kosmos.com\",\n      \"user_firstname\": \"andrii\",\n      \"user_lastname\": \"ziazin\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"213.174.29.76\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Safari\",\n      \"auth_device_app_version\": \"18.5\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"Ukraine\",\n      \"region\": \"Poltava Oblast\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"baa8a5ce-f1a7-4eee-8156-1e177f9ae365\",\n      \"timestamp\": \"2025-06-29 13:16:51.828\",\n      \"epoch_time\": \"1751203011\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1747298595672,\n      \"version\": \"v1\",\n      \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n      \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n      \"client_ip_address\": \"3.231.117.156\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n      \"user_id\": \"andrii.ziazin@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"andrii.ziazin@1kosmos.com\",\n      \"user_firstname\": \"andrii\",\n      \"user_lastname\": \"ziazin\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"3.231.117.156\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Edge\",\n      \"auth_device_app_version\": \"136.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"United States\",\n      \"region\": \"Virginia\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"da65e059-2542-4283-a6b3-11f6a94d187d\",\n      \"timestamp\": \"2025-05-15 08:43:15.672\",\n      \"epoch_time\": \"1747298595\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1747297942920,\n      \"version\": \"v1\",\n      \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n      \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n      \"client_ip_address\": \"3.231.117.156\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n      \"user_id\": \"andrii.ziazin@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"andrii.ziazin@1kosmos.com\",\n      \"user_firstname\": \"andrii\",\n      \"user_lastname\": \"ziazin\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"3.231.117.156\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Edge\",\n      \"auth_device_app_version\": \"136.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"United States\",\n      \"region\": \"Virginia\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"be926b44-1da0-4859-8a88-a38c3110a801\",\n      \"timestamp\": \"2025-05-15 08:32:22.920\",\n      \"epoch_time\": \"1747297942\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e81a2a2-ed52-47c8-a7e1-455fa37169e9",
+              "name": "Incorrect From-To Dates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "application_usage_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"pSize\": 10,\n  \"pIndex\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Field should be from current time to minus 90 days\",\n      \"param\": \"from\"\n    },\n    {\n      \"message\": \"Date 'to' must be after 'from'\",\n      \"param\": \"to\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e038728e-3824-46d3-b1ea-dc3cc8e39662",
+          "name": "Audit Log Report",
+          "request": {
+            "name": "Audit Log Report",
+            "description": {
+              "content": "Request Description\nThis is a POST request to retrieve the audit log for a specific community within a tenant.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/audit_log\n\nRequest Body:\nThe request body should be in JSON format and include the following parameters:\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The index of the page to retrieve.\n\nfrom (string): The start date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto (string): The end date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nExample Request Body:\n\n{\n  \"pSize\": 5,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\"\n}\n\nExpected Response:\nThe response will be in JSON format and will contain the following structure:\n\npage: An object containing pagination information.\n\ntotal (integer): The total number of records available.\n\npSize (integer): The number of records returned per page.\n\npIndex (integer): The current page index.\n\ndata: An object containing the audit log events.\n\nauditLogEvents (array): A list of audit log events, where each event includes:\n\nevent_name (string): The name of the event.\n\nevent_ts (integer): The timestamp of the event.\n\ntenant_id (string): The ID of the tenant.\n\ncommunity_id (string): The ID of the community.\n\neventCategory (string): The category of the event.\n\ntype (string): The type of the event.\n\nsp_type (string): The service provider type.\n\nsp_name (string): The name of the service provider.\n\nsp_id (string): The ID of the service provider.\n\nold_authRequestSignRequired (boolean): Indicates if the old auth request sign is required.\n\nnew_authRequestSignRequired (boolean): Indicates if the new auth request sign is required.\n\nnew_encryptAssertion (boolean): Indicates if the new encrypt assertion is enabled.\n\nnew_encryptionAlgorithm (string): The new encryption algorithm used.\n\nnew_keyTransportAlgorithm (string): The new key transport algorithm used.\n\nuser_id (string): The ID of the user associated with the event.\n\nuser_name (string): The name of the user associated with the event.\n\nconnection_ip_address (string): The IP address from which the connection was made.\n\nconnection_useragent (string): The user agent string of the connection.\n\nevent_id (string): The unique identifier for the event.\n\ntimestamp (string): The timestamp of the event.\n\nepoch_time (string): The epoch time of the event.\n\neventName (string): The name of the event.\n\nNotes:\n\nEnsure that the request headers include the necessary authorization tokens and keys.\n\nThe from and to parameters should be carefully set to ensure they fall within the range of available audit logs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "audit_log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07e24fca-9978-445c-b127-a4e81787bbb8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "audit_log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 5,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"total\": 24,\n    \"pSize\": 5,\n    \"pIndex\": 0\n  },\n  \"data\": {\n    \"auditLogEvents\": [\n      {\n        \"event_name\": \"E_SP_MODIFIED\",\n        \"event_ts\": 1751202999164,\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"eventCategory\": \"AUDIT_LOG\",\n        \"type\": \"event\",\n        \"sp_type\": \"saml\",\n        \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n        \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n        \"old_authRequestSignRequired\": true,\n        \"new_authRequestSignRequired\": false,\n        \"new_encryptAssertion\": false,\n        \"new_encryptionAlgorithm\": \"http://www.w3.org/2001/04/xmlenc#aes256-cbc\",\n        \"new_keyTransportAlgorithm\": \"http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p\",\n        \"user_id\": \"john.doe@1kosmos.com\",\n        \"user_name\": \"john.doe@1kosmos.com\",\n        \"connection_ip_address\": \"213.174.29.76\",\n        \"connection_useragent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"event_id\": \"4c58079e-5985-4c7c-b33e-518ef76b601e\",\n        \"timestamp\": \"2025-06-29 13:16:39.164\",\n        \"epoch_time\": \"1751202999\",\n        \"eventName\": \"E_SP_MODIFIED\"\n      },\n      {\n        \"event_name\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\",\n        \"event_ts\": 1751022757842,\n        \"user_id\": \"rahulauth\",\n        \"user_name\": \"rahulauth\",\n        \"connection_ip_address\": \"117.220.184.164\",\n        \"connection_useragent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"directory_id\": \"6593c7653eeff32662cfef76\",\n        \"directory_name\": \"DB for default  community\",\n        \"directory_type\": \"db\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"eventCategory\": \"AUDIT_LOG\",\n        \"type\": \"event\",\n        \"old_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Face\",\n          \"descriptions\": [\n            \"Must contain 8 characters with at least one special character and one number.\"\n          ],\n          \"allowed\": true\n        },\n        \"new_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Fingerprint\",\n          \"allowed\": true,\n          \"description\": \"Must contain 8 characters with at least one special character and one number.\"\n        },\n        \"event_id\": \"fa68f181-69c4-4c87-9427-31bc840e6027\",\n        \"timestamp\": \"2025-06-27 11:12:37.842\",\n        \"epoch_time\": \"1751022757\",\n        \"eventName\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\"\n      },\n      {\n        \"event_name\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\",\n        \"event_ts\": 1751019105416,\n        \"user_id\": \"rahulauth\",\n        \"user_name\": \"rahulauth\",\n        \"connection_ip_address\": \"117.220.184.164\",\n        \"connection_useragent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"directory_id\": \"6593c7653eeff32662cfef76\",\n        \"directory_name\": \"DB for default  community\",\n        \"directory_type\": \"db\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"eventCategory\": \"AUDIT_LOG\",\n        \"type\": \"event\",\n        \"old_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Fingerprint\",\n          \"descriptions\": [\n            \"Must contain 8 characters with at least one special character and one number.\"\n          ],\n          \"allowed\": true\n        },\n        \"new_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Face\",\n          \"allowed\": true,\n          \"description\": \"Must contain 8 characters with at least one special character and one number.\"\n        },\n        \"event_id\": \"9a36c40d-ed6d-4410-abd1-ebc53898f172\",\n        \"timestamp\": \"2025-06-27 10:11:45.416\",\n        \"epoch_time\": \"1751019105\",\n        \"eventName\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\"\n      },\n      {\n        \"event_name\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\",\n        \"event_ts\": 1751018188277,\n        \"user_id\": \"rahulauth\",\n        \"user_name\": \"rahulauth\",\n        \"connection_ip_address\": \"117.220.184.164\",\n        \"connection_useragent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"directory_id\": \"6593c7653eeff32662cfef76\",\n        \"directory_name\": \"DB for default  community\",\n        \"directory_type\": \"db\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"eventCategory\": \"AUDIT_LOG\",\n        \"type\": \"event\",\n        \"old_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Face\",\n          \"descriptions\": [\n            \"Must contain 8 characters with at least one special character and one number.\"\n          ],\n          \"allowed\": true\n        },\n        \"new_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Fingerprint\",\n          \"allowed\": true,\n          \"description\": \"Must contain 8 characters with at least one special character and one number.\"\n        },\n        \"event_id\": \"347b264a-b993-4b2c-98af-72685a4a72a9\",\n        \"timestamp\": \"2025-06-27 09:56:28.277\",\n        \"epoch_time\": \"1751018188\",\n        \"eventName\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\"\n      },\n      {\n        \"event_name\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\",\n        \"event_ts\": 1751018129803,\n        \"user_id\": \"rahulauth\",\n        \"user_name\": \"rahulauth\",\n        \"connection_ip_address\": \"117.220.184.164\",\n        \"connection_useragent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"directory_id\": \"6593c7653eeff32662cfef76\",\n        \"directory_name\": \"DB for default  community\",\n        \"directory_type\": \"db\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"eventCategory\": \"AUDIT_LOG\",\n        \"type\": \"event\",\n        \"old_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Fingerprint\",\n          \"descriptions\": [\n            \"Must contain 8 characters with at least one special character and one number.\"\n          ],\n          \"allowed\": true\n        },\n        \"new_config_passwordPolicy\": {\n          \"rules\": {\n            \"min_enabled\": true,\n            \"min_special_enabled\": true,\n            \"min_numbers_enabled\": true,\n            \"special_chars_allowed_enabled\": true,\n            \"min_alpha_caps_enabled\": true,\n            \"noUsername\": true,\n            \"noUsername_enabled\": true,\n            \"allowInRow_enabled\": true,\n            \"min\": 8,\n            \"min_special\": 1,\n            \"min_numbers\": 1,\n            \"special_chars_allowed\": \"!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\",\n            \"min_alpha_caps\": 1,\n            \"allowInRow\": 3\n          },\n          \"authtype\": \"Face\",\n          \"allowed\": true,\n          \"description\": \"Must contain 8 characters with at least one special character and one number.\"\n        },\n        \"event_id\": \"d4232ecb-4dd1-4382-957e-ede84ec0846a\",\n        \"timestamp\": \"2025-06-27 09:55:29.803\",\n        \"epoch_time\": \"1751018129\",\n        \"eventName\": \"E_DIRECTORY_ADVANCED_CONFIGURATION_MODIFIED\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42da5093-9cb2-4c09-9a74-38c13c9a226f",
+              "name": "Bad/Missing License Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "audit_log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 5,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"This header should not be empty\",\n      \"param\": \"licensekey\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d90a874f-eff0-4b89-b729-19a695a5b04d",
+          "name": "Last Seen Report",
+          "request": {
+            "name": "Last Seen Report",
+            "description": {
+              "content": "Request Description\nThis is a POST request to retrieve the last seen report for a specific user in a community.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/last_seen_report\n\nRequest Body:\nThe request requires a JSON payload with the following parameters:\n\nuser_id (string): The unique identifier for the user.\n\ndevice_id (string): The unique identifier for the device used by the user.\n\neventName (string): The name of the event being reported (e.g., login success).\n\nExample Request Body:\n\n{\n  \"user_id\": \"rahulauth\",\n  \"device_id\": \"4991d8a02a256d0e\",\n  \"eventName\": \"E_LOGIN_SUCCEEDED\"\n}\n\nExpected Response:\nThe response will return a JSON object containing an array of data with the following fields:\n\ndata (array): An array of event records, each containing:\n\ntype (string): Type of the event.\n\nevent_ts (integer): Timestamp of the event.\n\nversion (string): Version of the event.\n\njourney_id (string): Identifier for the journey.\n\nsession_id (string): Identifier for the session.\n\nclient_ip_address (string): IP address of the client.\n\ncaller_user_agent (string): User agent of the caller.\n\nlogin_state (string): Current login state of the user.\n\nuser_id (string): User identifier.\n\nuser_status (string): Status of the user.\n\nuser_email (string): Email of the user.\n\nuser_firstname (string): First name of the user.\n\nuser_lastname (string): Last name of the user.\n\nsource_user_directory (string): Source user directory.\n\ntenant_dns (string): DNS of the tenant.\n\ntenant_tag (string): Tag of the tenant.\n\nservice_name (string): Name of the service.\n\nserver_ip (string): IP address of the server.\n\nauth_method (string): Authentication method used.\n\ndevice_id (string): Device identifier.\n\nauth_device_os (string): Operating system of the authentication device.\n\nauth_device_name (string): Name of the authentication device.\n\nauth_device_app_name (string): Application name on the authentication device.\n\nauth_device_app_version (string): Version of the application on the authentication device.\n\nauth_device_ip_address (string): IP address of the authentication device.\n\nauth_device_latitude (float): Latitude of the authentication device.\n\nauth_device_longitude (float): Longitude of the authentication device.\n\nmoduleId (string): Identifier for the module.\n\nfactsSubmitted (object): Details of the submitted facts.\n\nauthFactor (string): Authentication factor used.\n\nsessionUrl (string): URL for the session.\n\nauthJourneysMatched (array): List of matched authentication journeys.\n\nuser_role (string): Role of the user.\n\nevent_id (string): Identifier for the event.\n\ntimestamp (string): Timestamp of the response.\n\nepoch_time (integer): Epoch time of the event.\n\ntenant_id (string): Identifier for the tenant.\n\ncommunity_id (string): Identifier for the community.\n\neventName (string): Name of the event.\n\nNotes\n\nEnsure that the necessary headers are included in the request, particularly for authorization.\n\nThe request and response structures may vary based on the specific tenant and community configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "last_seen_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60611493-4a70-401b-a2b1-89a89d648b0c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "last_seen_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"rahulauth\",\n  \"device_id\": \"4991d8a02a256d0e\",\n  \"eventName\": \"E_LOGIN_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"event\",\n      \"event_ts\": 1751022167293,\n      \"version\": \"v1\",\n      \"journey_id\": \"e5b46a18-ec28-4231-bdb4-481e6699ea67\",\n      \"session_id\": \"d3f4ce55-e67b-4c0c-bf7b-a0332cbb605c\",\n      \"client_ip_address\": \"117.220.184.164\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n      \"login_state\": \"SUCCESS\",\n      \"user_id\": \"rahulauth\",\n      \"user_status\": \"active\",\n      \"user_email\": \"rahul.saini+1230@1kosmos.com\",\n      \"user_firstname\": \"rahul\",\n      \"user_lastname\": \"Auth\",\n      \"source_user_directory\": \"db\",\n      \"tenant_dns\": \"https://1k-uat.1kosmos.net\",\n      \"tenant_tag\": \"1kosmos\",\n      \"service_name\": \"athena\",\n      \"server_ip\": \"10.8.29.162\",\n      \"auth_method\": \"push\",\n      \"device_id\": \"4991d8a02a256d0e\",\n      \"auth_device_os\": \"android\",\n      \"auth_device_name\": \"Rahul's Samsung A73\",\n      \"auth_device_app_name\": \"1Kosmos\",\n      \"auth_device_app_version\": \"1.20.40.685AB0BF\",\n      \"auth_device_ip_address\": \"117.220.184.164\",\n      \"auth_device_latitude\": 29.16525183,\n      \"auth_device_longitude\": 78.4822457,\n      \"moduleId\": \"6593c7653eeff32662cfef76\",\n      \"factsSubmitted\": {\n        \"applicationId\": \"adminx\",\n        \"machine_id\": \"72cbaa22-873c-424e-b6a4-9b7d14979b6e\",\n        \"machine_name\": \"72cbaa22-873c-424e-b6a4-9b7d14979b6e\",\n        \"machine_domain\": \"notavailable\",\n        \"machine_os\": \"\",\n        \"machine_os_version\": \"\",\n        \"machine_mac_addr\": \"\",\n        \"machine_ip\": \"\",\n        \"groups\": [],\n        \"userTrustedLocations\": [],\n        \"mobileLocation\": {\n          \"lat\": 29.16525183,\n          \"lon\": 78.4822457\n        },\n        \"authModuleId\": \"6593c7653eeff32662cfef76\",\n        \"authenticationMethods\": [\n          \"uwl\"\n        ],\n        \"username\": \"rahulauth\",\n        \"machine_user\": \"rahulauth@72cbaa22-873c-424e-b6a4-9b7d14979b6e\",\n        \"IP\": \"117.220.184.164\"\n      },\n      \"authFactor\": \"LiveID\",\n      \"sessionUrl\": \"https://1k-uat.1kosmos.net/sessions/session/05e0aa6f-30dd-4fe4-b1ac-11eedc36e69e\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"user_role\": \"community-admin\",\n      \"event_id\": \"726ad726-e803-41bd-bffd-9e3b04869a2d\",\n      \"timestamp\": \"2025-06-27 11:02:47.318\",\n      \"epoch_time\": 1751022167,\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"eventName\": \"E_LOGIN_SUCCEEDED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1272852e-7bab-49e8-8faf-61fdfab0f5a9",
+              "name": "Incorrect From-To Dates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "last_seen_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"rahulauth\",\n  \"device_id\": \"4991d8a02a256d0e\",\n  \"eventName\": \"E_LOGIN_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"Field should be from current time to minus 90 days\",\n      \"param\": \"from\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "536c4887-5abe-400c-8d8b-093507acfafc",
+          "name": "Login Activity Report",
+          "request": {
+            "name": "Login Activity Report",
+            "description": {
+              "content": "Request Description\nThis is an HTTP POST request to the endpoint {{client_api}}/reports/tenant/:tenantID/community/:communityID/login_activity_report.\n\nRequest Parameters\nThe request body should be in JSON format and includes the following parameters:\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The page index for pagination.\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\neventName (string): The name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}\n\nExpected Response Format\nThe response will be in JSON format and will include the following structure:\n\npage: An object containing pagination details.\n\ntotal (integer): Total number of records available.\n\npSize (integer): The size of the page.\n\npIndex (integer): The current page index.\n\ndata: An object containing the activity and login events.\n\nactivityEvents: An array of objects representing activity events, each with various attributes including event_name, event_ts, user_id, etc.\n\nloginEvents: An array of objects representing login events, each with attributes including type, event_ts, user_id, etc.\n\nThis request is designed to retrieve login activity reports for a specified tenant and community within a defined date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "login_activity_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f74c04b0-3fc8-43b3-bc3c-69ad046d501f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "login_activity_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"total\": 4,\n    \"pSize\": 10,\n    \"pIndex\": 0\n  },\n  \"data\": {\n    \"activityEvents\": [\n      {\n        \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n        \"event_ts\": 1751206568534,\n        \"version\": \"v1\",\n        \"journey_id\": \"47d5f941-608c-4464-80f9-92e32347803d\",\n        \"session_id\": \"a73a8d5f-10ef-447b-97bf-f6e0495340b3\",\n        \"client_ip_address\": \"213.174.29.76\",\n        \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n        \"user_id\": \"john.doe@1kosmos.com\",\n        \"user_status\": \"active\",\n        \"user_email\": \"john.doe@1kosmos.com\",\n        \"user_firstname\": \"john\",\n        \"user_lastname\": \"doe\",\n        \"source_user_directory\": \"db\",\n        \"source_user_directory_name\": \"DB for default  community\",\n        \"caller_ip\": \"213.174.29.76\",\n        \"tenant_dns\": \"1k-uat.1kosmos.net\",\n        \"auth_method\": \"otp\",\n        \"auth_device_os\": \"Mac OS\",\n        \"auth_device_app_name\": \"Chrome\",\n        \"auth_device_app_version\": \"137.0.0.0\",\n        \"sp_type\": \"saml\",\n        \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n        \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n        \"country\": \"Ukraine\",\n        \"region\": \"Poltava Oblast\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"type\": \"event\",\n        \"authJourneysMatched\": [\n          {\n            \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n            \"name\": \"default\"\n          }\n        ],\n        \"aliasUsed\": \"unknown\",\n        \"event_id\": \"f64c7fc8-8ae5-48d3-bc62-70b09a312a37\",\n        \"timestamp\": \"2025-06-29 14:16:08.534\",\n        \"epoch_time\": \"1751206568\",\n        \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n      },\n      {\n        \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n        \"event_ts\": 1751203011828,\n        \"version\": \"v1\",\n        \"journey_id\": \"97dc6371-03a2-4ef0-8b3f-31ccea6d40ff\",\n        \"session_id\": \"0b2b9ce7-1d74-4057-a0a4-ba507dae4d91\",\n        \"client_ip_address\": \"213.174.29.76\",\n        \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15\",\n        \"user_id\": \"john.doe@1kosmos.com\",\n        \"user_status\": \"active\",\n        \"user_email\": \"john.doe@1kosmos.com\",\n        \"user_firstname\": \"john\",\n        \"user_lastname\": \"doe\",\n        \"source_user_directory\": \"db\",\n        \"source_user_directory_name\": \"DB for default  community\",\n        \"caller_ip\": \"213.174.29.76\",\n        \"tenant_dns\": \"1k-uat.1kosmos.net\",\n        \"auth_method\": \"otp\",\n        \"auth_device_os\": \"Mac OS\",\n        \"auth_device_app_name\": \"Safari\",\n        \"auth_device_app_version\": \"18.5\",\n        \"sp_type\": \"saml\",\n        \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n        \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n        \"country\": \"Ukraine\",\n        \"region\": \"Poltava Oblast\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"type\": \"event\",\n        \"authJourneysMatched\": [\n          {\n            \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n            \"name\": \"default\"\n          }\n        ],\n        \"aliasUsed\": \"unknown\",\n        \"event_id\": \"baa8a5ce-f1a7-4eee-8156-1e177f9ae365\",\n        \"timestamp\": \"2025-06-29 13:16:51.828\",\n        \"epoch_time\": \"1751203011\",\n        \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n      },\n      {\n        \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n        \"event_ts\": 1747298595672,\n        \"version\": \"v1\",\n        \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n        \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n        \"client_ip_address\": \"3.231.117.156\",\n        \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n        \"user_id\": \"john.doe@1kosmos.com\",\n        \"user_status\": \"active\",\n        \"user_email\": \"john.doe@1kosmos.com\",\n        \"user_firstname\": \"john\",\n        \"user_lastname\": \"doe\",\n        \"source_user_directory\": \"db\",\n        \"source_user_directory_name\": \"DB for default  community\",\n        \"caller_ip\": \"3.231.117.156\",\n        \"tenant_dns\": \"1k-uat.1kosmos.net\",\n        \"auth_method\": \"otp\",\n        \"auth_device_os\": \"Mac OS\",\n        \"auth_device_app_name\": \"Edge\",\n        \"auth_device_app_version\": \"136.0.0.0\",\n        \"sp_type\": \"saml\",\n        \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n        \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n        \"country\": \"United States\",\n        \"region\": \"Virginia\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"type\": \"event\",\n        \"authJourneysMatched\": [\n          {\n            \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n            \"name\": \"default\"\n          }\n        ],\n        \"aliasUsed\": \"unknown\",\n        \"event_id\": \"da65e059-2542-4283-a6b3-11f6a94d187d\",\n        \"timestamp\": \"2025-05-15 08:43:15.672\",\n        \"epoch_time\": \"1747298595\",\n        \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n      },\n      {\n        \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n        \"event_ts\": 1747297942920,\n        \"version\": \"v1\",\n        \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n        \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n        \"client_ip_address\": \"3.231.117.156\",\n        \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n        \"user_id\": \"john.doe@1kosmos.com\",\n        \"user_status\": \"active\",\n        \"user_email\": \"john.doe@1kosmos.com\",\n        \"user_firstname\": \"john\",\n        \"user_lastname\": \"doe\",\n        \"source_user_directory\": \"db\",\n        \"source_user_directory_name\": \"DB for default  community\",\n        \"caller_ip\": \"3.231.117.156\",\n        \"tenant_dns\": \"1k-uat.1kosmos.net\",\n        \"auth_method\": \"otp\",\n        \"auth_device_os\": \"Mac OS\",\n        \"auth_device_app_name\": \"Edge\",\n        \"auth_device_app_version\": \"136.0.0.0\",\n        \"sp_type\": \"saml\",\n        \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n        \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n        \"country\": \"United States\",\n        \"region\": \"Virginia\",\n        \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n        \"community_id\": \"6593c75e2aa12e3349e11a69\",\n        \"type\": \"event\",\n        \"authJourneysMatched\": [\n          {\n            \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n            \"name\": \"default\"\n          }\n        ],\n        \"aliasUsed\": \"unknown\",\n        \"event_id\": \"be926b44-1da0-4859-8a88-a38c3110a801\",\n        \"timestamp\": \"2025-05-15 08:32:22.920\",\n        \"epoch_time\": \"1747297942\",\n        \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n      }\n    ],\n    \"loginEvents\": [\n      {\n        \"0b2b9ce7-1d74-4057-a0a4-ba507dae4d91\": {\n          \"type\": \"event\",\n          \"event_ts\": 1751202708130,\n          \"version\": \"v1\",\n          \"journey_id\": \"97dc6371-03a2-4ef0-8b3f-31ccea6d40ff\",\n          \"session_id\": \"0b2b9ce7-1d74-4057-a0a4-ba507dae4d91\",\n          \"client_ip_address\": \"213.174.29.76\",\n          \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15\",\n          \"login_state\": \"SUCCESS\",\n          \"user_id\": \"john.doe@1kosmos.com\",\n          \"user_status\": \"active\",\n          \"user_email\": \"john.doe@1kosmos.com\",\n          \"user_firstname\": \"john\",\n          \"user_lastname\": \"doe\",\n          \"source_user_directory\": \"db\",\n          \"tenant_dns\": \"https://1k-uat.1kosmos.net\",\n          \"tenant_tag\": \"1kosmos\",\n          \"service_name\": \"athena\",\n          \"server_ip\": \"10.8.29.162\",\n          \"auth_method\": \"otp\",\n          \"auth_device_os\": \"none\",\n          \"auth_device_name\": \"not available\",\n          \"auth_device_app_name\": \"not available\",\n          \"auth_device_app_version\": \"not available\",\n          \"auth_device_latitude\": 0,\n          \"auth_device_longitude\": 0,\n          \"moduleId\": \"6593c7653eeff32662cfef76\",\n          \"otp_type\": \"user-generated\",\n          \"factsSubmitted\": {\n            \"applicationId\": \"679b39e07ce125a22a6ce4ff\",\n            \"machine_id\": \"C02G31S6Q05Q\",\n            \"machine_name\": \"john-doe-DESKTOP0203\",\n            \"machine_domain\": \"john-doe-DESKTOP0203\",\n            \"machine_os\": \"macOS\",\n            \"machine_os_version\": \"15.5.0\",\n            \"machine_mac_addr\": [\n              \"ae:61:c9:dc:35:67\",\n              \"ae:61:c9:dc:35:68\",\n              \"80:3f:5d:fd:fd:22\",\n              \"36:3e:50:1c:95:80\",\n              \"3c:06:30:1f:0c:9e\",\n              \"36:3e:50:1c:95:80\",\n              \"36:3e:50:1c:95:84\"\n            ],\n            \"machine_ip\": [\n              \"192.168.0.216\"\n            ],\n            \"agent_version\": \"1.1.1.0.67E6D07A\",\n            \"groups\": [],\n            \"userTrustedLocations\": [],\n            \"authModuleId\": \"6593c7653eeff32662cfef76\",\n            \"authenticationMethods\": [\n              \"password\",\n              \"otp\"\n            ],\n            \"username\": \"john.doe@1kosmos.com\",\n            \"machine_user\": \"john.doe@1kosmos.com@john-doe-DESKTOP0203\",\n            \"IP\": \"213.174.29.76\"\n          },\n          \"authFactor\": \"\",\n          \"sessionUrl\": \"\",\n          \"authJourneysMatched\": [\n            {\n              \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n              \"name\": \"default\"\n            }\n          ],\n          \"user_role\": \"community-admin\",\n          \"event_id\": \"4c640aaa-5e6f-404d-b0ce-76c33952c535\",\n          \"timestamp\": \"2025-06-29 13:11:48.130\",\n          \"epoch_time\": \"1751202708\",\n          \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n          \"community_id\": \"6593c75e2aa12e3349e11a69\",\n          \"eventName\": \"E_LOGIN_SUCCEEDED\"\n        }\n      },\n      {\n        \"a73a8d5f-10ef-447b-97bf-f6e0495340b3\": {\n          \"type\": \"event\",\n          \"event_ts\": 1751202898170,\n          \"version\": \"v1\",\n          \"journey_id\": \"56233866-9cf4-4390-84c3-0814fc0d89da\",\n          \"session_id\": \"a73a8d5f-10ef-447b-97bf-f6e0495340b3\",\n          \"client_ip_address\": \"213.174.29.76\",\n          \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n          \"login_state\": \"SUCCESS\",\n          \"user_id\": \"john.doe@1kosmos.com\",\n          \"user_status\": \"active\",\n          \"user_email\": \"john.doe@1kosmos.com\",\n          \"user_firstname\": \"john\",\n          \"user_lastname\": \"doe\",\n          \"source_user_directory\": \"db\",\n          \"tenant_dns\": \"https://1k-uat.1kosmos.net\",\n          \"tenant_tag\": \"1kosmos\",\n          \"service_name\": \"athena\",\n          \"server_ip\": \"10.8.29.162\",\n          \"auth_method\": \"otp\",\n          \"auth_device_os\": \"none\",\n          \"auth_device_name\": \"not available\",\n          \"auth_device_app_name\": \"not available\",\n          \"auth_device_app_version\": \"not available\",\n          \"auth_device_latitude\": 0,\n          \"auth_device_longitude\": 0,\n          \"moduleId\": \"6593c7653eeff32662cfef76\",\n          \"otp_type\": \"user-generated\",\n          \"factsSubmitted\": {\n            \"applicationId\": \"adminx\",\n            \"machine_id\": \"C02G31S6Q05Q\",\n            \"machine_name\": \"john-doe-DESKTOP0203\",\n            \"machine_domain\": \"john-doe-DESKTOP0203\",\n            \"machine_os\": \"macOS\",\n            \"machine_os_version\": \"15.5.0\",\n            \"machine_mac_addr\": [\n              \"ae:61:c9:dc:35:67\",\n              \"ae:61:c9:dc:35:68\",\n              \"80:3f:5d:fd:fd:22\",\n              \"36:3e:50:1c:95:80\",\n              \"3c:06:30:1f:0c:9e\",\n              \"36:3e:50:1c:95:80\",\n              \"36:3e:50:1c:95:84\"\n            ],\n            \"machine_ip\": [\n              \"192.168.0.216\"\n            ],\n            \"agent_version\": \"1.1.1.0.67E6D07A\",\n            \"groups\": [],\n            \"userTrustedLocations\": [],\n            \"authModuleId\": \"6593c7653eeff32662cfef76\",\n            \"authenticationMethods\": [\n              \"password\",\n              \"otp\"\n            ],\n            \"username\": \"john.doe@1kosmos.com\",\n            \"machine_user\": \"john.doe@1kosmos.com@john-doe-DESKTOP0203\",\n            \"IP\": \"213.174.29.76\"\n          },\n          \"authFactor\": \"\",\n          \"sessionUrl\": \"\",\n          \"authJourneysMatched\": [\n            {\n              \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n              \"name\": \"default\"\n            }\n          ],\n          \"user_role\": \"community-admin\",\n          \"event_id\": \"93fa8d81-50a9-470f-b21b-68f2878bbf90\",\n          \"timestamp\": \"2025-06-29 13:14:58.170\",\n          \"epoch_time\": \"1751202898\",\n          \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n          \"community_id\": \"6593c75e2aa12e3349e11a69\",\n          \"eventName\": \"E_LOGIN_SUCCEEDED\"\n        }\n      },\n      {\n        \"b4e42230-ad93-47a7-a193-6cd52e24e150\": {\n          \"type\": \"event\",\n          \"event_ts\": 1747297942350,\n          \"version\": \"v1\",\n          \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n          \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n          \"client_ip_address\": \"3.231.117.156\",\n          \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n          \"login_state\": \"SUCCESS\",\n          \"user_id\": \"john.doe@1kosmos.com\",\n          \"user_status\": \"active\",\n          \"user_email\": \"john.doe@1kosmos.com\",\n          \"user_firstname\": \"john\",\n          \"user_lastname\": \"doe\",\n          \"source_user_directory\": \"db\",\n          \"tenant_dns\": \"https://1k-uat.1kosmos.net\",\n          \"tenant_tag\": \"1kosmos\",\n          \"service_name\": \"athena\",\n          \"server_ip\": \"10.8.92.57\",\n          \"auth_method\": \"otp\",\n          \"auth_device_os\": \"none\",\n          \"auth_device_name\": \"not available\",\n          \"auth_device_app_name\": \"not available\",\n          \"auth_device_app_version\": \"not available\",\n          \"auth_device_latitude\": 0,\n          \"auth_device_longitude\": 0,\n          \"moduleId\": \"6593c7653eeff32662cfef76\",\n          \"otp_type\": \"user-generated\",\n          \"factsSubmitted\": {\n            \"applicationId\": \"679b39e07ce125a22a6ce4ff\",\n            \"machine_id\": \"C02G31S6Q05Q\",\n            \"machine_name\": \"john-doe-DESKTOP0203\",\n            \"machine_domain\": \"john-doe-DESKTOP0203\",\n            \"machine_os\": \"macOS\",\n            \"machine_os_version\": \"15.4.1\",\n            \"machine_mac_addr\": [\n              \"ae:61:c9:dc:35:67\",\n              \"ae:61:c9:dc:35:68\",\n              \"80:3f:5d:fd:fd:22\",\n              \"36:3e:50:1c:95:80\",\n              \"3c:06:30:1f:0c:9e\",\n              \"36:3e:50:1c:95:80\",\n              \"36:3e:50:1c:95:84\"\n            ],\n            \"machine_ip\": [\n              \"192.168.0.216\"\n            ],\n            \"agent_version\": \"1.1.1.0.67E6D07A\",\n            \"groups\": [],\n            \"userTrustedLocations\": [],\n            \"authModuleId\": \"6593c7653eeff32662cfef76\",\n            \"authenticationMethods\": [\n              \"password\",\n              \"otp\"\n            ],\n            \"username\": \"john.doe@1kosmos.com\",\n            \"machine_user\": \"john.doe@1kosmos.com@john-doe-DESKTOP0203\",\n            \"IP\": \"3.231.117.156\"\n          },\n          \"authFactor\": \"\",\n          \"sessionUrl\": \"\",\n          \"authJourneysMatched\": [\n            {\n              \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n              \"name\": \"default\"\n            }\n          ],\n          \"user_role\": \"community-admin\",\n          \"event_id\": \"b352eef6-2efb-4f16-ae20-45c2e4e5db17\",\n          \"timestamp\": \"2025-05-15 08:32:22.350\",\n          \"epoch_time\": \"1747297942\",\n          \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n          \"community_id\": \"6593c75e2aa12e3349e11a69\",\n          \"eventName\": \"E_LOGIN_SUCCEEDED\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c52cba5-9a13-4ad9-8328-d919694abccb",
+              "name": "Bad/Missing License Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "login_activity_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"This header should not be empty\",\n      \"param\": \"licensekey\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "394934bb-fe11-4848-8736-8fc4012109b7",
+          "name": "Passwordless Login Activity Report",
+          "request": {
+            "name": "Passwordless Login Activity Report",
+            "description": {
+              "content": "Passwordless Login Activity Report Request\nThis request is used to retrieve a report on passwordless login activities for a specific tenant and community. It allows the user to specify a date range and an event name to filter the results.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/passwordless_login_activity_report\n\nRequest Body\nThe request body must be in JSON format and includes the following parameters:\n\npSize (number): The number of records to return per page.\n\npIndex (number): The index of the page to return.\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\neventName (string): The name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}\n\nResponse Structure\nThe response will be in JSON format and contains the following structure:\n\npage: An object that provides pagination information.\n\ntotal (number): The total number of records available.\n\npSize (number): The size of the page.\n\npIndex (number): The index of the current page.\n\ndata: An array of objects, each representing a login event with the following fields:\n\nevent_name (string): The name of the event.\n\nevent_ts (number): The timestamp of the event.\n\nversion (string): The version of the event.\n\njourney_id (string): The ID of the user journey.\n\nsession_id (string): The ID of the session.\n\nclient_ip_address (string): The IP address of the client.\n\ncaller_user_agent (string): The user agent of the caller.\n\nuser_id (string): The ID of the user.\n\nuser_status (string): The status of the user.\n\nuser_email (string): The email of the user.\n\nuser_firstname (string): The first name of the user.\n\nuser_lastname (string): The last name of the user.\n\nsource_user_directory (string): The source user directory.\n\nsource_user_directory_name (string): The name of the source user directory.\n\ncaller_ip (string): The IP address of the caller.\n\ntenant_dns (string): The DNS of the tenant.\n\nauth_method (string): The authentication method used.\n\nauth_device_os (string): The operating system of the device used for authentication.\n\nauth_device_app_name (string): The name of the application used for authentication.\n\nauth_device_app_version (string): The version of the application used for authentication.\n\nsp_type (string): The type of service provider.\n\nsp_name (string): The name of the service provider.\n\nsp_id (string): The ID of the service provider.\n\ncountry (string): The country of the user.\n\nregion (string): The region of the user.\n\ntenant_id (string): The ID of the tenant.\n\ncommunity_id (string): The ID of the community.\n\ntype (string): The type of event.\n\nauthJourneysMatched (array): An array of matched authentication journeys, each containing:\n\nid (string): The ID of the journey.\n\nname (string): The name of the journey.\n\naliasUsed (string): The alias used for the event.\n\nevent_id (string): The ID of the event.\n\ntimestamp (string): The timestamp of the event.\n\nepoch_time (number): The epoch time of the event.\n\neventName (string): The name of the event.\n\nThis structure allows for detailed reporting on passwordless login activities, enabling analysis and insights into user interactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                "tenant",
+                ":tenantID",
+                "community",
+                ":communityID",
+                "passwordless_login_activity_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenantID",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityID",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "requestid",
+                "value": "<string>",
+                "description": ""
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b938dfb-3db0-444a-a405-db683bc2287c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "passwordless_login_activity_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"total\": 4,\n    \"pSize\": 10,\n    \"pIndex\": 0\n  },\n  \"data\": [\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1751206568534,\n      \"version\": \"v1\",\n      \"journey_id\": \"47d5f941-608c-4464-80f9-92e32347803d\",\n      \"session_id\": \"a73a8d5f-10ef-447b-97bf-f6e0495340b3\",\n      \"client_ip_address\": \"213.174.29.76\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36\",\n      \"user_id\": \"john.doe@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"john.doe@1kosmos.com\",\n      \"user_firstname\": \"john\",\n      \"user_lastname\": \"doe\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"213.174.29.76\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Chrome\",\n      \"auth_device_app_version\": \"137.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"Ukraine\",\n      \"region\": \"Poltava Oblast\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"f64c7fc8-8ae5-48d3-bc62-70b09a312a37\",\n      \"timestamp\": \"2025-06-29 14:16:08.534\",\n      \"epoch_time\": \"1751206568\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1751203011828,\n      \"version\": \"v1\",\n      \"journey_id\": \"97dc6371-03a2-4ef0-8b3f-31ccea6d40ff\",\n      \"session_id\": \"0b2b9ce7-1d74-4057-a0a4-ba507dae4d91\",\n      \"client_ip_address\": \"213.174.29.76\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15\",\n      \"user_id\": \"john.doe@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"john.doe@1kosmos.com\",\n      \"user_firstname\": \"john\",\n      \"user_lastname\": \"doe\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"213.174.29.76\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Safari\",\n      \"auth_device_app_version\": \"18.5\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"Ukraine\",\n      \"region\": \"Poltava Oblast\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"baa8a5ce-f1a7-4eee-8156-1e177f9ae365\",\n      \"timestamp\": \"2025-06-29 13:16:51.828\",\n      \"epoch_time\": \"1751203011\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1747298595672,\n      \"version\": \"v1\",\n      \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n      \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n      \"client_ip_address\": \"3.231.117.156\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n      \"user_id\": \"john.doe@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"john.doe@1kosmos.com\",\n      \"user_firstname\": \"john\",\n      \"user_lastname\": \"doe\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"3.231.117.156\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Edge\",\n      \"auth_device_app_version\": \"136.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"United States\",\n      \"region\": \"Virginia\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"da65e059-2542-4283-a6b3-11f6a94d187d\",\n      \"timestamp\": \"2025-05-15 08:43:15.672\",\n      \"epoch_time\": \"1747298595\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    },\n    {\n      \"event_name\": \"E_SP_REDIRECT_SUCCEEDED\",\n      \"event_ts\": 1747297942920,\n      \"version\": \"v1\",\n      \"journey_id\": \"883b6133-d473-4021-9da4-77b11f59e3d5\",\n      \"session_id\": \"b4e42230-ad93-47a7-a193-6cd52e24e150\",\n      \"client_ip_address\": \"3.231.117.156\",\n      \"caller_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0\",\n      \"user_id\": \"john.doe@1kosmos.com\",\n      \"user_status\": \"active\",\n      \"user_email\": \"john.doe@1kosmos.com\",\n      \"user_firstname\": \"john\",\n      \"user_lastname\": \"doe\",\n      \"source_user_directory\": \"db\",\n      \"source_user_directory_name\": \"DB for default  community\",\n      \"caller_ip\": \"3.231.117.156\",\n      \"tenant_dns\": \"1k-uat.1kosmos.net\",\n      \"auth_method\": \"otp\",\n      \"auth_device_os\": \"Mac OS\",\n      \"auth_device_app_name\": \"Edge\",\n      \"auth_device_app_version\": \"136.0.0.0\",\n      \"sp_type\": \"saml\",\n      \"sp_name\": \"https://blockid-uat.1kosmos.net/admin/31102024\",\n      \"sp_id\": \"https://blockid-uat.1kosmos.net/admin/31102024/cb1af5c5-a27d-4288-9722-9f964e2027df\",\n      \"country\": \"United States\",\n      \"region\": \"Virginia\",\n      \"tenant_id\": \"6593c75e2aa12e3349e11a68\",\n      \"community_id\": \"6593c75e2aa12e3349e11a69\",\n      \"type\": \"event\",\n      \"authJourneysMatched\": [\n        {\n          \"id\": \"3f3fa44e-83f3-4152-9bf4-66ce8c000302\",\n          \"name\": \"default\"\n        }\n      ],\n      \"aliasUsed\": \"unknown\",\n      \"event_id\": \"be926b44-1da0-4859-8a88-a38c3110a801\",\n      \"timestamp\": \"2025-05-15 08:32:22.920\",\n      \"epoch_time\": \"1747297942\",\n      \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8931414-ff75-4cab-a629-8c675f9e4329",
+              "name": "Bad/Missing License Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    "tenant",
+                    ":tenantID",
+                    "community",
+                    ":communityID",
+                    "passwordless_login_activity_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenantID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityID",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "requestid",
+                    "value": "<string>",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"This header should not be empty\",\n      \"param\": \"licensekey\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b581b957-e746-45dc-b4e4-2181c07f77cb",
+    "name": "1Kosmos BlockID Platform Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}

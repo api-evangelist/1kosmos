@@ -1,0 +1,263 @@
+{
+  "item": [
+    {
+      "id": "ad200ce7-c4e2-4098-9bbd-d7ecd0d98077",
+      "name": "Set up",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35228982-dcf3-4600-8abb-e285a5fdff45",
+          "name": "Get Tenant Community Info",
+          "request": {
+            "name": "Get Tenant Community Info",
+            "description": {
+              "content": "This API is used to fetch the complete details of both the tenant and the community that were set as the environment variables.\n\nThese details include configured tenant dns name and the list of other tenant DNS. Additionally, the community details include the logo URL used in the community, tenant tag, and so on. The logo details will be displayed only if you had set the skipLogos parameter in the payload to false.\n\nMandatory Parmameters\n\ndns - Use the dns name of the tenant as a variable.\n\ncommunityName - Specify the community name as a variable.\n\nOptional Parameters\nskipLogos - This is a boolean parameter. Specifying this value as false displays the logo details in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "r1",
+                "system",
+                "community_info",
+                "fetch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c9c5615-2d84-423e-98aa-aa9bb3384ff3",
+              "name": "Tenant Community Info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "r1",
+                    "system",
+                    "community_info",
+                    "fetch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dns\": \"{{tenantDNS}}\",\n  \"communityName\": \"{{community_name}}\",\n  \"skipLogos\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tenant\": {\n    \"id\": \"5f3d8d0cd********19cf968\",\n    \"firstname\": \"Acme\",\n    \"lastname\": \"Admin\",\n    \"tenanttype\": \"master\",\n    \"tenanttag\": \"acme\",\n    \"name\": \"Acme\",\n    \"otherDNS\": [\n      \"acme.1kosmos.net\",\n      \"local.acme.net\",\n      \"acme-console.1kosmos.com\",\n      \"localblockid.com\",\n      \"localhost\",\n      \"acme-newconsole.example.com\",\n      \"73c4-**-**-67-119.ngrok.io\",\n      \"acme-default.1kosmos.net\",\n      \"acme-console\"\n    ],\n    \"displayTenantInfoForPersona\": true\n  },\n  \"community\": {\n    \"id\": \"5f3d8d0cd********19cf969\",\n    \"tenantid\": \"5f3d8d0cd********19cf968\",\n    \"logo\": \"iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAANIElEQVR4nOzXj7cXdH3HcS/cpW7hjiCbHYU8mUgjcQotdDonZzbF7FRza8M6WkscYrbjZE5SiqudHG55tGUmAbPhtGaKvw6SLo3DGjGFc/OQMMpq/AgwwAOxiSnur3id4zmvx+MPeL3vuef7Pc/vZ/CIP/zBYj\",\n    \"mobileLogo\": \"\",\n    \"name\": \"default\",\n    \"publicKey\": \"dkW7xYymDr4Rh4wEGazMdtiDzaGQtzgfby7F/z1eJchUjebTmYxkKcW7cHAg12zFWYEeJF9erjwoKw0BOHqtYw==\",\n    \"accountsPerPerson\": 12,\n    \"personsPerAccount\": 20,\n    \"personLimitRule\": \"reject\",\n    \"otpSeed\": null\n  },\n  \"message\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac471864-00c2-44d1-9610-8dff23f5cc6d",
+          "name": "Fetch SD",
+          "request": {
+            "name": "Fetch SD",
+            "description": {
+              "content": "This API is used to retrieve all microservices associated with your tenant. You must execute this API to know the URLs of each services. For example, if service A want to call service B, it is necessary for service A to know the URL for service B.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caas",
+                "sd"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                  "type": "any",
+                  "value": "{{tenantDNS}}",
+                  "key": "tenantDNS"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "322fe058-5f4f-4968-bda7-49f8148faf50",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caas",
+                    "sd"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+                      "type": "any",
+                      "value": "{{tenantDNS}}",
+                      "key": "tenantDNS"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "licensekey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "blockid-trial.1kosmos.net",
+      "key": "tenantDNS"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantDNS}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "licensekey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1a50f221-a58a-4c57-9c80-bde434df7c50",
+    "name": "1Kosmos BlockID Platform Set up API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.\n\nDERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection \"1Kosmos Postman Collection\" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.\n\nContact Support:\n Name: 1Kosmos Developer Support\n Email: developers@1kosmos.com",
+      "type": "text/plain"
+    }
+  }
+}
