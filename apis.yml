@@ -10,6 +10,18 @@ description: '1Kosmos is a digital identity company whose BlockID platform combi
   1Kosmos is Kantara-approved as a full-service credential service provider conformant with NIST SP
   800-63-3 at IAL2/AAL2, is FIDO2 certified, holds SOC 2 Type II and ISO 27001, and holds a FedRAMP
   High authorization.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://framerusercontent.com/images/CaZExN3h34OiuPCO41bzrgwhVc.png
 url: https://raw.githubusercontent.com/api-evangelist/1kosmos/refs/heads/main/apis.yml
 x-type: company
