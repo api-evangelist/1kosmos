@@ -155,24 +155,6 @@ apis:
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-set-up-api
-  name: 1Kosmos Set up API
-  description: The Set up API from 1Kosmos — 2 operation(s) for set up.
-  humanURL: https://developer.1kosmos.com/devportal/docs/
-  baseURL: https://blockid-trial.1kosmos.net
-  tags:
-  - Setup
-  tags_raw:
-  - Set up
-  properties:
-  - type: OpenAPI
-    url: openapi/1kosmos-set-up-api-openapi.yml
-  - type: Postman
-    url: postman/1kosmos-postman-collection.json
-  - type: Documentation
-    url: https://developer.1kosmos.com/devportal/docs/
-  - type: APIReference
-    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
 - aid: 1kosmos:1kosmos-user-management-api
   name: 1Kosmos User Management API
   description: The User Management API from 1Kosmos — 3 operation(s) for user management.
@@ -215,6 +197,22 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/1kosmos-workflow-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-setup-api
+  name: 1Kosmos Setup API
+  description: The Setup API from 1Kosmos — 2 operation(s) for setup.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Setup
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-setup-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
