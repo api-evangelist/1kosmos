@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: 1Kosmos BlockID Platform ID Verification API
   version: '2026-08-05'
-  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  description: REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
   contact:
     name: 1Kosmos Developer Support
     email: developers@1kosmos.com
@@ -29,7 +26,61 @@ paths:
     post:
       operationId: idVerificationCreateIDVerificationSession
       summary: Create ID Verification Session
-      description: "This API is used to create a session for a specific document type. You can generate a session with one of the supported documents:\n\nidcard\n\ndriving license\n\npassport\n\nNote: The response displays the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.\n\nAuthorization\nThis API is using the license key to authorize the request.\n\nMandatory Parameters\ndata - Specify the dvcID, tenantDNS, community name, and the type of document for which you want to create a verification session.\n\ndocumentType:\nFor Drivers License: set documentType: \"dl_object\"\nFor Passport: set documentType: \"ppt_object\"\nFor Any other ID Card: set documentType: \"idcard_object\" \n\nNote: You must use your own tenant DNS and community name.\n\nOptional Parameters\n\nusername - Specify the user for whom the session is created.\n\nfirstname - Specify the first name of the user for whom the session is created.\n\nlastname - Specify the last name of the user for whom the session is created.\n\nuid - A unique identifier which help in mapping the session ID to the user performing the verification.\n\nView Sample Response\nPostman Responses"
+      description: 'This API is used to create a session for a specific document type. You can generate a session with one of the supported documents:
+
+
+        idcard
+
+
+        driving license
+
+
+        passport
+
+
+        Note: The response displays the generated session URL in the encrypted format. When you run this API in your postman, click the Visualization tab in the response to view the result in the decrypted format. Otherwise, you can use your own helper that is compatible with ECDSA to view the result in the decrypted format.
+
+
+        Authorization
+
+        This API is using the license key to authorize the request.
+
+
+        Mandatory Parameters
+
+        data - Specify the dvcID, tenantDNS, community name, and the type of document for which you want to create a verification session.
+
+
+        documentType:
+
+        For Drivers License: set documentType: "dl_object"
+
+        For Passport: set documentType: "ppt_object"
+
+        For Any other ID Card: set documentType: "idcard_object"
+
+
+        Note: You must use your own tenant DNS and community name.
+
+
+        Optional Parameters
+
+
+        username - Specify the user for whom the session is created.
+
+
+        firstname - Specify the first name of the user for whom the session is created.
+
+
+        lastname - Specify the last name of the user for whom the session is created.
+
+
+        uid - A unique identifier which help in mapping the session ID to the user performing the verification.
+
+
+        View Sample Response
+
+        Postman Responses'
       tags:
       - ID Verification
       parameters:

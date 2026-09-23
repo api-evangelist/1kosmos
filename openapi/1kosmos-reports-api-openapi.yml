@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: 1Kosmos BlockID Platform Reports API
   version: '2026-08-05'
-  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  description: REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
   contact:
     name: 1Kosmos Developer Support
     email: developers@1kosmos.com
@@ -29,7 +26,93 @@ paths:
     post:
       operationId: reportsEvents
       summary: Events
-      description: "API Request Description\nThis endpoint allows you to retrieve event data for a specific community within a tenant.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/events\n\nRequest Parameters\n\npSize (integer): The number of records to return per page. In the example, it is set to 10.\n\npIndex (integer): The page index for pagination. In the example, it is set to 1.\n\nfrom (string): The start date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-01 00:00:00.000.\n\nto (string): The end date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-10 00:00:00.000.\n\nquery (object): An object containing the search criteria for the events. In the example, it includes:\n\nevent_name (string): The name of the event to filter by. In the example, it is set to \"E_IDV_DOCUMENT_VALIDATE\".\n\nExpected Response\n\nStatus Code: 200 OK\n\nContent-Type: application/json\n\nResponse Body:\n\npage (object): Contains pagination information.\n\ntotal (integer): Total number of records available.\n\npSize (integer): The size of the current page.\n\npIndex (integer): The current page index.\n\ndata (array): An array of event data objects. If no events are found, this will be an empty array.\n\nExample Response\n{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n  \"data\": []\n}\n\nNotes\n\nEnsure that you provide valid tenantID and communityID in the URL.\n\nThe request requires authorization headers which must be included for successful execution.\n\nThe response may vary based on the provided date range and query parameters."
+      description: 'API Request Description
+
+        This endpoint allows you to retrieve event data for a specific community within a tenant.
+
+
+        Request URL
+
+        POST {{client_api}}/reports/tenant/:tenantID/community/:communityID/events
+
+
+        Request Parameters
+
+
+        pSize (integer): The number of records to return per page. In the example, it is set to 10.
+
+
+        pIndex (integer): The page index for pagination. In the example, it is set to 1.
+
+
+        from (string): The start date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-01 00:00:00.000.
+
+
+        to (string): The end date and time for the events to be retrieved, formatted as YYYY-MM-DD HH:MM:SS.SSS. In the example, it is 2025-05-10 00:00:00.000.
+
+
+        query (object): An object containing the search criteria for the events. In the example, it includes:
+
+
+        event_name (string): The name of the event to filter by. In the example, it is set to "E_IDV_DOCUMENT_VALIDATE".
+
+
+        Expected Response
+
+
+        Status Code: 200 OK
+
+
+        Content-Type: application/json
+
+
+        Response Body:
+
+
+        page (object): Contains pagination information.
+
+
+        total (integer): Total number of records available.
+
+
+        pSize (integer): The size of the current page.
+
+
+        pIndex (integer): The current page index.
+
+
+        data (array): An array of event data objects. If no events are found, this will be an empty array.
+
+
+        Example Response
+
+        {
+
+        "page": {
+
+        "total": 0,
+
+        "pSize": 0,
+
+        "pIndex": 0
+
+        },
+
+        "data": []
+
+        }
+
+
+        Notes
+
+
+        Ensure that you provide valid tenantID and communityID in the URL.
+
+
+        The request requires authorization headers which must be included for successful execution.
+
+
+        The response may vary based on the provided date range and query parameters.'
       tags:
       - Reports
       parameters:
@@ -93,7 +176,53 @@ paths:
     post:
       operationId: reportsMetrics
       summary: Metrics
-      description: "Request Description\nThis API endpoint is used to submit metrics data for a specific community within a tenant. The purpose of this request is to track and analyze various metrics related to community activities.\n\nRequest Parameters\nThe request must include a JSON body with the following parameters:\n\nmetricsName (string): The name of the metric you want to report (e.g., \"M_GT_SUCCESSFUL_AUTHENTICATION\").\n\nfrom (string): The start date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\nto (string): The end date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.\n\nResponse Structure\nThe API responds with a JSON object containing the following field:\n\ncount (integer): The number of records that match the provided metrics criteria. For example, a response of {\"count\":0} indicates that there were no records found for the specified metrics within the given date range.\n\nExample Request\n{\n  \"metricsName\": \"M_GT_SUCCESSFUL_AUTHENTICATION\",\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2025-05-01 00:00:00.000\"\n}\n\nExample Response\n{\n  \"count\": 0\n}"
+      description: 'Request Description
+
+        This API endpoint is used to submit metrics data for a specific community within a tenant. The purpose of this request is to track and analyze various metrics related to community activities.
+
+
+        Request Parameters
+
+        The request must include a JSON body with the following parameters:
+
+
+        metricsName (string): The name of the metric you want to report (e.g., "M_GT_SUCCESSFUL_AUTHENTICATION").
+
+
+        from (string): The start date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.
+
+
+        to (string): The end date and time for the metric data in the format YYYY-MM-DD HH:MM:SS.sss.
+
+
+        Response Structure
+
+        The API responds with a JSON object containing the following field:
+
+
+        count (integer): The number of records that match the provided metrics criteria. For example, a response of {"count":0} indicates that there were no records found for the specified metrics within the given date range.
+
+
+        Example Request
+
+        {
+
+        "metricsName": "M_GT_SUCCESSFUL_AUTHENTICATION",
+
+        "from": "2025-05-01 00:00:00.000",
+
+        "to": "2025-05-01 00:00:00.000"
+
+        }
+
+
+        Example Response
+
+        {
+
+        "count": 0
+
+        }'
       tags:
       - Reports
       parameters:
@@ -148,7 +277,118 @@ paths:
     post:
       operationId: reportsApplicationUsageReport
       summary: Application Usage Report
-      description: "Request Description\nThis API endpoint allows you to generate an application usage report for a specific tenant and community within the client application.\n\nRequest Method\n\nPOST\n\nRequest URL\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/application_usage_report\n\nRequest Body\nThe request body must be in JSON format and should contain the following parameters:\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The index of the page to return.\n\nExample Payload:\n\n{\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"pSize\": 10,\n  \"pIndex\": 0\n}\n\nExpected Response\nThe response will be a JSON object containing:\n\npage: An object with pagination details.\n\ntotal (integer): The total number of records available.\n\npSize (integer): The number of records per page.\n\npIndex (integer): The current page index.\n\ndata: An array of objects representing the application usage events. Each object may include fields such as:\n\nevent_name (string): The name of the event.\n\nevent_ts (integer): The timestamp of the event.\n\nuser_id (string): The ID of the user associated with the event.\n\nAdditional fields related to the event and user details.\n\nExample Response:\n\n{\n  \"page\": {\n    \"total\": 0,\n    \"pSize\": 0,\n    \"pIndex\": 0\n  },\n  \"data\": []\n}\n\nNotes\n\nEnsure that the tenantID and communityID in the URL are replaced with valid identifiers.\n\nThe request requires appropriate authorization headers to be included.\n\nThe response may vary based on the data available for the specified time range."
+      description: 'Request Description
+
+        This API endpoint allows you to generate an application usage report for a specific tenant and community within the client application.
+
+
+        Request Method
+
+
+        POST
+
+
+        Request URL
+
+
+        {{client_api}}/reports/tenant/:tenantID/community/:communityID/application_usage_report
+
+
+        Request Body
+
+        The request body must be in JSON format and should contain the following parameters:
+
+
+        from (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.
+
+
+        to (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        pIndex (integer): The index of the page to return.
+
+
+        Example Payload:
+
+
+        {
+
+        "from": "2025-05-01 00:00:00.000",
+
+        "to": "2026-06-01 00:00:00.000",
+
+        "pSize": 10,
+
+        "pIndex": 0
+
+        }
+
+
+        Expected Response
+
+        The response will be a JSON object containing:
+
+
+        page: An object with pagination details.
+
+
+        total (integer): The total number of records available.
+
+
+        pSize (integer): The number of records per page.
+
+
+        pIndex (integer): The current page index.
+
+
+        data: An array of objects representing the application usage events. Each object may include fields such as:
+
+
+        event_name (string): The name of the event.
+
+
+        event_ts (integer): The timestamp of the event.
+
+
+        user_id (string): The ID of the user associated with the event.
+
+
+        Additional fields related to the event and user details.
+
+
+        Example Response:
+
+
+        {
+
+        "page": {
+
+        "total": 0,
+
+        "pSize": 0,
+
+        "pIndex": 0
+
+        },
+
+        "data": []
+
+        }
+
+
+        Notes
+
+
+        Ensure that the tenantID and communityID in the URL are replaced with valid identifiers.
+
+
+        The request requires appropriate authorization headers to be included.
+
+
+        The response may vary based on the data available for the specified time range.'
       tags:
       - Reports
       parameters:
@@ -354,7 +594,146 @@ paths:
     post:
       operationId: reportsAuditLogReport
       summary: Audit Log Report
-      description: "Request Description\nThis is a POST request to retrieve the audit log for a specific community within a tenant.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/audit_log\n\nRequest Body:\nThe request body should be in JSON format and include the following parameters:\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The index of the page to retrieve.\n\nfrom (string): The start date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto (string): The end date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nExample Request Body:\n\n{\n  \"pSize\": 5,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\"\n}\n\nExpected Response:\nThe response will be in JSON format and will contain the following structure:\n\npage: An object containing pagination information.\n\ntotal (integer): The total number of records available.\n\npSize (integer): The number of records returned per page.\n\npIndex (integer): The current page index.\n\ndata: An object containing the audit log events.\n\nauditLogEvents (array): A list of audit log events, where each event includes:\n\nevent_name (string): The name of the event.\n\nevent_ts (integer): The timestamp of the event.\n\ntenant_id (string): The ID of the tenant.\n\ncommunity_id (string): The ID of the community.\n\neventCategory (string): The category of the event.\n\ntype (string): The type of the event.\n\nsp_type (string): The service provider type.\n\nsp_name (string): The name of the service provider.\n\nsp_id (string): The ID of the service provider.\n\nold_authRequestSignRequired (boolean): Indicates if the old auth request sign is required.\n\nnew_authRequestSignRequired (boolean): Indicates if the new auth request sign is required.\n\nnew_encryptAssertion (boolean): Indicates if the new encrypt assertion is enabled.\n\nnew_encryptionAlgorithm (string): The new encryption algorithm used.\n\nnew_keyTransportAlgorithm (string): The new key transport algorithm used.\n\nuser_id (string): The ID of the user associated with the event.\n\nuser_name (string): The name of the user associated with the event.\n\nconnection_ip_address (string): The IP address from which the connection was made.\n\nconnection_useragent (string): The user agent string of the connection.\n\nevent_id (string): The unique identifier for the event.\n\ntimestamp (string): The timestamp of the event.\n\nepoch_time (string): The epoch time of the event.\n\neventName (string): The name of the event.\n\nNotes:\n\nEnsure that the request headers include the necessary authorization tokens and keys.\n\nThe from and to parameters should be carefully set to ensure they fall within the range of available audit logs."
+      description: 'Request Description
+
+        This is a POST request to retrieve the audit log for a specific community within a tenant.
+
+
+        Endpoint:
+
+
+        {{client_api}}/reports/tenant/:tenantID/community/:communityID/audit_log
+
+
+        Request Body:
+
+        The request body should be in JSON format and include the following parameters:
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        pIndex (integer): The index of the page to retrieve.
+
+
+        from (string): The start date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.
+
+
+        to (string): The end date and time for the audit log in the format YYYY-MM-DD HH:MM:SS.SSS.
+
+
+        Example Request Body:
+
+
+        {
+
+        "pSize": 5,
+
+        "pIndex": 0,
+
+        "from": "2025-05-01 00:00:00.000",
+
+        "to": "2026-06-01 00:00:00.000"
+
+        }
+
+
+        Expected Response:
+
+        The response will be in JSON format and will contain the following structure:
+
+
+        page: An object containing pagination information.
+
+
+        total (integer): The total number of records available.
+
+
+        pSize (integer): The number of records returned per page.
+
+
+        pIndex (integer): The current page index.
+
+
+        data: An object containing the audit log events.
+
+
+        auditLogEvents (array): A list of audit log events, where each event includes:
+
+
+        event_name (string): The name of the event.
+
+
+        event_ts (integer): The timestamp of the event.
+
+
+        tenant_id (string): The ID of the tenant.
+
+
+        community_id (string): The ID of the community.
+
+
+        eventCategory (string): The category of the event.
+
+
+        type (string): The type of the event.
+
+
+        sp_type (string): The service provider type.
+
+
+        sp_name (string): The name of the service provider.
+
+
+        sp_id (string): The ID of the service provider.
+
+
+        old_authRequestSignRequired (boolean): Indicates if the old auth request sign is required.
+
+
+        new_authRequestSignRequired (boolean): Indicates if the new auth request sign is required.
+
+
+        new_encryptAssertion (boolean): Indicates if the new encrypt assertion is enabled.
+
+
+        new_encryptionAlgorithm (string): The new encryption algorithm used.
+
+
+        new_keyTransportAlgorithm (string): The new key transport algorithm used.
+
+
+        user_id (string): The ID of the user associated with the event.
+
+
+        user_name (string): The name of the user associated with the event.
+
+
+        connection_ip_address (string): The IP address from which the connection was made.
+
+
+        connection_useragent (string): The user agent string of the connection.
+
+
+        event_id (string): The unique identifier for the event.
+
+
+        timestamp (string): The timestamp of the event.
+
+
+        epoch_time (string): The epoch time of the event.
+
+
+        eventName (string): The name of the event.
+
+
+        Notes:
+
+
+        Ensure that the request headers include the necessary authorization tokens and keys.
+
+
+        The from and to parameters should be carefully set to ensure they fall within the range of available audit logs.'
       tags:
       - Reports
       parameters:
@@ -661,7 +1040,177 @@ paths:
     post:
       operationId: reportsLastSeenReport
       summary: Last Seen Report
-      description: "Request Description\nThis is a POST request to retrieve the last seen report for a specific user in a community.\n\nEndpoint:\n\n{{client_api}}/reports/tenant/:tenantID/community/:communityID/last_seen_report\n\nRequest Body:\nThe request requires a JSON payload with the following parameters:\n\nuser_id (string): The unique identifier for the user.\n\ndevice_id (string): The unique identifier for the device used by the user.\n\neventName (string): The name of the event being reported (e.g., login success).\n\nExample Request Body:\n\n{\n  \"user_id\": \"rahulauth\",\n  \"device_id\": \"4991d8a02a256d0e\",\n  \"eventName\": \"E_LOGIN_SUCCEEDED\"\n}\n\nExpected Response:\nThe response will return a JSON object containing an array of data with the following fields:\n\ndata (array): An array of event records, each containing:\n\ntype (string): Type of the event.\n\nevent_ts (integer): Timestamp of the event.\n\nversion (string): Version of the event.\n\njourney_id (string): Identifier for the journey.\n\nsession_id (string): Identifier for the session.\n\nclient_ip_address (string): IP address of the client.\n\ncaller_user_agent (string): User agent of the caller.\n\nlogin_state (string): Current login state of the user.\n\nuser_id (string): User identifier.\n\nuser_status (string): Status of the user.\n\nuser_email (string): Email of the user.\n\nuser_firstname (string): First name of the user.\n\nuser_lastname (string): Last name of the user.\n\nsource_user_directory (string): Source user directory.\n\ntenant_dns (string): DNS of the tenant.\n\ntenant_tag (string): Tag of the tenant.\n\nservice_name (string): Name of the service.\n\nserver_ip (string): IP address of the server.\n\nauth_method (string): Authentication method used.\n\ndevice_id (string): Device identifier.\n\nauth_device_os (string): Operating system of the authentication device.\n\nauth_device_name (string): Name of the authentication device.\n\nauth_device_app_name (string): Application name on the authentication device.\n\nauth_device_app_version (string): Version of the application on the authentication device.\n\nauth_device_ip_address (string): IP address of the authentication device.\n\nauth_device_latitude (float): Latitude of the authentication device.\n\nauth_device_longitude (float): Longitude of the authentication device.\n\nmoduleId (string): Identifier for the module.\n\nfactsSubmitted (object): Details of the submitted facts.\n\nauthFactor (string): Authentication factor used.\n\nsessionUrl (string): URL for the session.\n\nauthJourneysMatched (array): List of matched authentication journeys.\n\nuser_role (string): Role of the user.\n\nevent_id (string): Identifier for the event.\n\ntimestamp (string): Timestamp of the response.\n\nepoch_time (integer): Epoch time of the event.\n\ntenant_id (string): Identifier for the tenant.\n\ncommunity_id (string): Identifier for the community.\n\neventName (string): Name of the event.\n\nNotes\n\nEnsure that the necessary headers are included in the request, particularly for authorization.\n\nThe request and response structures may vary based on the specific tenant and community configurations."
+      description: 'Request Description
+
+        This is a POST request to retrieve the last seen report for a specific user in a community.
+
+
+        Endpoint:
+
+
+        {{client_api}}/reports/tenant/:tenantID/community/:communityID/last_seen_report
+
+
+        Request Body:
+
+        The request requires a JSON payload with the following parameters:
+
+
+        user_id (string): The unique identifier for the user.
+
+
+        device_id (string): The unique identifier for the device used by the user.
+
+
+        eventName (string): The name of the event being reported (e.g., login success).
+
+
+        Example Request Body:
+
+
+        {
+
+        "user_id": "rahulauth",
+
+        "device_id": "4991d8a02a256d0e",
+
+        "eventName": "E_LOGIN_SUCCEEDED"
+
+        }
+
+
+        Expected Response:
+
+        The response will return a JSON object containing an array of data with the following fields:
+
+
+        data (array): An array of event records, each containing:
+
+
+        type (string): Type of the event.
+
+
+        event_ts (integer): Timestamp of the event.
+
+
+        version (string): Version of the event.
+
+
+        journey_id (string): Identifier for the journey.
+
+
+        session_id (string): Identifier for the session.
+
+
+        client_ip_address (string): IP address of the client.
+
+
+        caller_user_agent (string): User agent of the caller.
+
+
+        login_state (string): Current login state of the user.
+
+
+        user_id (string): User identifier.
+
+
+        user_status (string): Status of the user.
+
+
+        user_email (string): Email of the user.
+
+
+        user_firstname (string): First name of the user.
+
+
+        user_lastname (string): Last name of the user.
+
+
+        source_user_directory (string): Source user directory.
+
+
+        tenant_dns (string): DNS of the tenant.
+
+
+        tenant_tag (string): Tag of the tenant.
+
+
+        service_name (string): Name of the service.
+
+
+        server_ip (string): IP address of the server.
+
+
+        auth_method (string): Authentication method used.
+
+
+        device_id (string): Device identifier.
+
+
+        auth_device_os (string): Operating system of the authentication device.
+
+
+        auth_device_name (string): Name of the authentication device.
+
+
+        auth_device_app_name (string): Application name on the authentication device.
+
+
+        auth_device_app_version (string): Version of the application on the authentication device.
+
+
+        auth_device_ip_address (string): IP address of the authentication device.
+
+
+        auth_device_latitude (float): Latitude of the authentication device.
+
+
+        auth_device_longitude (float): Longitude of the authentication device.
+
+
+        moduleId (string): Identifier for the module.
+
+
+        factsSubmitted (object): Details of the submitted facts.
+
+
+        authFactor (string): Authentication factor used.
+
+
+        sessionUrl (string): URL for the session.
+
+
+        authJourneysMatched (array): List of matched authentication journeys.
+
+
+        user_role (string): Role of the user.
+
+
+        event_id (string): Identifier for the event.
+
+
+        timestamp (string): Timestamp of the response.
+
+
+        epoch_time (integer): Epoch time of the event.
+
+
+        tenant_id (string): Identifier for the tenant.
+
+
+        community_id (string): Identifier for the community.
+
+
+        eventName (string): Name of the event.
+
+
+        Notes
+
+
+        Ensure that the necessary headers are included in the request, particularly for authorization.
+
+
+        The request and response structures may vary based on the specific tenant and community configurations.'
       tags:
       - Reports
       parameters:
@@ -776,7 +1325,75 @@ paths:
     post:
       operationId: reportsLoginActivityReport
       summary: Login Activity Report
-      description: "Request Description\nThis is an HTTP POST request to the endpoint {{client_api}}/reports/tenant/:tenantID/community/:communityID/login_activity_report.\n\nRequest Parameters\nThe request body should be in JSON format and includes the following parameters:\n\npSize (integer): The number of records to return per page.\n\npIndex (integer): The page index for pagination.\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.\n\neventName (string): The name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}\n\nExpected Response Format\nThe response will be in JSON format and will include the following structure:\n\npage: An object containing pagination details.\n\ntotal (integer): Total number of records available.\n\npSize (integer): The size of the page.\n\npIndex (integer): The current page index.\n\ndata: An object containing the activity and login events.\n\nactivityEvents: An array of objects representing activity events, each with various attributes including event_name, event_ts, user_id, etc.\n\nloginEvents: An array of objects representing login events, each with attributes including type, event_ts, user_id, etc.\n\nThis request is designed to retrieve login activity reports for a specified tenant and community within a defined date range."
+      description: 'Request Description
+
+        This is an HTTP POST request to the endpoint {{client_api}}/reports/tenant/:tenantID/community/:communityID/login_activity_report.
+
+
+        Request Parameters
+
+        The request body should be in JSON format and includes the following parameters:
+
+
+        pSize (integer): The number of records to return per page.
+
+
+        pIndex (integer): The page index for pagination.
+
+
+        from (string): The start date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.
+
+
+        to (string): The end date and time for the report in the format YYYY-MM-DD HH:mm:ss.SSS.
+
+
+        eventName (string): The name of the event to filter the report.
+
+
+        Example Request Body
+
+        {
+
+        "pSize": 10,
+
+        "pIndex": 0,
+
+        "from": "2025-05-01 00:00:00.000",
+
+        "to": "2026-06-01 00:00:00.000",
+
+        "eventName": "E_SP_REDIRECT_SUCCEEDED"
+
+        }
+
+
+        Expected Response Format
+
+        The response will be in JSON format and will include the following structure:
+
+
+        page: An object containing pagination details.
+
+
+        total (integer): Total number of records available.
+
+
+        pSize (integer): The size of the page.
+
+
+        pIndex (integer): The current page index.
+
+
+        data: An object containing the activity and login events.
+
+
+        activityEvents: An array of objects representing activity events, each with various attributes including event_name, event_ts, user_id, etc.
+
+
+        loginEvents: An array of objects representing login events, each with attributes including type, event_ts, user_id, etc.
+
+
+        This request is designed to retrieve login activity reports for a specified tenant and community within a defined date range.'
       tags:
       - Reports
       parameters:
@@ -1184,7 +1801,182 @@ paths:
     post:
       operationId: reportsPasswordlessLoginActivityReport
       summary: Passwordless Login Activity Report
-      description: "Passwordless Login Activity Report Request\nThis request is used to retrieve a report on passwordless login activities for a specific tenant and community. It allows the user to specify a date range and an event name to filter the results.\n\nRequest URL\nPOST {{client_api}}/reports/tenant/:tenantID/community/:communityID/passwordless_login_activity_report\n\nRequest Body\nThe request body must be in JSON format and includes the following parameters:\n\npSize (number): The number of records to return per page.\n\npIndex (number): The index of the page to return.\n\nfrom (string): The start date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\nto (string): The end date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.\n\neventName (string): The name of the event to filter the report.\n\nExample Request Body\n{\n  \"pSize\": 10,\n  \"pIndex\": 0,\n  \"from\": \"2025-05-01 00:00:00.000\",\n  \"to\": \"2026-06-01 00:00:00.000\",\n  \"eventName\": \"E_SP_REDIRECT_SUCCEEDED\"\n}\n\nResponse Structure\nThe response will be in JSON format and contains the following structure:\n\npage: An object that provides pagination information.\n\ntotal (number): The total number of records available.\n\npSize (number): The size of the page.\n\npIndex (number): The index of the current page.\n\ndata: An array of objects, each representing a login event with the following fields:\n\nevent_name (string): The name of the event.\n\nevent_ts (number): The timestamp of the event.\n\nversion (string): The version of the event.\n\njourney_id (string): The ID of the user journey.\n\nsession_id (string): The ID of the session.\n\nclient_ip_address (string): The IP address of the client.\n\ncaller_user_agent (string): The user agent of the caller.\n\nuser_id (string): The ID of the user.\n\nuser_status (string): The status of the user.\n\nuser_email (string): The email of the user.\n\nuser_firstname (string): The first name of the user.\n\nuser_lastname (string): The last name of the user.\n\nsource_user_directory (string): The source user directory.\n\nsource_user_directory_name (string): The name of the source user directory.\n\ncaller_ip (string): The IP address of the caller.\n\ntenant_dns (string): The DNS of the tenant.\n\nauth_method (string): The authentication method used.\n\nauth_device_os (string): The operating system of the device used for authentication.\n\nauth_device_app_name (string): The name of the application used for authentication.\n\nauth_device_app_version (string): The version of the application used for authentication.\n\nsp_type (string): The type of service provider.\n\nsp_name (string): The name of the service provider.\n\nsp_id (string): The ID of the service provider.\n\ncountry (string): The country of the user.\n\nregion (string): The region of the user.\n\ntenant_id (string): The ID of the tenant.\n\ncommunity_id (string): The ID of the community.\n\ntype (string): The type of event.\n\nauthJourneysMatched (array): An array of matched authentication journeys, each containing:\n\nid (string): The ID of the journey.\n\nname (string): The name of the journey.\n\naliasUsed (string): The alias used for the event.\n\nevent_id (string): The ID of the event.\n\ntimestamp (string): The timestamp of the event.\n\nepoch_time (number): The epoch time of the event.\n\neventName (string): The name of the event.\n\nThis structure allows for detailed reporting on passwordless login activities, enabling analysis and insights into user interactions."
+      description: 'Passwordless Login Activity Report Request
+
+        This request is used to retrieve a report on passwordless login activities for a specific tenant and community. It allows the user to specify a date range and an event name to filter the results.
+
+
+        Request URL
+
+        POST {{client_api}}/reports/tenant/:tenantID/community/:communityID/passwordless_login_activity_report
+
+
+        Request Body
+
+        The request body must be in JSON format and includes the following parameters:
+
+
+        pSize (number): The number of records to return per page.
+
+
+        pIndex (number): The index of the page to return.
+
+
+        from (string): The start date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.
+
+
+        to (string): The end date and time for the report in the format YYYY-MM-DD HH:MM:SS.SSS.
+
+
+        eventName (string): The name of the event to filter the report.
+
+
+        Example Request Body
+
+        {
+
+        "pSize": 10,
+
+        "pIndex": 0,
+
+        "from": "2025-05-01 00:00:00.000",
+
+        "to": "2026-06-01 00:00:00.000",
+
+        "eventName": "E_SP_REDIRECT_SUCCEEDED"
+
+        }
+
+
+        Response Structure
+
+        The response will be in JSON format and contains the following structure:
+
+
+        page: An object that provides pagination information.
+
+
+        total (number): The total number of records available.
+
+
+        pSize (number): The size of the page.
+
+
+        pIndex (number): The index of the current page.
+
+
+        data: An array of objects, each representing a login event with the following fields:
+
+
+        event_name (string): The name of the event.
+
+
+        event_ts (number): The timestamp of the event.
+
+
+        version (string): The version of the event.
+
+
+        journey_id (string): The ID of the user journey.
+
+
+        session_id (string): The ID of the session.
+
+
+        client_ip_address (string): The IP address of the client.
+
+
+        caller_user_agent (string): The user agent of the caller.
+
+
+        user_id (string): The ID of the user.
+
+
+        user_status (string): The status of the user.
+
+
+        user_email (string): The email of the user.
+
+
+        user_firstname (string): The first name of the user.
+
+
+        user_lastname (string): The last name of the user.
+
+
+        source_user_directory (string): The source user directory.
+
+
+        source_user_directory_name (string): The name of the source user directory.
+
+
+        caller_ip (string): The IP address of the caller.
+
+
+        tenant_dns (string): The DNS of the tenant.
+
+
+        auth_method (string): The authentication method used.
+
+
+        auth_device_os (string): The operating system of the device used for authentication.
+
+
+        auth_device_app_name (string): The name of the application used for authentication.
+
+
+        auth_device_app_version (string): The version of the application used for authentication.
+
+
+        sp_type (string): The type of service provider.
+
+
+        sp_name (string): The name of the service provider.
+
+
+        sp_id (string): The ID of the service provider.
+
+
+        country (string): The country of the user.
+
+
+        region (string): The region of the user.
+
+
+        tenant_id (string): The ID of the tenant.
+
+
+        community_id (string): The ID of the community.
+
+
+        type (string): The type of event.
+
+
+        authJourneysMatched (array): An array of matched authentication journeys, each containing:
+
+
+        id (string): The ID of the journey.
+
+
+        name (string): The name of the journey.
+
+
+        aliasUsed (string): The alias used for the event.
+
+
+        event_id (string): The ID of the event.
+
+
+        timestamp (string): The timestamp of the event.
+
+
+        epoch_time (number): The epoch time of the event.
+
+
+        eventName (string): The name of the event.
+
+
+        This structure allows for detailed reporting on passwordless login activities, enabling analysis and insights into user interactions.'
       tags:
       - Reports
       parameters:

@@ -1,16 +1,7 @@
 {
   "provider": "1kosmos",
   "sources": [
-    "1kosmos-access-code-api-openapi.yml",
-    "1kosmos-ial-api-openapi.yml",
-    "1kosmos-ial2-api-openapi.yml",
-    "1kosmos-id-verification-api-openapi.yml",
-    "1kosmos-otp-api-openapi.yml",
-    "1kosmos-reports-api-openapi.yml",
-    "1kosmos-set-up-api-openapi.yml",
-    "1kosmos-user-management-api-openapi.yml",
-    "1kosmos-verifiable-credentials-api-openapi.yml",
-    "1kosmos-workflow-api-api-openapi.yml"
+    "_original/1kosmos-blockid-openapi.yml"
   ],
   "outputs": [
     "1kosmos-access-code-api-openapi.yml",
@@ -24,21 +15,27 @@
     "1kosmos-verifiable-credentials-api-openapi.yml",
     "1kosmos-workflow-api-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "1kosmos-access-code-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-ial-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-ial2-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-id-verification-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-otp-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-reports-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-set-up-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-user-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-verifiable-credentials-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "1kosmos-workflow-api-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "1kosmos-blockid-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: 1kosmos-setup-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 10 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "1kosmos-access-code-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-ial-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-ial2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-id-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-otp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-setup-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-user-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-verifiable-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "1kosmos-workflow-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

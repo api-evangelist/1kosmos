@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: 1Kosmos BlockID Platform Set up API
   version: '2026-08-05'
-  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  description: REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
   contact:
     name: 1Kosmos Developer Support
     email: developers@1kosmos.com
@@ -23,7 +20,7 @@ security:
 - licenseKey: []
   publicKey: []
 tags:
-- name: Set up
+- name: Setup
 paths:
   /api/r1/system/community_info/fetch:
     post:
@@ -48,7 +45,7 @@ paths:
 
         skipLogos - This is a boolean parameter. Specifying this value as false displays the logo details in the response.'
       tags:
-      - Set up
+      - Setup
       requestBody:
         required: true
         content:
@@ -106,7 +103,7 @@ paths:
       summary: Fetch SD
       description: This API is used to retrieve all microservices associated with your tenant. You must execute this API to know the URLs of each services. For example, if service A want to call service B, it is necessary for service A to know the URL for service B.
       tags:
-      - Set up
+      - Setup
       responses:
         '200':
           description: Successful response

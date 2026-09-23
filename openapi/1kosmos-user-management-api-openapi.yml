@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: 1Kosmos BlockID Platform User Management API
   version: '2026-08-05'
-  description: 'REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
-
-
-    DERIVED, NOT PUBLISHED BY THE PROVIDER. 1Kosmos publishes no OpenAPI. This document was mechanically derived by API Evangelist from the first-party public Postman collection "1Kosmos Postman Collection" (https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n), saved verbatim in this repo at postman/1kosmos-postman-collection.json. Every path, method, header, example request body and example response below is carried over from that collection; nothing was invented. Request/response schemas are typed only as generic objects because the collection carries examples, not schemas. Each operation records the original collection URL template in x-postman-request.'
+  description: REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
   contact:
     name: 1Kosmos Developer Support
     email: developers@1kosmos.com
@@ -467,7 +464,113 @@ paths:
     post:
       operationId: userManagementUpdateUsernameAsAlias
       summary: Update Username as alias
-      description: "Update User Properties\nThis endpoint allows you to update user properties within a specific community for a given tenant.\n\nEndpoint\nPOST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update\n\nRequest Method\nPOST\n\nRequest Parameters\nThe request body should be in JSON format and must include the following parameter:\n\ndata (string): This parameter should contain the payload in ECDSA Encrypted format that holds the user properties you wish to update.\n\nExample Request Body\n\nEncryped Sample Request:\n\n{\n  \"data\": \"{{payload}}\"\n}\n\nDecrypted Sample Request:\n\n{\n  \"data\": {\n    \"user\": {\n      \"username\": \"john.doe\",\n      \"authModuleId\": \"68418b901ac4790f690ffdb4\",\n      \"uid\": \"beafb38c-499b-40ef-a62c-b58777f200d4\"\n    },\n    \"aliases\": {\n      \"alias1\": \"doej\",\n      \"alias2\": null,\n      \"alias3\": null,\n      \"alias4\": null,\n      \"alias5\": null,\n      \"alias6\": null,\n      \"alias7\": null,\n      \"alias8\": null\n    }\n  }\n}\n\nExpected Response\nUpon a successful request, the server will respond with a status code of 200 and a JSON object containing the following fields:\n\ndata (string): This field will contain ECDSA encrypted relevant data related to the update operation. See below to sample decrypted payload:\n\npublicKey (string): This field will return the service's public key.\n\nExample Response\n{\n    \"data\": \"8ngLnqWrCMkTFHXkjnbApJjppNY5E37BmL0VxRzE4BObC+L01IrM+rswO5sgdAMGLMyL0GR/SYcVwxkziT31Q+aWcYe2OQK93TxCzXPcyQi8ehVyI+CHfiG5fJrZK2gBmbNuA6EA/BKd6KeygjD6Rrn3VnqH20ef5Uw9fO8/neGk1i6vhxykmFtu4QcuWKOAQEYTTOqCiA3Lqye6H/tQ9mQLcFe6YPBVsFCJAkZyXlCljtq8QV8/JLE2d16z+g0GiBOX+A2egD3Hu2yEGINhR3iBQxH+DU+OGox/f7Oeop/Uf6WxdZXfS+BIOmavuq/zYxANau99UfUvbYz7gKvNPCTyGcBIjoTlO1mUlmiG3x6vdBQlYMUPvf+BcQKh1Drh5LFqYJP+O/+1kBPlecxwcpF95ueLpOQPpxUGBvalVkDIYjb9fFFDul5atNgVT6+5VLSs5fDNFxOCzVENpJ1bjjDcNkEHGILxI55ea84kfU1kwWqET5WVqO6sUlYYRghXIrLZ3cqfbT1USeqbRRbKgY2k1yH2SkOZSeqkqklnH9Sli3Coq9kskAM=\",\n    \"publicKey\": \"4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ==\"\n}\n\nAdditional Notes\n\nEnsure that the tenantId and communityId in the URL are correctly specified to target the appropriate user properties.\n\nThe response may vary based on the operation performed, but it will always return the specified fields."
+      description: 'Update User Properties
+
+        This endpoint allows you to update user properties within a specific community for a given tenant.
+
+
+        Endpoint
+
+        POST {{client_api}}/users-mgmt/tenant/tenantId/community/communityId/user_properties/update
+
+
+        Request Method
+
+        POST
+
+
+        Request Parameters
+
+        The request body should be in JSON format and must include the following parameter:
+
+
+        data (string): This parameter should contain the payload in ECDSA Encrypted format that holds the user properties you wish to update.
+
+
+        Example Request Body
+
+
+        Encryped Sample Request:
+
+
+        {
+
+        "data": "{{payload}}"
+
+        }
+
+
+        Decrypted Sample Request:
+
+
+        {
+
+        "data": {
+
+        "user": {
+
+        "username": "john.doe",
+
+        "authModuleId": "68418b901ac4790f690ffdb4",
+
+        "uid": "beafb38c-499b-40ef-a62c-b58777f200d4"
+
+        },
+
+        "aliases": {
+
+        "alias1": "doej",
+
+        "alias2": null,
+
+        "alias3": null,
+
+        "alias4": null,
+
+        "alias5": null,
+
+        "alias6": null,
+
+        "alias7": null,
+
+        "alias8": null
+
+        }
+
+        }
+
+        }
+
+
+        Expected Response
+
+        Upon a successful request, the server will respond with a status code of 200 and a JSON object containing the following fields:
+
+
+        data (string): This field will contain ECDSA encrypted relevant data related to the update operation. See below to sample decrypted payload:
+
+
+        publicKey (string): This field will return the service''s public key.
+
+
+        Example Response
+
+        {
+
+        "data": "8ngLnqWrCMkTFHXkjnbApJjppNY5E37BmL0VxRzE4BObC+L01IrM+rswO5sgdAMGLMyL0GR/SYcVwxkziT31Q+aWcYe2OQK93TxCzXPcyQi8ehVyI+CHfiG5fJrZK2gBmbNuA6EA/BKd6KeygjD6Rrn3VnqH20ef5Uw9fO8/neGk1i6vhxykmFtu4QcuWKOAQEYTTOqCiA3Lqye6H/tQ9mQLcFe6YPBVsFCJAkZyXlCljtq8QV8/JLE2d16z+g0GiBOX+A2egD3Hu2yEGINhR3iBQxH+DU+OGox/f7Oeop/Uf6WxdZXfS+BIOmavuq/zYxANau99UfUvbYz7gKvNPCTyGcBIjoTlO1mUlmiG3x6vdBQlYMUPvf+BcQKh1Drh5LFqYJP+O/+1kBPlecxwcpF95ueLpOQPpxUGBvalVkDIYjb9fFFDul5atNgVT6+5VLSs5fDNFxOCzVENpJ1bjjDcNkEHGILxI55ea84kfU1kwWqET5WVqO6sUlYYRghXIrLZ3cqfbT1USeqbRRbKgY2k1yH2SkOZSeqkqklnH9Sli3Coq9kskAM=",
+
+        "publicKey": "4d3D/MgM9PqSyLAOz8jJY9TSZemrr2uaOvcnWQX1+dY5CNNaZ+OI0WeuqdWJNFSfnogJImCt5veztNBoHh06YQ=="
+
+        }
+
+
+        Additional Notes
+
+
+        Ensure that the tenantId and communityId in the URL are correctly specified to target the appropriate user properties.
+
+
+        The response may vary based on the operation performed, but it will always return the specified fields.'
       tags:
       - User Management
       parameters:
