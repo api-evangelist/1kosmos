@@ -228,6 +228,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/1kosmos-capability-edges.yml
+  name: 1Kosmos Business Capability Map
 - type: X-MCPServerCandidate
   url: mcp/1kosmos-mcp.yml
   note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate

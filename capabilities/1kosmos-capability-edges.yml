@@ -1,0 +1,62 @@
+slug: 1kosmos
+provider: 1Kosmos
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: User Management
+  spec_file: 1kosmos-user-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: PUT /users-mgmt/tenant/{tenantId}/community/{communityId}/users/create  Create User
+  reason: Creation and maintenance of user identity records on an identity platform is core Identity &
+    Access Management.
+- tag: OTP
+  spec_file: 1kosmos-otp-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /api/r2/otp/generate  Generate OTP - SMS; POST /api/r2/otp/verify  Verify OTP R2
+  reason: One-time passcode generation and verification is an authentication mechanism — Identity & Access
+    Management within Cybersecurity. The vendor is an identity platform, so this is the honest cross-industry
+    IT/security mapping.
+- tag: Verifiable Credentials
+  spec_file: 1kosmos-verifiable-credentials-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST .../vc/verify  Verify Verifiable Credential; POST .../vp/create  Issue Verifiable Presentation
+  reason: Issuance and verification of W3C verifiable credentials/presentations is credential lifecycle
+    within identity and access management.
+- tag: IAL
+  spec_file: 1kosmos-ial-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /api/r1/community/{communityName}/userid/{userId}/ial "Fetch IAL of a user"
+  reason: Retrieves a user's identity assurance level from the identity platform — identity proofing/assurance
+    information used for access decisions, best fitting Identity & Access Management.
+- tag: ID Verification
+  spec_file: 1kosmos-id-verification-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /document_share_session/create "Create ID Verification Session"; "identity verification
+    (IDVerify), ... document and biometric verification"
+  reason: Creates and polls document-based identity verification sessions — identity proofing of users;
+    within this frame the closest honest capability is Identity & Access Management.
