@@ -1,22 +1,25 @@
-generated: '2026-08-05'
+generated: '2026-09-23'
 method: generated
-source: openapi/1kosmos-blockid-openapi.yml
+source: openapi/1kosmos-access-code-api-openapi.yml, openapi/1kosmos-ial-api-openapi.yml, openapi/1kosmos-ial2-api-openapi.yml,
+  openapi/1kosmos-id-verification-api-openapi.yml, openapi/1kosmos-otp-api-openapi.yml, openapi/1kosmos-reports-api-openapi.yml,
+  openapi/1kosmos-setup-api-openapi.yml, openapi/1kosmos-user-management-api-openapi.yml, openapi/1kosmos-verifiable-credentials-api-openapi.yml,
+  openapi/1kosmos-workflow-api-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 29
   by_action_class:
-    acting: 24
-    connected: 5
+    acting: 22
+    connected: 7
   by_consequence:
-    write: 24
-    read: 5
+    write: 22
+    read: 7
   human_in_the_loop_required: 0
 operations:
-- path: /api/r1/system/community_info/fetch
-  method: post
-  operationId: setUpGetTenantCommunityInfo
+- path: /api/r2/acr/community/{community}/code
+  method: put
+  operationId: accessCodeCreateAccessCode
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -30,9 +33,51 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /caas/sd
+- path: /api/r1/acr/community/{community}/{code}/redeem
+  method: post
+  operationId: accessCodeRedeemAccessCode
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/r1/community/{communityName}/userid/{userId}/ial
   method: get
-  operationId: setUpFetchSD
+  operationId: ialFetchIALOfAUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /idproofingapi/workflow/workflow_instance/create
+  method: post
+  operationId: ial2CreateWorkflow
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /idproofingapi/workflow/workflow_instance/{instanceId}/result_summary
+  method: get
+  operationId: ial2ResultSummary
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -72,16 +117,54 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/r1/community/{communityName}/userid/{userId}/ial
-  method: get
-  operationId: ialFetchIALOfAUser
+- path: /api/r2/otp/generate
+  method: post
+  operationId: otpGenerateOTPSMS
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/r2/otp/verify
+  method: post
+  operationId: otpVerifyOTPR2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/r3/otp/verify
+  method: post
+  operationId: otpVerifyOTPR3
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /reports/tenant/{tenantID}/community/{communityID}/events
   method: post
   operationId: reportsEvents
@@ -194,54 +277,26 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/r2/otp/generate
+- path: /api/r1/system/community_info/fetch
   method: post
-  operationId: otpGenerateOTPSMS
+  operationId: setUpGetTenantCommunityInfo
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/r2/otp/verify
-  method: post
-  operationId: otpVerifyOTPR2
+      max-ttl: 3600
+    audit: none
+- path: /caas/sd
+  method: get
+  operationId: setUpFetchSD
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/r3/otp/verify
-  method: post
-  operationId: otpVerifyOTPR3
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /users-mgmt/tenant/{tenantId}/community/{communityId}/users/create
   method: put
   operationId: userManagementCreateUser
@@ -262,53 +317,15 @@ operations:
   method: post
   operationId: userManagementFetchUserDetails
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /users-mgmt/tenant/{tenantId}/community/{communityId}/user_properties/update
   method: post
   operationId: userManagementUpdateUsernameAsAlias
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/r2/acr/community/{community}/code
-  method: put
-  operationId: accessCodeCreateAccessCode
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/r1/acr/community/{community}/{code}/redeem
-  method: post
-  operationId: accessCodeRedeemAccessCode
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -396,32 +413,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /idproofingapi/workflow/workflow_instance/create
-  method: post
-  operationId: ial2CreateWorkflow
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /idproofingapi/workflow/workflow_instance/{instanceId}/result_summary
-  method: get
-  operationId: ial2ResultSummary
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /workflowapi/workflow_instance/tenant/{tenantId}/community/{communityId}/create
   method: post
   operationId: workflowAPICreateWorkflowInstance
