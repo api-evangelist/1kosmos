@@ -2,6 +2,7 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://aws.amazon.com/marketplace/
+- ping-identity/integrations/ping-identity-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -20,3 +21,22 @@ edges:
   seller_name: 1Kosmos
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Ping Identity (own)
+  partner: ping-identity
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.pingone.com/item/blockid-passwordless-auth-tree-nodes
+  mirror_of: ping-identity/integrations/ping-identity-integration-edges.yml
+  apps:
+  - BlockID Passwordless Auth Tree Nodes
+  - 1Kosmos Connector
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+source:
+- ping-identity/integrations/ping-identity-integration-edges.yml
