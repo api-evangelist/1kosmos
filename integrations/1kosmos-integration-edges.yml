@@ -2,6 +2,9 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://aws.amazon.com/marketplace/
+- https://kantarainitiative.org/trust-status-list/
+- https://msb.fincen.gov/
+- https://www.access-dvs-register.service.gov.uk/register/download-register
 - ping-identity/integrations/ping-identity-integration-edges.yml
 marketplace_apps: []
 edges:
@@ -38,5 +41,49 @@ edges:
   listing_count: 2
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
+- partner_name: Kantara Initiative (Trust Status List)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://kantarainitiative.org/trust-status-list/
+  category: Identity assurance certification
+  contract_reference:
+    register: Kantara Initiative Trust Status List (kantarainitiative.org/trust-status-list)
+    spec_file: null
+    standard: Kantara Identity Assurance (NIST SP 800-63)
+    role: kantara-approved-service
+    registered_name: 1Kosmos, LLC
+    register_id: 1Kosmos, LLC
+    website: https://www.1kosmos.com
+    matched_domain: 1kosmos.com
+    matched_by: domain
+    kantara_services:
+    - service: BlockID Verify Service
+      scheme: NIST 800-63 rev.3
+      assurance_levels: IAL2
+      status: Good Standing
+      approval: IAF-Approval-26.05-KI
+      expiry: '2028-12-31'
+      table: component_services
+    - service: BlockID Authenticate Service
+      scheme: NIST 800-63 rev.3
+      assurance_levels: AAL2
+      status: ''
+      approval: null
+      expiry: '2026-12-31'
+      table: registered_applicants
+    signal_note: certified_products = one entry per approved service TYPE (Full / Component / Classic), lapsed unless
+      Good Standing and inside the triennial approval; registered applicants are participation only; services and
+      assurance levels are context
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-15'
+    certified_products:
+    - product: Component Service
+      lapsed: false
+  detected_by: sweep-regtech-aml.py
+  first_seen: '2026-10-15'
 source:
 - ping-identity/integrations/ping-identity-integration-edges.yml
