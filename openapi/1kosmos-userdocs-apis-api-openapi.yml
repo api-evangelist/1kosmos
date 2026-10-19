@@ -1,0 +1,424 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation UserDocs APIs API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: UserDocs APIs
+paths:
+  /api/r1/userdocs/userdid/{userdid}/docs:
+    get:
+      tags:
+      - UserDocs APIs
+      operationId: getUserDocuments
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Get user documents
+      x-summary-source: derived
+    put:
+      tags:
+      - UserDocs APIs
+      operationId: addUserDocument
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Add user document
+      x-summary-source: derived
+    delete:
+      tags:
+      - UserDocs APIs
+      operationId: unregisterDocument
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Unregister document
+      x-summary-source: derived
+  /api/r1/userdocs/userdid/{userdid}/kyc_hash/fetch:
+    post:
+      tags:
+      - UserDocs APIs
+      operationId: getUserKycHash
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Get user kyc hash
+      x-summary-source: derived
+  /api/r1/userdocs/userdid/{userdid}/docs/fetch:
+    post:
+      tags:
+      - UserDocs APIs
+      operationId: getUserDocs
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDocumentsFetchRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Get user docs
+      x-summary-source: derived
+  /api/r1/userdocs/dids/ial/fetch:
+    post:
+      tags:
+      - UserDocs APIs
+      summary: Fetch User IALs by list of DIDs
+      operationId: getUserIalForMultipleDids
+      parameters:
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetUserIALByDidsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/userdocs/userdid/{userdid}/ial:
+    get:
+      tags:
+      - UserDocs APIs
+      operationId: getUserIal
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties: {}
+      summary: Get user ial
+      x-summary-source: derived
+components:
+  schemas:
+    BIDAccount:
+      type: object
+      properties:
+        username:
+          type: string
+        uid:
+          type: string
+        authModuleId:
+          type: string
+        source:
+          type: string
+        communityId:
+          type: string
+        tenantId:
+          type: string
+        urn:
+          type: string
+        dguid:
+          type: string
+        otpSeed:
+          type: string
+    RequestModel:
+      type: object
+      properties:
+        publicKey:
+          type: string
+        data:
+          type: string
+        did:
+          type: string
+        lon:
+          type: string
+        lat:
+          type: string
+        appid:
+          type: string
+        pushid:
+          type: string
+        ial:
+          type: string
+        os:
+          type: string
+        eventData:
+          type: string
+        ipfs_hash:
+          type: string
+        version:
+          type: string
+        account:
+          $ref: '#/components/schemas/BIDAccount'
+        userId:
+          type: string
+        smsTemplateId:
+          type: string
+        provider:
+          type: string
+    GetUserIALByDidsRequest:
+      type: object
+      properties:
+        dids:
+          type: array
+          items:
+            type: string
+        urn:
+          type: string
+    UserDocumentsFetchRequest:
+      type: object
+      properties:
+        metadataOnly:
+          type: boolean
+        categories:
+          type: array
+          items:
+            type: string
+        types:
+          type: array
+          items:
+            type: string
+        id:
+          type: array
+          items:
+            type: string
+        context:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

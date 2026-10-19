@@ -1,0 +1,240 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Passkey Branding Controller…
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: passkey-branding-controller
+paths:
+  /manifest.json:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: manifestJson
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      summary: Manifest json
+      x-summary-source: derived
+  /icon-{size}.png:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: iconBySize
+      parameters:
+      - name: size
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+      summary: Icon by size
+      x-summary-source: derived
+  /favicon.ico:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: faviconIco
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+      summary: Favicon ico
+      x-summary-source: derived
+  /favicon-32x32.png:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: favicon32
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+      summary: Favicon32
+      x-summary-source: derived
+  /apple-touch-icon.png:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: appleTouchIcon
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+      summary: Apple touch icon
+      x-summary-source: derived
+  /apple-touch-icon-{size}.png:
+    get:
+      tags:
+      - passkey-branding-controller
+      operationId: appleTouchIconBySize
+      parameters:
+      - name: size
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: byte
+      summary: Apple touch icon by size
+      x-summary-source: derived
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

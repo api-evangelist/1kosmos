@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Verification of Document…
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: 'Verification of Document : Auto | Agent'
+paths:
+  /api/r1/userdocs/userdid/{userdid}/verify:
+    post:
+      tags:
+      - 'Verification of Document : Auto | Agent'
+      summary: Auto Verification of submitted documents
+      description: 'Submit a document for Auto Verification
+
+
+        - Supported documents for verifications include DL and Passport
+
+        - The API Auto verifies a document.
+
+        - If the verification fails, the document is then submitted for Agent verification.'
+      operationId: verify
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoDocumentVerificationRequest'
+        required: true
+      responses:
+        '201':
+          description: CREATED
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocVerificationResponse'
+        '401':
+          description: 'message : Request has expired.'
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: 'message : Unauthorized.'
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      security:
+      - keyId: []
+      - keySecret: []
+      - license: []
+components:
+  schemas:
+    AutoDocumentVerificationRequest:
+      type: object
+      description: Generic Request Model
+      properties:
+        dossierMetadata:
+          $ref: '#/components/schemas/DossierMetadata'
+        evidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentEvidence'
+        configuration:
+          $ref: '#/components/schemas/AutoDocumentVerificationRequestConfig'
+        data:
+          type: string
+    DossierMetadata:
+      type: object
+      properties:
+        dossierId:
+          type: string
+        processingStatus:
+          type: string
+        createdDateTime:
+          type: string
+        version:
+          type: string
+    DocumentFaceVerificationRequestConfig:
+      type: object
+      properties:
+        faceComparison:
+          type: boolean
+        faceLiveness:
+          type: boolean
+    DocumentEvidence:
+      type: object
+      properties:
+        type:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageEvidence'
+        biometricType:
+          type: string
+        data:
+          type: string
+    ImageEvidence:
+      type: object
+      properties:
+        data:
+          type: string
+        customerReferenceId:
+          type: string
+        encodedData:
+          $ref: '#/components/schemas/PDF417Data'
+    PDF417Data:
+      type: object
+      properties:
+        pdf417:
+          type: string
+    DocVerificationResponse:
+      type: object
+      properties:
+        verificationMethod:
+          type: string
+        statusCode:
+          type: string
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 EARLY_HINTS
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 CONTENT_TOO_LARGE
+          - 413 PAYLOAD_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 421 MISDIRECTED_REQUEST
+          - 422 UNPROCESSABLE_CONTENT
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
+        responseData:
+          type: string
+    AutoDocumentVerificationRequestConfig:
+      type: object
+      properties:
+        responseImages:
+          type: array
+          items:
+            type: string
+        verifications:
+          $ref: '#/components/schemas/DocumentFaceVerificationRequestConfig'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

@@ -1,0 +1,374 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Tenant/Community API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Tenant/Community
+paths:
+  /api/r1/system/otp_config/update:
+    post:
+      tags:
+      - Tenant/Community
+      summary: Update OTP Config
+      description: 'Updates the OTP timeskew (validity window in seconds) for a community.
+
+        If the OTP module is not yet enabled, it will be created with the given timeskew.
+
+
+        *note This API requires a valid community license key with one of following auth levels*
+
+        - system.
+
+        - service.
+
+        - service_ext.'
+      operationId: updateOtpConfig
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpConfigUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/otp_config/fetch:
+    post:
+      tags:
+      - Tenant/Community
+      summary: Fetch OTP Config
+      description: 'Fetches the OTP configuration (timeskew) for a community.
+
+
+        *note This API requires a valid community license key with one of following auth levels*
+
+        - system.
+
+        - service.
+
+        - service_ext.'
+      operationId: fetchOtpConfig
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/community_info/update:
+    post:
+      tags:
+      - Tenant/Community
+      summary: Update Tenant and Community Info
+      description: 'Allows update for specific tenant/community information
+
+        *note only specified attributes can be updated using this API*
+
+        - Tenant''s displayTenantInfoForPersona .
+
+        - Community''s logo, mobileLogo, accountsPerPerson, personsPerAccount.
+
+        - Community''s personsLimitRule (reject: reject new links | cleanup: cleanup until new account can be added).
+
+        - all other request / input is ignored.
+
+
+        *note This API requires a valid community license key with one of following auth levels*
+
+        - system.
+
+        - service.
+
+        - service_ext.'
+      operationId: updateTenantAndCommunity
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityUpdateRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/community_info/fetch:
+    post:
+      tags:
+      - Tenant/Community
+      summary: Fetch Tenant and Community Info
+      description: 'Fetch tenant / community info
+
+        - a tenant DNS or ID must be specified .
+
+        - a community name or ID must be specified .
+
+        - logos are large sets of data. To reduce network toll set skipLogos to true.
+
+
+        This API does not require any authorization *except* when requesting below data .
+
+        Caller must provide ecdsa headers and license key of type (system, service, service_ext) .
+
+        Caller must provide use {adminconsole}/publickeys to do encryption and not community''s publicKey .
+
+        - otpSeed.'
+      operationId: tenantAndCommunity
+      parameters:
+      - name: contactinfo
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantAndCommunityInfo'
+components:
+  schemas:
+    TenantAndCommunityInfo:
+      type: object
+      properties:
+        tenant:
+          $ref: '#/components/schemas/TenantInfo'
+        community:
+          $ref: '#/components/schemas/CommunityInfo'
+        message:
+          type: string
+    OtpConfigUpdateRequest:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+        timeskew:
+          type: integer
+          format: int32
+    TenantCommunityRequestObject:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+    TenantCommunityUpdateRequestObject:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+        displayTenantInfoForPersona:
+          type: boolean
+        communityLogo:
+          type: string
+        communityMobileLogo:
+          type: string
+        communityPasskeyLogo:
+          type: string
+        communityAccountsPerPerson:
+          type: integer
+          format: int32
+        communityPersonsPerAccount:
+          type: integer
+          format: int32
+        communityPersonLimitRule:
+          type: string
+        dnsToAdd:
+          type: array
+          items:
+            type: string
+        dnsToRemove:
+          type: array
+          items:
+            type: string
+    CommunityInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        tenantid:
+          type: string
+        logo:
+          type: string
+        mobileLogo:
+          type: string
+        passkeyLogo:
+          type: string
+        name:
+          type: string
+        publicKey:
+          type: string
+        accountsPerPerson:
+          type: integer
+          format: int32
+        personsPerAccount:
+          type: integer
+          format: int32
+        personLimitRule:
+          type: string
+        otpSeed:
+          type: string
+    TenantInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        tenanttype:
+          type: string
+        tenanttag:
+          type: string
+        name:
+          type: string
+        otherDNS:
+          type: array
+          items:
+            type: string
+        displayTenantInfoForPersona:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

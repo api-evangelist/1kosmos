@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Version API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Version
+paths:
+  /api/v1/rest/iosVersion:
+    post:
+      tags:
+      - Version
+      operationId: iosVersion
+      parameters:
+      - name: handler
+        in: query
+        required: true
+        schema:
+          type: object
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Response'
+      summary: Ios version
+      x-summary-source: derived
+  /api/v1/rest/androidVersion:
+    post:
+      tags:
+      - Version
+      operationId: androidVersion
+      parameters:
+      - name: handler
+        in: query
+        required: true
+        schema:
+          type: object
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Response'
+      summary: Android version
+      x-summary-source: derived
+components:
+  schemas:
+    Response:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        data: {}
+        sessionStatus:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

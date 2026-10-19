@@ -1,0 +1,594 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation User Profile API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: User Profile
+paths:
+  /api/r1/community/{communityName}/userdid/{userdid}/profileimage:
+    get:
+      tags:
+      - User Profile
+      summary: Fetch user profile image
+      operationId: getProfileImage
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+    put:
+      tags:
+      - User Profile
+      summary: Save user profile image
+      operationId: saveProfileImage
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+    delete:
+      tags:
+      - User Profile
+      summary: Delete user profile image
+      operationId: deleteProfileImage
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/userdid/{userdid}/userinfo/fetch:
+    post:
+      tags:
+      - User Profile
+      summary: Fetch user linking details by personId with list of users linked - Latest record
+      description: (new) otpseed can only be requested by the linked device (returned as encrypted paylaod)
+      operationId: getUserInfoAndFetchUser
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetUserInfoAndFetchUserRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/user/login_options/fetch:
+    post:
+      tags:
+      - User Profile
+      summary: Fetch a user's enrolled login options
+      operationId: fetchLoginOptions
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginOptionsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/community/{communityName}/authenticateuser:
+    post:
+      tags:
+      - User Profile
+      summary: Authenticate user
+      operationId: validateUserInfo
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/userid/{userid}/userinfo:
+    get:
+      tags:
+      - User Profile
+      summary: Fetch user linking details by userId - Latest record
+      operationId: getUserIDInfo
+      parameters:
+      - name: devicelist
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/userid/{userid}/details:
+    get:
+      tags:
+      - User Profile
+      summary: Fetch user linking details by userId - All records for user
+      operationId: getUserDetails
+      parameters:
+      - name: devicelist
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fetch_ial
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/community/{communityName}/userdid/{userdid}/userinfo:
+    get:
+      tags:
+      - User Profile
+      summary: Fetch user linking details by personId - Latest record
+      operationId: getUserInfo
+      parameters:
+      - name: devicelist
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/userdid/{did}/roles:
+    get:
+      tags:
+      - User Profile
+      summary: Get roles for user
+      operationId: userDidRole
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: did
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scopes
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    LoginOptionsRequest:
+      type: object
+      properties:
+        data:
+          type: string
+        username:
+          type: string
+        fetchPasskeyInfo:
+          type: boolean
+        fetchIal:
+          type: boolean
+    UserObj:
+      type: object
+      properties:
+        username:
+          type: string
+        uid:
+          type: string
+        authModuleId:
+          type: string
+        source:
+          type: string
+        valid:
+          type: boolean
+    GetUserInfoAndFetchUserRequest:
+      type: object
+      properties:
+        devicelist:
+          type: boolean
+        account:
+          $ref: '#/components/schemas/UserObj'
+        userslist:
+          type: boolean
+        otpseed:
+          type: boolean
+    BIDAccount:
+      type: object
+      properties:
+        username:
+          type: string
+        uid:
+          type: string
+        authModuleId:
+          type: string
+        source:
+          type: string
+        communityId:
+          type: string
+        tenantId:
+          type: string
+        urn:
+          type: string
+        dguid:
+          type: string
+        otpSeed:
+          type: string
+    RequestModel:
+      type: object
+      properties:
+        publicKey:
+          type: string
+        data:
+          type: string
+        did:
+          type: string
+        lon:
+          type: string
+        lat:
+          type: string
+        appid:
+          type: string
+        pushid:
+          type: string
+        ial:
+          type: string
+        os:
+          type: string
+        eventData:
+          type: string
+        ipfs_hash:
+          type: string
+        version:
+          type: string
+        account:
+          $ref: '#/components/schemas/BIDAccount'
+        userId:
+          type: string
+        smsTemplateId:
+          type: string
+        provider:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

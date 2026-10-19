@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Verify Document Scan API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Verify Document Scan
+paths:
+  /api/r1/userdocs/userdid/{userdid}/verify_scan:
+    post:
+      tags:
+      - Verify Document Scan
+      operationId: verifyScan
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentScanVerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentScanVerifyResponse'
+      summary: Verify scan
+      x-summary-source: derived
+components:
+  schemas:
+    DocumentScanVerifyResponse:
+      type: object
+      properties:
+        score:
+          type: number
+          format: double
+        minScore:
+          type: number
+          format: double
+        match:
+          type: boolean
+        message:
+          type: string
+    DocumentScanVerifyRequest:
+      type: object
+      description: Baseline attributes of an identity document. Caller is expected to submit the ecdsa_encrypted string as 'data' in this model
+      properties:
+        docId:
+          type: string
+        docType:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        dob:
+          type: string
+        doe:
+          type: string
+        ocrString:
+          type: string
+        data:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Mobile Events API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Mobile Events
+paths:
+  /api/r1/community/{communityName}/session/{sessionId}/authenticate:
+    put:
+      tags:
+      - Mobile Events
+      summary: Login with QR - Mobile PUT record
+      operationId: submitAuthDataForSession
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tenant
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: token
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionAuthEvent'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r1/community/{communityName}/session/{sessionId}/response:
+    get:
+      tags:
+      - Mobile Events
+      summary: Login with QR - UI GET record
+      operationId: getAuthDataForSession
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionAuthEvent'
+components:
+  schemas:
+    SessionAuthEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sessionId:
+          type: string
+        publicKey:
+          type: string
+        data:
+          type: string
+        did:
+          type: string
+        ial:
+          type: string
+        appid:
+          type: string
+        eventData:
+          type: string
+        submittedAt:
+          type: string
+          format: date-time
+        createdTS:
+          type: integer
+          format: int64
+        idTS:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

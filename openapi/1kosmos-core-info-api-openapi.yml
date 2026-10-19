@@ -1,0 +1,477 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Core Info API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Core Info
+paths:
+  /api/r1/system/servicekeys/{keyId}/authorize:
+    post:
+      tags:
+      - Core Info
+      summary: Authorize by serivce key
+      description: This endpoint authorize by service key. The license you are using must be of authLevel 'system' or 'service'
+      operationId: authorizeByServiceKey
+      parameters:
+      - name: keyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceKeysRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/servicekeys/fetch:
+    post:
+      tags:
+      - Core Info
+      summary: Fetch Service keys
+      description: This endpoint returns available service keys. The license you are using must be of authLevel 'system'
+      operationId: fetchServiceKeys
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/ledger_info/fetch:
+    post:
+      tags:
+      - Core Info
+      summary: Fetch ledger configuration
+      operationId: fetchLedgerInfo
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/install:
+    post:
+      tags:
+      - Core Info
+      summary: Install Product
+      operationId: installProduct
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InstallRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/create/community:
+    post:
+      tags:
+      - Core Info
+      summary: Create Community
+      operationId: createCommunity
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommunityRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/analytics_info/fetch:
+    post:
+      tags:
+      - Core Info
+      summary: Fetch analytics configuration
+      operationId: fetchAnalyticsInfo
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r1/system/servicekeys/{keyId}:
+    delete:
+      tags:
+      - Core Info
+      summary: Delete a Service key
+      description: This endpoint resets service key for given keyId. Deletes current one and recreates a new one. The license you are using must be of authLevel 'system'
+      operationId: deleteServiceKey
+      parameters:
+      - name: keyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    ServiceKeysRequestObject:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+        keyTag:
+          type: string
+    InstallRequest:
+      type: object
+      properties:
+        tenantName:
+          type: string
+        tenantDNS:
+          type: string
+        tenantTag:
+          type: string
+        contactFname:
+          type: string
+        contactLname:
+          type: string
+        contactEmail:
+          type: string
+        contactPhone:
+          type: string
+        tenantPassword:
+          type: string
+        emailGateway:
+          $ref: '#/components/schemas/MSGGateway'
+        smsGateway:
+          $ref: '#/components/schemas/MSGGateway'
+        analytics:
+          $ref: '#/components/schemas/Analytics'
+    Analytics:
+      type: object
+      properties:
+        elastic:
+          $ref: '#/components/schemas/Elastic'
+    MSGGateway:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        serviceUrl:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+        senderPhone:
+          type: string
+        senderEmail:
+          type: string
+        active:
+          type: boolean
+        timeoutValue:
+          type: integer
+          format: int32
+        auth:
+          type: string
+        authTokenRequestUrl:
+          type: string
+        authClientId:
+          type: string
+        authClientSecret:
+          type: string
+        authGrantType:
+          type: string
+        authScope:
+          type: string
+        protocol:
+          type: string
+        port:
+          type: string
+        tlsVersion:
+          type: string
+        isdcode:
+          type: string
+        smsServiceNumber:
+          type: string
+        smstemplateid:
+          type: string
+        otpDelimiter:
+          type: string
+        communityId:
+          type: string
+        tenantId:
+          type: string
+        groupName:
+          type: string
+        entityId:
+          type: string
+        ivrEntityId:
+          type: string
+        otpTemplateId:
+          type: string
+        otpTemplateB64:
+          type: string
+        awsRegion:
+          type: string
+        gstFlag:
+          type: string
+        msgType:
+          type: string
+        appCategory:
+          type: string
+        eventData:
+          type: object
+          additionalProperties: {}
+          writeOnly: true
+        valid:
+          type: boolean
+        idTS:
+          type: integer
+          format: int32
+    TenantCommunityRequestObject:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+    CreateCommunityRequest:
+      type: object
+      properties:
+        communityName:
+          type: string
+        emailGateway:
+          $ref: '#/components/schemas/MSGGateway'
+        smsGateway:
+          $ref: '#/components/schemas/MSGGateway'
+    Elastic:
+      type: object
+      properties:
+        url:
+          type: string
+        uid:
+          type: string
+        pwd:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

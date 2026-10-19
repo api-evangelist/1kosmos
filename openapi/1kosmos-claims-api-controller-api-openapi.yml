@@ -1,0 +1,394 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Claims API Controller API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: claims-api-controller
+paths:
+  /api/r1/credentials/{claimDid}/documents:
+    put:
+      tags:
+      - claims-api-controller
+      operationId: addDocumentToCredential
+      parameters:
+      - name: claimDid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AddDocumentResponse'
+      summary: Add document to credential
+      x-summary-source: derived
+  /api/r1/credentials/{claimDid}:
+    get:
+      tags:
+      - claims-api-controller
+      operationId: createNewCredentials_1
+      parameters:
+      - name: claimDid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifiableCredentials'
+      summary: Create new credentials 1
+      x-summary-source: derived
+    patch:
+      tags:
+      - claims-api-controller
+      operationId: updateDocumentInCredential
+      parameters:
+      - name: claimDid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifiableCredentialsRequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifiableCredentials'
+      summary: Update document in credential
+      x-summary-source: derived
+  /api/r1/credentials/{claimDid}/document/{hash}:
+    get:
+      tags:
+      - claims-api-controller
+      operationId: getDocumentForClaim
+      parameters:
+      - name: claimDid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: hash
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+      summary: Get document for claim
+      x-summary-source: derived
+  /api/r1/credentials/user/{userdid}:
+    get:
+      tags:
+      - claims-api-controller
+      operationId: getCredentialsForUserByUserId
+      parameters:
+      - name: userdid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClaimByUserId'
+      summary: Get credentials for user by user id
+      x-summary-source: derived
+  /api/r1/credentials/deploy:
+    get:
+      tags:
+      - claims-api-controller
+      operationId: deploySmartContract
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      summary: Deploy smart contract
+      x-summary-source: derived
+  /api/r1/credentials/{claimDid}/documents/{hash}:
+    delete:
+      tags:
+      - claims-api-controller
+      operationId: deleteDocumentFromCredential
+      parameters:
+      - name: claimDid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: hash
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      summary: Delete document from credential
+      x-summary-source: derived
+components:
+  schemas:
+    ClaimByUserId:
+      type: object
+      properties:
+        credentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/VerifiableCredentials'
+    AddDocumentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        document:
+          type: string
+    VerifiableCredentialsRequestModel:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        issuerId:
+          type: string
+        senderId:
+          type: string
+        updatedBy:
+          type: string
+        name:
+          type: string
+        documents:
+          type: string
+        issuedDate:
+          type: string
+        expiryDate:
+          type: string
+        isRevoked:
+          type: string
+        updateReason:
+          type: string
+        jsonStr:
+          type: string
+        stdCredData:
+          type: string
+          writeOnly: true
+    VerifiableCredentials:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        issuerId:
+          type: string
+        senderId:
+          type: string
+        updatedBy:
+          type: string
+        name:
+          type: string
+        documents:
+          type: string
+        issuedDate:
+          type: string
+        expiryDate:
+          type: string
+        isRevoked:
+          type: string
+        updateReason:
+          type: string
+        stdCredData:
+          type: string
+          writeOnly: true
+    DocumentResponse:
+      type: object
+      properties:
+        document:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

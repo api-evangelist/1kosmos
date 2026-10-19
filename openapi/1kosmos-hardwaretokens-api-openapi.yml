@@ -1,0 +1,403 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Hardware Tokens API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: HardwareTokens
+paths:
+  /api/r2/{communityName}/hardwaretokens:
+    put:
+      tags:
+      - HardwareTokens
+      summary: Import hardware tokens
+      description: 'Imports a list of hardware tokens into the system.
+
+
+        - pre-condition: The hardware token data must be valid and in the specified format.
+
+        - post-condition: Tokens are saved and any duplicates are ignored.'
+      operationId: importHardwareTokens_1
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HardwareTokenImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - HardwareTokens
+      summary: Delete hardware tokens by serial numbers
+      description: 'Deletes a set of hardware tokens identified by their serial numbers.
+
+
+        - pre-condition: The list of serial numbers must be valid and non-empty.
+
+        - post-condition: The matching tokens are deleted from the system.'
+      operationId: deleteHardwareTokens
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/hardwaretokens/resync:
+    post:
+      tags:
+      - HardwareTokens
+      summary: Resync hardware OTP tokens
+      description: 'Resynchronizes OTP tokens for a given serial number to ensure they are valid.
+
+
+        - pre-condition: The serial number must be valid.
+
+        - post-condition: The OTP token for the given serial number is resynchronized.'
+      operationId: reSync
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReSyncHardwareOTPRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/hardwaretokens/import_csv:
+    post:
+      tags:
+      - HardwareTokens
+      summary: Import hardware tokens from a CSV file
+      description: 'Imports hardware tokens from a CSV file containing the token data.
+
+
+        - pre-condition: The file must be a valid CSV with the correct format.
+
+        - post-condition: Tokens are saved, and any duplicates are ignored.'
+      operationId: importCsv
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/hardwaretokens/fetch:
+    post:
+      tags:
+      - HardwareTokens
+      summary: Fetch hardware tokens based on criteria
+      description: 'Fetches a list of hardware tokens based on the given criteria.
+
+
+        - pre-condition: The hardware token fetch request must contain valid filtering parameters.
+
+        - post-condition: Returns the list of matching hardware tokens.'
+      operationId: fetchTokens
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HardwareTokenFetchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/hardwaretokens/{id}:
+    patch:
+      tags:
+      - HardwareTokens
+      summary: Update hardware token
+      description: 'Patches an existing hardware token with new values for fields like ''seed'' and ''counter''.
+
+
+        - pre-condition: The token must exist and the user must have appropriate permissions.
+
+        - post-condition: The token is updated with new values if valid.'
+      operationId: patchHardwareToken
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    HardwareTokenPutRequest:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+        seed:
+          type: string
+        currentCounter:
+          type: string
+        type:
+          type: string
+        valid:
+          type: boolean
+        parsedCurrentCounter:
+          type: integer
+          format: int64
+    Query:
+      type: object
+      properties:
+        username:
+          type: string
+        serialNumber:
+          type: string
+    HardwareTokenFetchRequest:
+      type: object
+      properties:
+        pIndex:
+          type: integer
+          format: int32
+        pSize:
+          type: integer
+          format: int32
+        sortColumn:
+          type: string
+        sortDirection:
+          type: string
+        query:
+          $ref: '#/components/schemas/Query'
+        returnAssignedUserCount:
+          type: boolean
+        returnActivityStatus:
+          type: boolean
+        returnSeedValue:
+          type: boolean
+    HardwareTokenImportRequest:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/HardwareTokenPutRequest'
+        eventData:
+          type: object
+          additionalProperties: {}
+    ReSyncHardwareOTPRequest:
+      type: object
+      properties:
+        code1:
+          type: string
+        code2:
+          type: string
+        code3:
+          type: string
+        serialNumber:
+          type: string
+        username:
+          type: string
+        eventData:
+          type: object
+          additionalProperties: {}
+        valid:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

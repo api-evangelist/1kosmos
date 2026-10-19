@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Cred APIs API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Cred APIs
+paths:
+  /api/r1/credentials/:
+    put:
+      tags:
+      - Cred APIs
+      operationId: createNewCredentials
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifiableCredentialsRequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifiableCredentials'
+      summary: Create new credentials
+      x-summary-source: derived
+components:
+  schemas:
+    VerifiableCredentials:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        issuerId:
+          type: string
+        senderId:
+          type: string
+        updatedBy:
+          type: string
+        name:
+          type: string
+        documents:
+          type: string
+        issuedDate:
+          type: string
+        expiryDate:
+          type: string
+        isRevoked:
+          type: string
+        updateReason:
+          type: string
+        stdCredData:
+          type: string
+          writeOnly: true
+    VerifiableCredentialsRequestModel:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        issuerId:
+          type: string
+        senderId:
+          type: string
+        updatedBy:
+          type: string
+        name:
+          type: string
+        documents:
+          type: string
+        issuedDate:
+          type: string
+        expiryDate:
+          type: string
+        isRevoked:
+          type: string
+        updateReason:
+          type: string
+        jsonStr:
+          type: string
+        stdCredData:
+          type: string
+          writeOnly: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

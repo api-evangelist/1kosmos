@@ -1,0 +1,205 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Incoming Webhook API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Incoming Webhook
+paths:
+  /api/r2/webhooks/wallet_authenticator/on_authenticated:
+    post:
+      tags:
+      - Incoming Webhook
+      summary: Webhook for post liveid/fido registration action
+      description: (tbd))
+      operationId: actionOnPwdLessRegistration
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookUserLinkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/r2/webhooks/user_sms_verify/{webhookId}:
+    post:
+      tags:
+      - Incoming Webhook
+      summary: Verify User Phone via service gateway
+      description: Verify user phone
+      operationId: verifyPhoneNumber
+      parameters:
+      - name: webhookId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    EventData:
+      type: object
+      properties:
+        license_hash:
+          type: string
+        authenticator_version:
+          type: string
+        authenticator_id:
+          type: string
+        authenticator_name:
+          type: string
+        authenticator_os:
+          type: string
+        person_id:
+          type: string
+        person_publickey:
+          type: string
+        person_ial:
+          type: string
+        user_ial:
+          type: string
+        user_lat:
+          type: string
+        user_lon:
+          type: string
+        device_id:
+          type: string
+        deviceid:
+          type: string
+        user_agent:
+          type: string
+        network_info:
+          type: string
+        device_name:
+          type: string
+        caller_ip:
+          type: string
+    WebhookUserLinkRequest:
+      type: object
+      properties:
+        origin:
+          $ref: '#/components/schemas/Origin'
+        user:
+          $ref: '#/components/schemas/UserObj'
+        eventData:
+          $ref: '#/components/schemas/EventData'
+        requestId:
+          $ref: '#/components/schemas/Requestid'
+        authorization:
+          type: object
+          additionalProperties:
+            type: string
+        wallet:
+          type: object
+          additionalProperties:
+            type: string
+    Origin:
+      type: object
+      properties:
+        api:
+          type: string
+        community:
+          type: string
+        tag:
+          type: string
+    UserObj:
+      type: object
+      properties:
+        username:
+          type: string
+        uid:
+          type: string
+        authModuleId:
+          type: string
+        source:
+          type: string
+        valid:
+          type: boolean
+    Requestid:
+      type: object
+      properties:
+        ts:
+          type: integer
+          format: int64
+        appid:
+          type: string
+        uuid:
+          type: string
+        journeyId:
+          type: string
+        requestingAppInstanceId:
+          type: string
+        requestingAppId:
+          type: string
+        callerIp:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

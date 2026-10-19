@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Software Version Check API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Software Version Check
+paths:
+  /api/r1/community/{communityName}/versioncheck:
+    get:
+      tags:
+      - Software Version Check
+      summary: Software Version Check
+      operationId: checkAppVersion
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: appid
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: platform
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppVersionInfo'
+components:
+  schemas:
+    AppVersionInfo:
+      type: object
+      properties:
+        appId:
+          type: string
+        platform:
+          type: string
+        versionString:
+          type: string
+        buildNumber:
+          type: integer
+          format: int64
+        message:
+          type: string
+        url:
+          type: string
+        isForced:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

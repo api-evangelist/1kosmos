@@ -1,0 +1,144 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Managed Wallets API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Managed Wallets
+paths:
+  /api/r2/wallets/public_info:
+    post:
+      tags:
+      - Managed Wallets
+      summary: Fetch managed wallet public info
+      description: 'Fetch existing managed wallet.
+
+        This method can be used for retrieving an existing managed wallet public info.'
+      operationId: fetchManagedWalletPublicInfo
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagedWalletPublicInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r2/wallets/fetch:
+    post:
+      tags:
+      - Managed Wallets
+      summary: Fetch/Create managed wallet
+      description: 'Fetch existing or create new managed wallet.
+
+        This method can be used for creating new wallet as well as retrieving an existing managed wallet.
+
+        - The wallets are protected with user_pin, user_password or fido key id
+
+        - The wallets are searchable by fido key id or user_urn
+
+        - To check existing but not create new one, pass ''skip_create'' as true.'
+      operationId: createManagedWallet
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManagedWalletRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    ManagedWalletPublicInfoRequest:
+      type: object
+      properties:
+        user_urn:
+          type: string
+        fido_id:
+          type: string
+        type:
+          type: string
+        data:
+          type: string
+    ManagedWalletRequest:
+      type: object
+      properties:
+        user_urn:
+          type: string
+        user_pin:
+          type: string
+        user_password:
+          type: string
+        fido_id:
+          type: string
+        type:
+          type: string
+        skip_create:
+          type: boolean
+        data:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

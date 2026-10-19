@@ -1,0 +1,187 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Device API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Device
+paths:
+  /api/r2/devices/did/{did}/update:
+    post:
+      tags:
+      - Device
+      summary: Update Device by DID
+      description: 'Request to update a device and it''s push registry
+
+        A device may update only it''s own data
+
+        A device will be updated AS-IS
+
+        if pushid is not provided, existing pushid will be unregistered.'
+      operationId: updateDeviceByDID
+      parameters:
+      - name: did
+        in: path
+        description: Device ID
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceRequestModelV2'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+  /api/r2/devices/{deviceid}:
+    patch:
+      tags:
+      - Device
+      summary: Rename device
+      operationId: patchDevice
+      parameters:
+      - name: deviceid
+        in: path
+        description: Device ID
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceRequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    DeviceModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        uid:
+          type: string
+        did:
+          type: string
+        os:
+          type: string
+        publickey:
+          type: string
+        deviceName:
+          type: string
+        authenticatorId:
+          type: string
+        authenticatorVersion:
+          type: string
+        authenticatorName:
+          type: string
+        clientIp:
+          type: string
+        userAgent:
+          type: string
+        locLat:
+          type: string
+        locLon:
+          type: string
+        pushCapable:
+          type: boolean
+        fromEventData:
+          $ref: '#/components/schemas/DeviceModel'
+          writeOnly: true
+        fromPonData:
+          $ref: '#/components/schemas/DeviceModel'
+          writeOnly: true
+        idTS:
+          type: integer
+          format: int32
+    DeviceRequestModel:
+      type: object
+      properties:
+        name:
+          type: string
+        tenantId:
+          type: string
+        communityId:
+          type: string
+    DeviceRequestModelV2:
+      type: object
+      properties:
+        tenantId:
+          type: string
+        communityId:
+          type: string
+        device:
+          $ref: '#/components/schemas/DeviceModel'
+        pushid:
+          type: string
+        provider:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation TEMP.. DELETE ME API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: TEMP.. DELETE ME
+paths:
+  /api/r1/system/tmpresource/{resId}:
+    post:
+      tags:
+      - TEMP.. DELETE ME
+      summary: Get Tmp resource
+      description: The license you are using must be of authLevel 'system'
+      operationId: getTmpResource
+      parameters:
+      - name: resId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCommunityRequestObject'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    TenantCommunityRequestObject:
+      type: object
+      properties:
+        dns:
+          type: string
+        tenantId:
+          type: string
+        communityName:
+          type: string
+        communityId:
+          type: string
+        skipLogos:
+          type: boolean
+        otpSeed:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Service Directory API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Service Directory
+paths:
+  /api/r1/system/sd:
+    get:
+      tags:
+      - Service Directory
+      summary: Fetch Service Directory
+      operationId: getSD
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceDirectory'
+components:
+  schemas:
+    ServiceDirectory:
+      type: object
+      properties:
+        adminconsole:
+          type: string
+        sessions:
+          type: string
+        licenses:
+          type: string
+        reports:
+          type: string
+        global_caas:
+          type: string
+        user_management:
+          type: string
+        acr:
+          type: string
+        local_caas:
+          type: string
+        adminconsole_public_assets_download_url:
+          type: string
+        vcs:
+          type: string
+        ipfsproxy:
+          type: string
+        events:
+          type: string
+        rules_engine:
+          type: string
+        oauth2:
+          type: string
+        webauthn:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

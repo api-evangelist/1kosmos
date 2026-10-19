@@ -1,0 +1,12 @@
+{
+ "url": "https://blockid-trial.1kosmos.net/v3/api-docs",
+ "final": "https://blockid-trial.1kosmos.net/v3/api-docs",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 169517,
+ "sha256": "c84d6d2d5931d3029fd9fc91e38bc1f7c65c860f942f6e2b08684640fb1f1845",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

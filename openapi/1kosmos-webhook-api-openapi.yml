@@ -1,0 +1,211 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Webhook API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Webhook
+paths:
+  /api/r2/webhooks/create:
+    put:
+      tags:
+      - Webhook
+      summary: Add new webhook
+      description: 'Add new webhook
+
+
+        - >.'
+      operationId: addNewWebhook
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r2/webhooks/fetch/tenant/{tenantId}/community/{communityId}:
+    get:
+      tags:
+      - Webhook
+      summary: Get Webhooks
+      description: 'get webhooks
+
+        - allows optional filters by type, subtype, active'
+      operationId: getGateways
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: subtype
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r2/webhooks/remove/{webhookId}:
+    delete:
+      tags:
+      - Webhook
+      summary: Delete webhook
+      operationId: removeGateway
+      parameters:
+      - name: webhookId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        communityId:
+          type: string
+        tenantId:
+          type: string
+        type:
+          type: string
+        subtype:
+          type: string
+        active:
+          type: boolean
+        url:
+          type: string
+        method:
+          type: string
+        auth:
+          type: string
+        encryption:
+          type: string
+        authTokenRequestUrl:
+          type: string
+        authClientId:
+          type: string
+        authClientSecret:
+          type: string
+        authGrantType:
+          type: string
+        apiKey:
+          type: string
+        valid:
+          type: boolean
+        idTS:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

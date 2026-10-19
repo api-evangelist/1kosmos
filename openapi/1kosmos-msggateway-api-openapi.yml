@@ -1,0 +1,328 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation MSG Gateway API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: MSGGateway
+paths:
+  /api/r2/msg_gateway/create:
+    put:
+      tags:
+      - MSGGateway
+      summary: Add new gateway
+      description: 'Add new msg gateway
+
+
+        - >.'
+      operationId: addNewGateway
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MSGGateway'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r2/msg_gateway/update/{gatewayId}:
+    patch:
+      tags:
+      - MSGGateway
+      summary: Update gateway
+      description: 'Update msg gateway
+
+        - type cannot be modified.
+
+        - tenantId/communityId cannot be modified.
+
+        - To clear groupName pass ''(null)'' / >.'
+      operationId: updateGateway
+      parameters:
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MSGGateway'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r2/msg_gateway/fetch/tenant/{tenantId}/community/{communityId}:
+    get:
+      tags:
+      - MSGGateway
+      summary: Get gateways
+      description: 'get msg gateway
+
+        Query parms supported:
+
+        - ''active'' (optional boolean) filter by active or inactive gateways
+
+        - ''hasSMSServiceNumber'' (optional boolean) filter by gateways w or w/o smsServiceNumber
+
+        - ''channel'' (optional string) filter by specific channel value
+
+        - ''fulldata'' (optional boolean) only allowed for service level keys'
+      operationId: getGateways_1
+      parameters:
+      - name: tenantId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: communityId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: fulldata
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: hasSMSServiceNumber
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: channel
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /api/r2/msg_gateway/remove/{gatewayId}:
+    delete:
+      tags:
+      - MSGGateway
+      summary: Delete gateway
+      description: Delete msg gateway
+      operationId: removeGateway_1
+      parameters:
+      - name: gatewayId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    MSGGateway:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        serviceUrl:
+          type: string
+        channels:
+          type: array
+          items:
+            type: string
+        senderPhone:
+          type: string
+        senderEmail:
+          type: string
+        active:
+          type: boolean
+        timeoutValue:
+          type: integer
+          format: int32
+        auth:
+          type: string
+        authTokenRequestUrl:
+          type: string
+        authClientId:
+          type: string
+        authClientSecret:
+          type: string
+        authGrantType:
+          type: string
+        authScope:
+          type: string
+        protocol:
+          type: string
+        port:
+          type: string
+        tlsVersion:
+          type: string
+        isdcode:
+          type: string
+        smsServiceNumber:
+          type: string
+        smstemplateid:
+          type: string
+        otpDelimiter:
+          type: string
+        communityId:
+          type: string
+        tenantId:
+          type: string
+        groupName:
+          type: string
+        entityId:
+          type: string
+        ivrEntityId:
+          type: string
+        otpTemplateId:
+          type: string
+        otpTemplateB64:
+          type: string
+        awsRegion:
+          type: string
+        gstFlag:
+          type: string
+        msgType:
+          type: string
+        appCategory:
+          type: string
+        eventData:
+          type: object
+          additionalProperties: {}
+          writeOnly: true
+        valid:
+          type: boolean
+        idTS:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

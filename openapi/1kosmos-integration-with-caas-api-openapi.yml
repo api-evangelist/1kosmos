@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Integration with CaaS API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Integration with CaaS
+paths:
+  /api/r1/system/user_doc_verify_config:
+    post:
+      tags:
+      - Integration with CaaS
+      summary: Save Config in CaaS
+      operationId: saveConfigInCaaS
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentVerificationConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    AgentVerifyConfig:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        scope:
+          type: string
+        tokenUrl:
+          type: string
+        verifyApi:
+          type: string
+        agentResponseRetrievalApi:
+          type: string
+        probabilityLow:
+          type: integer
+          format: int32
+        probabilityHigh:
+          type: integer
+          format: int32
+    DocumentVerificationConfigRequest:
+      type: object
+      properties:
+        type:
+          type: string
+        tenantId:
+          type: string
+        communityId:
+          type: string
+        auto_verify:
+          $ref: '#/components/schemas/AutoVerifyConfig'
+        agent_verify:
+          $ref: '#/components/schemas/AgentVerifyConfig'
+    AutoVerifyConfig:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        scope:
+          type: string
+        tokenUrl:
+          type: string
+        verifyApi:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

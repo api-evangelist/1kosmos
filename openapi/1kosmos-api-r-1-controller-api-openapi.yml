@@ -1,0 +1,128 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation API R 1 Controller API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: api-r-1-controller
+paths:
+  /api/r1/community/{communityname}/user/fetch/ial:
+    post:
+      tags:
+      - api-r-1-controller
+      operationId: getIalForUserV2
+      parameters:
+      - name: communityname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDetailsForIAlRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      summary: Get ial for user V2
+      x-summary-source: derived
+  /api/r1/community/{communityname}/userid/{userid}/ial:
+    get:
+      tags:
+      - api-r-1-controller
+      operationId: getIalForUser
+      parameters:
+      - name: communityname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      summary: Get ial for user
+      x-summary-source: derived
+components:
+  schemas:
+    UserDetailsForIAlRequest:
+      type: object
+      properties:
+        uid:
+          type: string
+        module:
+          type: string
+        urn:
+          type: string
+        username:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

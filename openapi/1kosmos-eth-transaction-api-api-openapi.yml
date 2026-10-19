@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation Eth Transaction API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: Eth Transaction API
+paths:
+  /api/schedule/ethtxns:
+    get:
+      tags:
+      - Eth Transaction API
+      operationId: setDataToEthereum
+      parameters:
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SchedulerResponse'
+      summary: Set data to ethereum
+      x-summary-source: derived
+components:
+  schemas:
+    SchedulerResponse:
+      type: object
+      properties:
+        noOfTxns:
+          type: integer
+          format: int32
+        noOfTSuccessfulTxns:
+          type: integer
+          format: int32
+        noOfFailedTxns:
+          type: integer
+          format: int32
+        errMsg:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

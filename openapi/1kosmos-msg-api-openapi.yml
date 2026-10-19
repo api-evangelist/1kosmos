@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation MSG API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: MSG
+paths:
+  /api/r2/messaging/schedule:
+    post:
+      tags:
+      - MSG
+      summary: Request new message
+      description: 'Request delivery of new message
+
+        Requests are processed asynchronously
+
+        This method will return a request id / messageId that can be used to track status of the request.
+
+        - to request message to be sent to any channel (sms, email) a destination address must be provided.'
+      operationId: scheduleMessage
+      parameters:
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MSGRequestModel'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+components:
+  schemas:
+    MSGRequestModel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tenantId:
+          type: string
+        communityId:
+          type: string
+        serviceName:
+          type: string
+        requestedAtMS:
+          type: integer
+          format: int64
+        smsTo:
+          type: string
+        emailTo:
+          type: string
+        voiceTo:
+          type: string
+        fname:
+          type: string
+        lname:
+          type: string
+        voiceISDCode:
+          type: string
+        voiceCampaignId:
+          type: string
+        voiceCallTimeout:
+          type: integer
+          format: int32
+        smsISDCode:
+          type: string
+        smsTemplateB64:
+          type: string
+        emailTemplateB64:
+          type: string
+        voiceTemplateB64:
+          type: string
+        ivrTemplateB64:
+          type: string
+        ivrSessionUrlB64:
+          type: string
+        ivrTo:
+          type: string
+        ivrISDCode:
+          type: string
+        emailFrom:
+          type: string
+        smsFrom:
+          type: string
+        voiceFrom:
+          type: string
+        emailSubject:
+          type: string
+        messageId:
+          type: string
+        smsTemplateId:
+          type: string
+        scheduledAtMS:
+          type: integer
+          format: int64
+        requestLicenseLevel:
+          type: string
+        tenantName:
+          type: string
+        tenantDNS:
+          type: string
+        communityName:
+          type: string
+        trace:
+          type: boolean
+        gatewayGroupName:
+          type: string
+        requestId:
+          type: string
+        journeyId:
+          type: string
+        eventData:
+          type: object
+          additionalProperties: {}
+        idTS:
+          type: integer
+          format: int32
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

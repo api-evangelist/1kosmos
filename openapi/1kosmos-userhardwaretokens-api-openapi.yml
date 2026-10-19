@@ -1,0 +1,251 @@
+openapi: 3.2.0
+info:
+  title: Admin Console API Documentation User Hardware Tokens API
+  description: API documentation for Admin Console
+  contact:
+    name: OneKosmos
+    email: support@onekosmos.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+  version: '1.0'
+servers:
+- url: https://blockid-trial.1kosmos.net
+  description: Generated server url
+security:
+- ApiKeyAuth: []
+tags:
+- name: UserHardwareTokens
+paths:
+  /api/r2/{communityName}/usertokens:
+    put:
+      tags:
+      - UserHardwareTokens
+      summary: Import hardware tokens for users
+      description: 'Bulk import of hardware tokens for users into the system.
+
+
+        The request body should contain a list of UserHardwareTokenPutRequest objects.
+
+        If the list exceeds 25,000 tokens, an error is returned.'
+      operationId: importHardwareTokens
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserHardwareTokenImportRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - UserHardwareTokens
+      summary: Delete user hardware tokens
+      description: Deletes hardware tokens for users based on the provided token list.
+      operationId: deleteUserHardwareTokens
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/usertokens/import_csv:
+    post:
+      tags:
+      - UserHardwareTokens
+      summary: Import hardware tokens from a CSV file
+      description: 'Uploads a CSV file to bulk import hardware tokens for users.
+
+        Validates the file type and size, processes CSV to assign tokens.'
+      operationId: importUserHardwareTokensCsv
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/r2/{communityName}/usertokens/fetch:
+    post:
+      tags:
+      - UserHardwareTokens
+      summary: Fetch user hardware tokens
+      description: Fetches hardware tokens for users based on the provided filtering criteria.
+      operationId: fetchUserHardwareTokens
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: publickey
+        in: header
+        description: Public key of the client
+        required: true
+        schema:
+          type: string
+      - name: licensekey
+        in: header
+        description: License key encrypted with ECDSA
+        required: true
+        schema:
+          type: string
+      - name: requestId
+        in: header
+        description: JSON string encrypted with ECDSA containing appid, uuid, and ts
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserHardwareTokenFetchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    UserHardwareTokenImportRequest:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserHardwareTokenPutRequest'
+        eventData:
+          type: object
+          additionalProperties: {}
+    UserHardwareTokenPutRequest:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+        username:
+          type: string
+        valid:
+          type: boolean
+    Query:
+      type: object
+      properties:
+        username:
+          type: string
+        serialNumber:
+          type: string
+    UserHardwareTokenFetchRequest:
+      type: object
+      properties:
+        pIndex:
+          type: integer
+          format: int32
+        pSize:
+          type: integer
+          format: int32
+        query:
+          $ref: '#/components/schemas/Query'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: licensekey
+      in: header

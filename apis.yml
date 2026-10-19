@@ -62,70 +62,6 @@ tags:
 - Security
 - Company
 apis:
-- aid: 1kosmos:1kosmos-access-code-api
-  name: 1Kosmos Access Code API
-  description: The Access Code API from 1Kosmos — 2 operation(s) for access code.
-  humanURL: https://developer.1kosmos.com/devportal/docs/
-  baseURL: https://blockid-trial.1kosmos.net
-  tags:
-  - Access Code
-  properties:
-  - type: OpenAPI
-    url: openapi/1kosmos-access-code-api-openapi.yml
-  - type: Postman
-    url: postman/1kosmos-postman-collection.json
-  - type: Documentation
-    url: https://developer.1kosmos.com/devportal/docs/
-  - type: APIReference
-    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-ial-api
-  name: 1Kosmos IAL API
-  description: The IAL API from 1Kosmos — 1 operation(s) for ial.
-  humanURL: https://developer.1kosmos.com/devportal/docs/
-  baseURL: https://blockid-trial.1kosmos.net
-  tags:
-  - IAL
-  properties:
-  - type: OpenAPI
-    url: openapi/1kosmos-ial-api-openapi.yml
-  - type: Postman
-    url: postman/1kosmos-postman-collection.json
-  - type: Documentation
-    url: https://developer.1kosmos.com/devportal/docs/
-  - type: APIReference
-    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-ial2-api
-  name: 1Kosmos IAL2 API
-  description: The IAL2 API from 1Kosmos — 2 operation(s) for ial2.
-  humanURL: https://developer.1kosmos.com/devportal/docs/
-  baseURL: https://blockid-trial.1kosmos.net
-  tags:
-  - IAL2
-  properties:
-  - type: OpenAPI
-    url: openapi/1kosmos-ial2-api-openapi.yml
-  - type: Postman
-    url: postman/1kosmos-postman-collection.json
-  - type: Documentation
-    url: https://developer.1kosmos.com/devportal/docs/
-  - type: APIReference
-    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-id-verification-api
-  name: 1Kosmos ID Verification API
-  description: The ID Verification API from 1Kosmos — 2 operation(s) for id verification.
-  humanURL: https://developer.1kosmos.com/devportal/docs/
-  baseURL: https://blockid-trial.1kosmos.net
-  tags:
-  - ID Verification
-  properties:
-  - type: OpenAPI
-    url: openapi/1kosmos-id-verification-api-openapi.yml
-  - type: Postman
-    url: postman/1kosmos-postman-collection.json
-  - type: Documentation
-    url: https://developer.1kosmos.com/devportal/docs/
-  - type: APIReference
-    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
 - aid: 1kosmos:1kosmos-otp-api
   name: 1Kosmos OTP API
   description: The OTP API from 1Kosmos — 3 operation(s) for otp.
@@ -142,80 +78,1130 @@ apis:
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-reports-api
-  name: 1Kosmos Reports API
-  description: The Reports API from 1Kosmos — 7 operation(s) for reports.
+- aid: 1kosmos:1kosmos-acr-apis-api
+  name: 1Kosmos ACR APIs API
+  description: The ACR APIs API from 1Kosmos — 4 operation(s) for acr apis.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - Reports
+  - ACR APIs
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-reports-api-openapi.yml
+    url: openapi/1kosmos-acr-apis-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-user-management-api
-  name: 1Kosmos User Management API
-  description: The User Management API from 1Kosmos — 3 operation(s) for user management.
+- aid: 1kosmos:1kosmos-acr-controller-api
+  name: 1Kosmos Acr Controller API
+  description: The acr-controller API from 1Kosmos — 1 operation(s) for acr-controller.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - User Management
+  - acr-controller
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-user-management-api-openapi.yml
+    url: openapi/1kosmos-acr-controller-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-verifiable-credentials-api
-  name: 1Kosmos Verifiable Credentials API
-  description: The Verifiable Credentials API from 1Kosmos — 5 operation(s) for verifiable credentials.
+- aid: 1kosmos:1kosmos-acr-otp-deprecated-api
+  name: 1Kosmos ACR-OTP (deprecated) API
+  description: The ACR-OTP (deprecated) API from 1Kosmos — 1 operation(s) for acr-otp (deprecated).
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - Verifiable Credentials
+  - ACR-OTP (deprecated)
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-verifiable-credentials-api-openapi.yml
+    url: openapi/1kosmos-acr-otp-deprecated-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-workflow-api-api
-  name: 1Kosmos Workflow API
-  description: The Workflow API API from 1Kosmos — 2 operation(s) for workflow api.
+- aid: 1kosmos:1kosmos-alpha-api
+  name: 1Kosmos Alpha API
+  description: The Alpha API from 1Kosmos — 1 operation(s) for alpha.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - Workflow API
+  - Alpha
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-workflow-api-api-openapi.yml
+    url: openapi/1kosmos-alpha-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
     url: https://developer.1kosmos.com/devportal/docs/
   - type: APIReference
     url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
-- aid: 1kosmos:1kosmos-setup-api
-  name: 1Kosmos Setup API
-  description: The Setup API from 1Kosmos — 2 operation(s) for setup.
+- aid: 1kosmos:1kosmos-android-api-api
+  name: 1Kosmos Android API
+  description: The Android API API from 1Kosmos — 1 operation(s) for android api.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
-  - Setup
+  - Android API
   properties:
   - type: OpenAPI
-    url: openapi/1kosmos-setup-api-openapi.yml
+    url: openapi/1kosmos-android-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-api-controller-api
+  name: 1Kosmos API Controller API
+  description: The api-controller API from 1Kosmos — 1 operation(s) for api-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - api-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-api-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-api-r-1-controller-api
+  name: 1Kosmos API R 1 Controller API
+  description: The api-r-1-controller API from 1Kosmos — 2 operation(s) for api-r-1-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - api-r-1-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-api-r-1-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-apple-api-api
+  name: 1Kosmos Apple API
+  description: The Apple API API from 1Kosmos — 1 operation(s) for apple api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Apple API
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-apple-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-athena-accesscodes-api
+  name: 1Kosmos Athena - AccessCodes API
+  description: The Athena - AccessCodes API from 1Kosmos — 3 operation(s) for athena - accesscodes.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Athena - AccessCodes
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-athena-accesscodes-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-claims-api-controller-api
+  name: 1Kosmos Claims API Controller API
+  description: The claims-api-controller API from 1Kosmos — 6 operation(s) for claims-api-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - claims-api-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-claims-api-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-comparefaces-api
+  name: 1Kosmos Compare Faces API
+  description: The CompareFaces API from 1Kosmos — 1 operation(s) for comparefaces.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - CompareFaces
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-comparefaces-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-core-info-api
+  name: 1Kosmos Core Info API
+  description: The Core Info API from 1Kosmos — 7 operation(s) for core info.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Core Info
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-core-info-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-country-api
+  name: 1Kosmos Country API
+  description: The Country API from 1Kosmos — 3 operation(s) for country.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Country
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-country-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-cred-apis-api
+  name: 1Kosmos Cred APIs API
+  description: The Cred APIs API from 1Kosmos — 1 operation(s) for cred apis.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Cred APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-cred-apis-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-decrypt-api
+  name: 1Kosmos Decrypt API
+  description: The Decrypt API from 1Kosmos — 1 operation(s) for decrypt.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Decrypt
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-decrypt-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-device-api
+  name: 1Kosmos Device API
+  description: The Device API from 1Kosmos — 2 operation(s) for device.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Device
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-device-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-ecds-helper-api
+  name: 1Kosmos ECDS HELPER API
+  description: The ECDS-HELPER API from 1Kosmos — 1 operation(s) for ecds-helper.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - ECDS-HELPER
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-ecds-helper-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-encrypt-api
+  name: 1Kosmos Encrypt API
+  description: The Encrypt API from 1Kosmos — 1 operation(s) for encrypt.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Encrypt
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-encrypt-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-encrypt-decrypt-api
+  name: 1Kosmos Encrypt/Decrypt API
+  description: The Encrypt/Decrypt API from 1Kosmos — 2 operation(s) for encrypt/decrypt.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Encrypt/Decrypt
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-encrypt-decrypt-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-encryptios-api
+  name: 1Kosmos Encryptios API
+  description: The Encryptios API from 1Kosmos — 1 operation(s) for encryptios.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Encryptios
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-encryptios-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-environment-api
+  name: 1Kosmos Environment API
+  description: The Environment API from 1Kosmos — 1 operation(s) for environment.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Environment
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-environment-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-error-handling-controller-api
+  name: 1Kosmos Error Handling Controller API
+  description: >-
+    The error-handling-controller API from 1Kosmos — 1 operation(s) for error-handling-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - error-handling-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-error-handling-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-eth-transaction-api-api
+  name: 1Kosmos Eth Transaction API
+  description: The Eth Transaction API API from 1Kosmos — 1 operation(s) for eth transaction api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Eth Transaction API
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-eth-transaction-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-eula-api
+  name: 1Kosmos Eula API
+  description: The Eula API from 1Kosmos — 3 operation(s) for eula.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Eula
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-eula-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-hardwaretokens-api
+  name: 1Kosmos Hardware Tokens API
+  description: The HardwareTokens API from 1Kosmos — 5 operation(s) for hardwaretokens.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - HardwareTokens
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-hardwaretokens-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-incoming-webhook-api
+  name: 1Kosmos Incoming Webhook API
+  description: The Incoming Webhook API from 1Kosmos — 2 operation(s) for incoming webhook.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Incoming Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-incoming-webhook-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-index-controller-api
+  name: 1Kosmos Index Controller API
+  description: The index-controller API from 1Kosmos — 2 operation(s) for index-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - index-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-index-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-integration-with-caas-api
+  name: 1Kosmos Integration with CaaS API
+  description: The Integration with CaaS API from 1Kosmos — 1 operation(s) for integration with caas.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Integration with CaaS
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-integration-with-caas-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-ipfs-api
+  name: 1Kosmos Ipfs API
+  description: The Ipfs API from 1Kosmos — 1 operation(s) for ipfs.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Ipfs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-ipfs-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-license-apis-api
+  name: 1Kosmos License APIs API
+  description: The License APIs API from 1Kosmos — 1 operation(s) for license apis.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - License APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-license-apis-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-licensechecks-api
+  name: 1Kosmos License Checks API
+  description: The LicenseChecks API from 1Kosmos — 2 operation(s) for licensechecks.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - LicenseChecks
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-licensechecks-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-locationlog-api
+  name: 1Kosmos Location Log API
+  description: The LocationLog API from 1Kosmos — 1 operation(s) for locationlog.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - LocationLog
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-locationlog-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-login-api
+  name: 1Kosmos Login API
+  description: The Login API from 1Kosmos — 1 operation(s) for login.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Login
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-login-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-managed-wallets-api
+  name: 1Kosmos Managed Wallets API
+  description: The Managed Wallets API from 1Kosmos — 2 operation(s) for managed wallets.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Managed Wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-managed-wallets-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-mobile-events-api
+  name: 1Kosmos Mobile Events API
+  description: The Mobile Events API from 1Kosmos — 2 operation(s) for mobile events.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Mobile Events
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-mobile-events-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-msg-api
+  name: 1Kosmos MSG API
+  description: The MSG API from 1Kosmos — 1 operation(s) for msg.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - MSG
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-msg-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-msggateway-api
+  name: 1Kosmos MSG Gateway API
+  description: The MSGGateway API from 1Kosmos — 4 operation(s) for msggateway.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - MSGGateway
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-msggateway-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-otp-apis-api
+  name: 1Kosmos OTP APIs API
+  description: The OTP APIs API from 1Kosmos — 2 operation(s) for otp apis.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - OTP APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-otp-apis-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-otpr-3-controller-api
+  name: 1Kosmos Otpr 3 Controller API
+  description: The otpr-3-controller API from 1Kosmos — 2 operation(s) for otpr-3-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - otpr-3-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-otpr-3-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-passkey-branding-controller-api
+  name: 1Kosmos Passkey Branding Controller API
+  description: >-
+    The passkey-branding-controller API from 1Kosmos — 6 operation(s) for passkey-branding-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - passkey-branding-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-passkey-branding-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-public-keys-apis-api
+  name: 1Kosmos Public Keys APIs API
+  description: The Public Keys APIs API from 1Kosmos — 1 operation(s) for public keys apis.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Public Keys APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-public-keys-apis-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-publickey-api
+  name: 1Kosmos Public Key API
+  description: The PublicKey API from 1Kosmos — 2 operation(s) for publickey.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - PublicKey
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-publickey-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-push-notification-v-4-controller-api
+  name: 1Kosmos Push Notification V 4 Controller API
+  description: >-
+    The push-notification-v-4-controller API from 1Kosmos — 1 operation(s) for push-notification-v-4-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - push-notification-v-4-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-push-notification-v-4-controller-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-pushnotification-api
+  name: 1Kosmos Push Notification API
+  description: The PushNotification API from 1Kosmos — 1 operation(s) for pushnotification.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - PushNotification
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-pushnotification-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-pwdreset-api
+  name: 1Kosmos Pwdreset API
+  description: The Pwdreset API from 1Kosmos — 1 operation(s) for pwdreset.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Pwdreset
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-pwdreset-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-register-restore-api
+  name: 1Kosmos Register/Restore API
+  description: The Register/Restore API from 1Kosmos — 2 operation(s) for register/restore.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Register/Restore
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-register-restore-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-registerdidobject-api
+  name: 1Kosmos Register Did Object API
+  description: The RegisterDidObject API from 1Kosmos — 1 operation(s) for registerdidobject.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - RegisterDidObject
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-registerdidobject-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-scep-api
+  name: 1Kosmos Scep API
+  description: The Scep API from 1Kosmos — 1 operation(s) for scep.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Scep
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-scep-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-scep-creds-api
+  name: 1Kosmos SCEP Creds API
+  description: The SCEP Creds API from 1Kosmos — 2 operation(s) for scep creds.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - SCEP Creds
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-scep-creds-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-service-directory-api
+  name: 1Kosmos Service Directory API
+  description: The Service Directory API from 1Kosmos — 1 operation(s) for service directory.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Service Directory
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-service-directory-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-software-version-check-api
+  name: 1Kosmos Software Version Check API
+  description: The Software Version Check API from 1Kosmos — 1 operation(s) for software version check.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Software Version Check
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-software-version-check-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-temp-delete-me-api
+  name: 1Kosmos TEMP.. DELETE ME API
+  description: The TEMP.. DELETE ME API from 1Kosmos — 1 operation(s) for temp.. delete me.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - TEMP.. DELETE ME
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-temp-delete-me-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-tenant-community-api
+  name: 1Kosmos Tenant/Community API
+  description: The Tenant/Community API from 1Kosmos — 4 operation(s) for tenant/community.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Tenant/Community
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-tenant-community-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-user-linking-api
+  name: 1Kosmos User Linking API
+  description: The User Linking API from 1Kosmos — 3 operation(s) for user linking.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - User Linking
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-user-linking-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-user-profile-api
+  name: 1Kosmos User Profile API
+  description: The User Profile API from 1Kosmos — 8 operation(s) for user profile.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - User Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-user-profile-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-userdocs-apis-api
+  name: 1Kosmos UserDocs APIs API
+  description: The UserDocs APIs API from 1Kosmos — 5 operation(s) for userdocs apis.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - UserDocs APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-userdocs-apis-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-userhardwaretokens-api
+  name: 1Kosmos User Hardware Tokens API
+  description: The UserHardwareTokens API from 1Kosmos — 3 operation(s) for userhardwaretokens.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - UserHardwareTokens
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-userhardwaretokens-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-v2-verizon-migration-api-api
+  name: 1Kosmos V2 Verizon Migration API
+  description: >-
+    The V2 Verizon Migration Api API from 1Kosmos — 1 operation(s) for v2 verizon migration api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - V2 Verizon Migration Api
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-v2-verizon-migration-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verification-of-document-agent-api
+  name: '1Kosmos Verification of Document : Agent API'
+  description: >-
+    The Verification of Document : Agent API from 1Kosmos — 2 operation(s) for verification of document
+    : agent.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - 'Verification of Document : Agent'
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verification-of-document-agent-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verification-of-document-auto-agent-api
+  name: '1Kosmos Verification of Document : Auto | Agent API'
+  description: >-
+    The Verification of Document : Auto | Agent API from 1Kosmos — 1 operation(s) for verification of
+    document : auto | agent.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - 'Verification of Document : Auto | Agent'
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verification-of-document-auto-agent-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verified-did-api-api
+  name: 1Kosmos Verified DID API
+  description: The Verified DID API API from 1Kosmos — 1 operation(s) for verified did api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verified DID API
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verified-did-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verified-did-config-api-api
+  name: 1Kosmos Verified DID Config API
+  description: >-
+    The Verified DID Config API API from 1Kosmos — 1 operation(s) for verified did config api.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verified DID Config API
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verified-did-config-api-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verify-api
+  name: 1Kosmos Verify API
+  description: The Verify API from 1Kosmos — 1 operation(s) for verify.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verify
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verify-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verify-credentials-deprecated-api
+  name: 1Kosmos Verify Credentials (deprecated) API
+  description: >-
+    The Verify Credentials (deprecated) API from 1Kosmos — 1 operation(s) for verify credentials (deprecated).
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verify Credentials (deprecated)
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verify-credentials-deprecated-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verify-document-scan-api
+  name: 1Kosmos Verify Document Scan API
+  description: The Verify Document Scan API from 1Kosmos — 1 operation(s) for verify document scan.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verify Document Scan
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verify-document-scan-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-verify-rfid-api
+  name: 1Kosmos Verify RFID API
+  description: The Verify RFID API from 1Kosmos — 1 operation(s) for verify rfid.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Verify RFID
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-verify-rfid-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-version-api
+  name: 1Kosmos Version API
+  description: The Version API from 1Kosmos — 2 operation(s) for version.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-version-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-versionstatus-api
+  name: 1Kosmos Version Status API
+  description: The VersionStatus API from 1Kosmos — 1 operation(s) for versionstatus.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - VersionStatus
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-versionstatus-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-webhook-api
+  name: 1Kosmos Webhook API
+  description: The Webhook API from 1Kosmos — 3 operation(s) for webhook.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-webhook-api-openapi.yml
+  - type: Postman
+    url: postman/1kosmos-postman-collection.json
+  - type: Documentation
+    url: https://developer.1kosmos.com/devportal/docs/
+  - type: APIReference
+    url: https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n
+- aid: 1kosmos:1kosmos-webhooks-controller-api
+  name: 1Kosmos Webhooks Controller API
+  description: The webhooks-controller API from 1Kosmos — 1 operation(s) for webhooks-controller.
+  humanURL: https://developer.1kosmos.com/devportal/docs/
+  baseURL: https://blockid-trial.1kosmos.net
+  tags:
+  - webhooks-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/1kosmos-webhooks-controller-api-openapi.yml
   - type: Postman
     url: postman/1kosmos-postman-collection.json
   - type: Documentation
