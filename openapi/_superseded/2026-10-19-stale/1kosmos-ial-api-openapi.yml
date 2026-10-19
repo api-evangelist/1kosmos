@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: 1Kosmos BlockID Platform IAL API
+  version: '2026-08-05'
+  description: REST surface of the 1Kosmos BlockID identity platform — identity verification (IDVerify), identity assurance level (IAL) lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows, and the reporting/metrics APIs.
+  contact:
+    name: 1Kosmos Developer Support
+    email: developers@1kosmos.com
+    url: https://developer.1kosmos.com/devportal/docs/
+  x-generated-by: API Evangelist enrichment pipeline (derived from Postman collection)
+  x-source: postman/1kosmos-postman-collection.json
+servers:
+- url: https://{tenantDNS}
+  description: Tenant-scoped BlockID host. Every 1Kosmos deployment is addressed by its own tenant DNS name; the microservice hosts the collection references as {{client_api}}, {{wf_api}} and {{reports}} are discovered at runtime from GET /caas/sd on the tenant host.
+  variables:
+    tenantDNS:
+      default: blockid-trial.1kosmos.net
+      description: Your BlockID tenant DNS name as shown in the BlockID developer dashboard. blockid-trial.1kosmos.net is the trial tenant used throughout the published docs.
+security:
+- licenseKey: []
+  publicKey: []
+tags:
+- name: IAL
+paths:
+  /api/r1/community/{communityName}/userid/{userId}/ial:
+    get:
+      operationId: ialFetchIALOfAUser
+      summary: Fetch IAL of a user
+      description: This API retrieves the Identity Assurance Level(s) of users based on their username.
+      tags:
+      - IAL
+      parameters:
+      - name: communityName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: requestid
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: tenant_name
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: community_name
+        in: header
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: IAL2 with proofs
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: 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
+      x-postman-request: '{{tenantDNS}}/api/r1/community/{{community_name}}/userid/johndoe/ial'
+      x-postman-variants:
+      - Fetch IAL of a user
+components:
+  securitySchemes:
+    licenseKey:
+      type: apiKey
+      in: header
+      name: licensekey
+      description: The tenant/community license key, ECDSA-encrypted with the shared secret derived from the caller private key and the community public key (see BIDECDSA in the first-party helper SDKs). Sent unencrypted only when the noecdsa header is set.
+    publicKey:
+      type: apiKey
+      in: header
+      name: publickey
+      description: The caller ECDSA public key, used by the service to derive the shared secret that decrypts licensekey and encrypted payloads.
+    tenantTag:
+      type: apiKey
+      in: header
+      name: X-TenantTag
+      description: Tenant tag, required by the reports, user-management and access-code services.
