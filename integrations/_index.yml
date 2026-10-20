@@ -71,3 +71,40 @@
       lapsed: false
   status: not-a-workflow
   arazzo: null
+- slug: 1kosmos-ibeta-iso-iec-30107-3-presentation-attack-detection
+  label: iBeta (ISO/IEC 30107-3 presentation attack detection)
+  partner_name: iBeta (ISO/IEC 30107-3 presentation attack detection)
+  category: biometric conformance (PAD)
+  type: register
+  channel: standard-directory
+  evidence: https://www.ibeta.com/iso-30107-3-presentation-attack-detection-confirmation-letters/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: iBeta ISO/IEC 30107-3 PAD confirmation letters (ibeta.com, NIST NVLAP-accredited lab)
+    standard: ISO/IEC 30107-3 (iBeta PAD)
+    spec_file: null
+    role: ibeta-pad-confirmed
+    registered_name: 1Kosmos
+    register_id: https://www.ibeta.com/wp-content/uploads/2025/03/250305-1Kosmos-PAD-Level-2-Confirmation-Letter.pdf
+    matched_domain: null
+    matched_by: register-name
+    identity: 'register-name: register-name ''1kosmos'' = 1kosmos; no wikidata P856'
+    identity_source: register-name
+    certified_products:
+    - product: ISO/IEC 30107-3 PAD (face)
+      modality: face
+      partner_tier: Level 2
+      lapsed: false
+      latest_letter: '2025-03-05'
+      products_tested:
+      - BlockID
+    signal_note: certified_products = ONE entry per PAD product type (modality), highest level confirmed in partner_tier;
+      letters and versions are never counted. iBeta letters carry no expiry, so lapsed is false and the latest letter
+      date is recorded
+    detected_by: sweep-biometrics-testing.py
+    detected: '2026-10-20'
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
