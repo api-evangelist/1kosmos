@@ -453,6 +453,8 @@ apis:
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
+  - EULA
+  tags_raw:
   - Eula
   properties:
   - type: OpenAPI
@@ -533,6 +535,8 @@ apis:
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
+  - IPFS
+  tags_raw:
   - Ipfs
   properties:
   - type: OpenAPI
@@ -742,6 +746,8 @@ apis:
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
+  - Public Key
+  tags_raw:
   - PublicKey
   properties:
   - type: OpenAPI
@@ -775,6 +781,8 @@ apis:
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
+  - Push Notification
+  tags_raw:
   - PushNotification
   properties:
   - type: OpenAPI
@@ -839,6 +847,8 @@ apis:
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
   tags:
+  - SCEP
+  tags_raw:
   - Scep
   properties:
   - type: OpenAPI
@@ -1035,7 +1045,8 @@ apis:
     document : auto | agent.
   humanURL: https://developer.1kosmos.com/devportal/docs/
   baseURL: https://blockid-trial.1kosmos.net
-  tags:
+  tags: []
+  tags_raw:
   - 'Verification of Document : Auto | Agent'
   properties:
   - type: OpenAPI
