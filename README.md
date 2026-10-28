@@ -64,5 +64,148 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-1Kosmos is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/1kosmos_stock/
+1Kosmos is a digital identity company whose BlockID platform combines identity proofing, document and biometric verification, and passwordless / FIDO2 authentication into a single tenant-scoped platform used across workforce, customer and citizen identity. The platform is delivered as a REST API surface (identity verification sessions, identity assurance level lookup, one-time passcodes, user management, access codes, W3C Verifiable Credentials and Verifiable Presentations, IAL2 identity-proofing workflows and reporting/metrics) plus first-party helper SDKs for NodeJS, Java, PHP, .NET, .NET Core and Go, and native Android/iOS mobile SDKs. 1Kosmos is Kantara-approved as a full-service credential service provider conformant with NIST SP 800-63-3 at IAL2/AAL2, is FIDO2 certified, holds SOC 2 Type II and ISO 27001, and holds a FedRAMP High authorization.
+
+**Areas:** Identity · Authentication · Identity Verification · Passwordless · Biometrics · Verifiable Credentials · FIDO2 · Security · Company
+
+## 1Kosmos on APIs.io
+
+Everything profiled for 1Kosmos is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/1kosmos/](https://apis.io/providers/1kosmos/)** — or go straight to one of the APIs or properties below.
+
+### APIs (10)
+
+- [1Kosmos Access Code API](https://apis.io/apis/1kosmos/1kosmos-access-code-api/) — The Access Code API from 1Kosmos — 2 operation(s) for access code.
+- [1Kosmos IAL API](https://apis.io/apis/1kosmos/1kosmos-ial-api/) — The IAL API from 1Kosmos — 1 operation(s) for ial.
+- [1Kosmos IAL2 API](https://apis.io/apis/1kosmos/1kosmos-ial2-api/) — The IAL2 API from 1Kosmos — 2 operation(s) for ial2.
+- [1Kosmos ID Verification API](https://apis.io/apis/1kosmos/1kosmos-id-verification-api/) — The ID Verification API from 1Kosmos — 2 operation(s) for id verification.
+- [1Kosmos OTP API](https://apis.io/apis/1kosmos/1kosmos-otp-api/) — The OTP API from 1Kosmos — 3 operation(s) for otp.
+- [1Kosmos Reports API](https://apis.io/apis/1kosmos/1kosmos-reports-api/) — The Reports API from 1Kosmos — 7 operation(s) for reports.
+- [1Kosmos User Management API](https://apis.io/apis/1kosmos/1kosmos-user-management-api/) — The User Management API from 1Kosmos — 3 operation(s) for user management.
+- [1Kosmos Verifiable Credentials API](https://apis.io/apis/1kosmos/1kosmos-verifiable-credentials-api/) — The Verifiable Credentials API from 1Kosmos — 5 operation(s) for verifiable credentials.
+- [1Kosmos Workflow API](https://apis.io/apis/1kosmos/1kosmos-workflow-api-api/) — The Workflow API API from 1Kosmos — 2 operation(s) for workflow api.
+- [1Kosmos Setup API](https://apis.io/apis/1kosmos/1kosmos-setup-api/) — The Setup API from 1Kosmos — 2 operation(s) for setup.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [1Kosmos Idverify Events](https://apis.io/asyncapis/1kosmos/1kosmos-idverify-events/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [1kosmos-blockid](https://apis.io/servers/1kosmos/1kosmos-blockid/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [1Kosmos Agentic Access](https://apis.io/agentic-access/1kosmos/1kosmos-agentic-access/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [1Kosmos BlockID Platform Access Code API](https://apis.io/collections/1kosmos/open-1kosmos-access-code-api/)
+- [1Kosmos BlockID Platform IAL API](https://apis.io/collections/1kosmos/open-1kosmos-ial-api/)
+- [1Kosmos BlockID Platform IAL2 API](https://apis.io/collections/1kosmos/open-1kosmos-ial2-api/)
+- [1Kosmos BlockID Platform ID Verification API](https://apis.io/collections/1kosmos/open-1kosmos-id-verification-api/)
+- [1Kosmos BlockID Platform OTP API](https://apis.io/collections/1kosmos/open-1kosmos-otp-api/)
+- [1Kosmos BlockID Platform Reports API](https://apis.io/collections/1kosmos/open-1kosmos-reports-api/)
+- [1Kosmos BlockID Platform Set up API](https://apis.io/collections/1kosmos/open-1kosmos-set-up-api/)
+- [1Kosmos BlockID Platform User Management API](https://apis.io/collections/1kosmos/open-1kosmos-user-management-api/)
+- [1Kosmos BlockID Platform Verifiable Credentials API](https://apis.io/collections/1kosmos/open-1kosmos-verifiable-credentials-api/)
+- [1Kosmos BlockID Platform Workflow API API](https://apis.io/collections/1kosmos/open-1kosmos-workflow-api-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [1Kosmos Blockid Overlay](https://apis.io/overlays/1kosmos/1kosmos-blockid-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [1Kosmos Authentication](https://apis.io/security/1kosmos/1kosmos-authentication/)
+- [1Kosmos Domain Security](https://apis.io/security/1kosmos/1kosmos-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [1Kosmos Scopes](https://apis.io/scopes/1kosmos/1kosmos-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.1kosmos.com/)
+- [Documentation](https://docs.1kosmos.com/productdocs/)
+- [Getting started](https://developer.1kosmos.com/devportal/docs/)
+- [API reference](https://documenter.getpostman.com/view/50203634/2sB3dHWZ1n)
+- [Sign up](https://developer.1kosmos.com/devportal/register/)
+- [Support](https://www.1kosmos.com/support)
+- [Blog](https://www.1kosmos.com/resources/blog)
+- [Compliance](https://www.1kosmos.com/compliance)
+- [Privacy policy](https://www.1kosmos.com/privacy)
+- [GitHub](https://github.com/1Kosmos)
+- [Status](https://status.1kosmos.com/)
+
+## API Evangelist rating
+
+**Kin Score 50.4** — developing · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 56.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 72.0 |
+| Access clarity | 31.6 |
+
+**Agent readiness 28.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.0** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/1kosmos/](https://apis.io/providers/1kosmos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for 1Kosmos: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/1kosmos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
