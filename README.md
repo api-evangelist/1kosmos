@@ -72,18 +72,79 @@
 
 Everything profiled for 1Kosmos is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/1kosmos/](https://apis.io/providers/1kosmos/)** — or go straight to one of the APIs or properties below.
 
-### APIs (10)
+### APIs (71)
 
-- [1Kosmos Access Code API](https://apis.io/apis/1kosmos/1kosmos-access-code-api/) — The Access Code API from 1Kosmos — 2 operation(s) for access code.
-- [1Kosmos IAL API](https://apis.io/apis/1kosmos/1kosmos-ial-api/) — The IAL API from 1Kosmos — 1 operation(s) for ial.
-- [1Kosmos IAL2 API](https://apis.io/apis/1kosmos/1kosmos-ial2-api/) — The IAL2 API from 1Kosmos — 2 operation(s) for ial2.
-- [1Kosmos ID Verification API](https://apis.io/apis/1kosmos/1kosmos-id-verification-api/) — The ID Verification API from 1Kosmos — 2 operation(s) for id verification.
 - [1Kosmos OTP API](https://apis.io/apis/1kosmos/1kosmos-otp-api/) — The OTP API from 1Kosmos — 3 operation(s) for otp.
-- [1Kosmos Reports API](https://apis.io/apis/1kosmos/1kosmos-reports-api/) — The Reports API from 1Kosmos — 7 operation(s) for reports.
-- [1Kosmos User Management API](https://apis.io/apis/1kosmos/1kosmos-user-management-api/) — The User Management API from 1Kosmos — 3 operation(s) for user management.
-- [1Kosmos Verifiable Credentials API](https://apis.io/apis/1kosmos/1kosmos-verifiable-credentials-api/) — The Verifiable Credentials API from 1Kosmos — 5 operation(s) for verifiable credentials.
-- [1Kosmos Workflow API](https://apis.io/apis/1kosmos/1kosmos-workflow-api-api/) — The Workflow API API from 1Kosmos — 2 operation(s) for workflow api.
-- [1Kosmos Setup API](https://apis.io/apis/1kosmos/1kosmos-setup-api/) — The Setup API from 1Kosmos — 2 operation(s) for setup.
+- [1Kosmos ACR APIs API](https://apis.io/apis/1kosmos/1kosmos-acr-apis-api/) — The ACR APIs API from 1Kosmos — 4 operation(s) for acr apis.
+- [1Kosmos Acr Controller API](https://apis.io/apis/1kosmos/1kosmos-acr-controller-api/) — The acr-controller API from 1Kosmos — 1 operation(s) for acr-controller.
+- [1Kosmos ACR-OTP (deprecated) API](https://apis.io/apis/1kosmos/1kosmos-acr-otp-deprecated-api/) — The ACR-OTP (deprecated) API from 1Kosmos — 1 operation(s) for acr-otp (deprecated).
+- [1Kosmos Alpha API](https://apis.io/apis/1kosmos/1kosmos-alpha-api/) — The Alpha API from 1Kosmos — 1 operation(s) for alpha.
+- [1Kosmos Android API](https://apis.io/apis/1kosmos/1kosmos-android-api-api/) — The Android API API from 1Kosmos — 1 operation(s) for android api.
+- [1Kosmos API Controller API](https://apis.io/apis/1kosmos/1kosmos-api-controller-api/) — The api-controller API from 1Kosmos — 1 operation(s) for api-controller.
+- [1Kosmos API R 1 Controller API](https://apis.io/apis/1kosmos/1kosmos-api-r-1-controller-api/) — The api-r-1-controller API from 1Kosmos — 2 operation(s) for api-r-1-controller.
+- [1Kosmos Apple API](https://apis.io/apis/1kosmos/1kosmos-apple-api-api/) — The Apple API API from 1Kosmos — 1 operation(s) for apple api.
+- [1Kosmos Athena - AccessCodes API](https://apis.io/apis/1kosmos/1kosmos-athena-accesscodes-api/) — The Athena - AccessCodes API from 1Kosmos — 3 operation(s) for athena - accesscodes.
+- [1Kosmos Claims API Controller API](https://apis.io/apis/1kosmos/1kosmos-claims-api-controller-api/) — The claims-api-controller API from 1Kosmos — 6 operation(s) for claims-api-controller.
+- [1Kosmos Compare Faces API](https://apis.io/apis/1kosmos/1kosmos-comparefaces-api/) — The CompareFaces API from 1Kosmos — 1 operation(s) for comparefaces.
+- [1Kosmos Core Info API](https://apis.io/apis/1kosmos/1kosmos-core-info-api/) — The Core Info API from 1Kosmos — 7 operation(s) for core info.
+- [1Kosmos Country API](https://apis.io/apis/1kosmos/1kosmos-country-api/) — The Country API from 1Kosmos — 3 operation(s) for country.
+- [1Kosmos Cred APIs API](https://apis.io/apis/1kosmos/1kosmos-cred-apis-api/) — The Cred APIs API from 1Kosmos — 1 operation(s) for cred apis.
+- [1Kosmos Decrypt API](https://apis.io/apis/1kosmos/1kosmos-decrypt-api/) — The Decrypt API from 1Kosmos — 1 operation(s) for decrypt.
+- [1Kosmos Device API](https://apis.io/apis/1kosmos/1kosmos-device-api/) — The Device API from 1Kosmos — 2 operation(s) for device.
+- [1Kosmos ECDS HELPER API](https://apis.io/apis/1kosmos/1kosmos-ecds-helper-api/) — The ECDS-HELPER API from 1Kosmos — 1 operation(s) for ecds-helper.
+- [1Kosmos Encrypt API](https://apis.io/apis/1kosmos/1kosmos-encrypt-api/) — The Encrypt API from 1Kosmos — 1 operation(s) for encrypt.
+- [1Kosmos Encrypt/Decrypt API](https://apis.io/apis/1kosmos/1kosmos-encrypt-decrypt-api/) — The Encrypt/Decrypt API from 1Kosmos — 2 operation(s) for encrypt/decrypt.
+- [1Kosmos Encryptios API](https://apis.io/apis/1kosmos/1kosmos-encryptios-api/) — The Encryptios API from 1Kosmos — 1 operation(s) for encryptios.
+- [1Kosmos Environment API](https://apis.io/apis/1kosmos/1kosmos-environment-api/) — The Environment API from 1Kosmos — 1 operation(s) for environment.
+- [1Kosmos Error Handling Controller API](https://apis.io/apis/1kosmos/1kosmos-error-handling-controller-api/) — The error-handling-controller API from 1Kosmos — 1 operation(s) for error-handling-controller.
+- [1Kosmos Eth Transaction API](https://apis.io/apis/1kosmos/1kosmos-eth-transaction-api-api/) — The Eth Transaction API API from 1Kosmos — 1 operation(s) for eth transaction api.
+- [1Kosmos Eula API](https://apis.io/apis/1kosmos/1kosmos-eula-api/) — The Eula API from 1Kosmos — 3 operation(s) for eula.
+- [1Kosmos Hardware Tokens API](https://apis.io/apis/1kosmos/1kosmos-hardwaretokens-api/) — The HardwareTokens API from 1Kosmos — 5 operation(s) for hardwaretokens.
+- [1Kosmos Incoming Webhook API](https://apis.io/apis/1kosmos/1kosmos-incoming-webhook-api/) — The Incoming Webhook API from 1Kosmos — 2 operation(s) for incoming webhook.
+- [1Kosmos Index Controller API](https://apis.io/apis/1kosmos/1kosmos-index-controller-api/) — The index-controller API from 1Kosmos — 2 operation(s) for index-controller.
+- [1Kosmos Integration with CaaS API](https://apis.io/apis/1kosmos/1kosmos-integration-with-caas-api/) — The Integration with CaaS API from 1Kosmos — 1 operation(s) for integration with caas.
+- [1Kosmos Ipfs API](https://apis.io/apis/1kosmos/1kosmos-ipfs-api/) — The Ipfs API from 1Kosmos — 1 operation(s) for ipfs.
+- [1Kosmos License APIs API](https://apis.io/apis/1kosmos/1kosmos-license-apis-api/) — The License APIs API from 1Kosmos — 1 operation(s) for license apis.
+- [1Kosmos License Checks API](https://apis.io/apis/1kosmos/1kosmos-licensechecks-api/) — The LicenseChecks API from 1Kosmos — 2 operation(s) for licensechecks.
+- [1Kosmos Location Log API](https://apis.io/apis/1kosmos/1kosmos-locationlog-api/) — The LocationLog API from 1Kosmos — 1 operation(s) for locationlog.
+- [1Kosmos Login API](https://apis.io/apis/1kosmos/1kosmos-login-api/) — The Login API from 1Kosmos — 1 operation(s) for login.
+- [1Kosmos Managed Wallets API](https://apis.io/apis/1kosmos/1kosmos-managed-wallets-api/) — The Managed Wallets API from 1Kosmos — 2 operation(s) for managed wallets.
+- [1Kosmos Mobile Events API](https://apis.io/apis/1kosmos/1kosmos-mobile-events-api/) — The Mobile Events API from 1Kosmos — 2 operation(s) for mobile events.
+- [1Kosmos MSG API](https://apis.io/apis/1kosmos/1kosmos-msg-api/) — The MSG API from 1Kosmos — 1 operation(s) for msg.
+- [1Kosmos MSG Gateway API](https://apis.io/apis/1kosmos/1kosmos-msggateway-api/) — The MSGGateway API from 1Kosmos — 4 operation(s) for msggateway.
+- [1Kosmos OTP APIs API](https://apis.io/apis/1kosmos/1kosmos-otp-apis-api/) — The OTP APIs API from 1Kosmos — 2 operation(s) for otp apis.
+- [1Kosmos Otpr 3 Controller API](https://apis.io/apis/1kosmos/1kosmos-otpr-3-controller-api/) — The otpr-3-controller API from 1Kosmos — 2 operation(s) for otpr-3-controller.
+- [1Kosmos Passkey Branding Controller API](https://apis.io/apis/1kosmos/1kosmos-passkey-branding-controller-api/) — The passkey-branding-controller API from 1Kosmos — 6 operation(s) for passkey-branding-controller.
+- [1Kosmos Public Keys APIs API](https://apis.io/apis/1kosmos/1kosmos-public-keys-apis-api/) — The Public Keys APIs API from 1Kosmos — 1 operation(s) for public keys apis.
+- [1Kosmos Public Key API](https://apis.io/apis/1kosmos/1kosmos-publickey-api/) — The PublicKey API from 1Kosmos — 2 operation(s) for publickey.
+- [1Kosmos Push Notification V 4 Controller API](https://apis.io/apis/1kosmos/1kosmos-push-notification-v-4-controller-api/) — The push-notification-v-4-controller API from 1Kosmos — 1 operation(s) for push-notification-v-4-controller.
+- [1Kosmos Push Notification API](https://apis.io/apis/1kosmos/1kosmos-pushnotification-api/) — The PushNotification API from 1Kosmos — 1 operation(s) for pushnotification.
+- [1Kosmos Pwdreset API](https://apis.io/apis/1kosmos/1kosmos-pwdreset-api/) — The Pwdreset API from 1Kosmos — 1 operation(s) for pwdreset.
+- [1Kosmos Register/Restore API](https://apis.io/apis/1kosmos/1kosmos-register-restore-api/) — The Register/Restore API from 1Kosmos — 2 operation(s) for register/restore.
+- [1Kosmos Register Did Object API](https://apis.io/apis/1kosmos/1kosmos-registerdidobject-api/) — The RegisterDidObject API from 1Kosmos — 1 operation(s) for registerdidobject.
+- [1Kosmos Scep API](https://apis.io/apis/1kosmos/1kosmos-scep-api/) — The Scep API from 1Kosmos — 1 operation(s) for scep.
+- [1Kosmos SCEP Creds API](https://apis.io/apis/1kosmos/1kosmos-scep-creds-api/) — The SCEP Creds API from 1Kosmos — 2 operation(s) for scep creds.
+- [1Kosmos Service Directory API](https://apis.io/apis/1kosmos/1kosmos-service-directory-api/) — The Service Directory API from 1Kosmos — 1 operation(s) for service directory.
+- [1Kosmos Software Version Check API](https://apis.io/apis/1kosmos/1kosmos-software-version-check-api/) — The Software Version Check API from 1Kosmos — 1 operation(s) for software version check.
+- [1Kosmos TEMP.. DELETE ME API](https://apis.io/apis/1kosmos/1kosmos-temp-delete-me-api/) — The TEMP.. DELETE ME API from 1Kosmos — 1 operation(s) for temp.. delete me.
+- [1Kosmos Tenant/Community API](https://apis.io/apis/1kosmos/1kosmos-tenant-community-api/) — The Tenant/Community API from 1Kosmos — 4 operation(s) for tenant/community.
+- [1Kosmos User Linking API](https://apis.io/apis/1kosmos/1kosmos-user-linking-api/) — The User Linking API from 1Kosmos — 3 operation(s) for user linking.
+- [1Kosmos User Profile API](https://apis.io/apis/1kosmos/1kosmos-user-profile-api/) — The User Profile API from 1Kosmos — 8 operation(s) for user profile.
+- [1Kosmos UserDocs APIs API](https://apis.io/apis/1kosmos/1kosmos-userdocs-apis-api/) — The UserDocs APIs API from 1Kosmos — 5 operation(s) for userdocs apis.
+- [1Kosmos User Hardware Tokens API](https://apis.io/apis/1kosmos/1kosmos-userhardwaretokens-api/) — The UserHardwareTokens API from 1Kosmos — 3 operation(s) for userhardwaretokens.
+- [1Kosmos V2 Verizon Migration API](https://apis.io/apis/1kosmos/1kosmos-v2-verizon-migration-api-api/) — The V2 Verizon Migration Api API from 1Kosmos — 1 operation(s) for v2 verizon migration api.
+- [1Kosmos Verification of Document : Agent API](https://apis.io/apis/1kosmos/1kosmos-verification-of-document-agent-api/) — The Verification of Document : Agent API from 1Kosmos — 2 operation(s) for verification of document : agent.
+- [1Kosmos Verification of Document : Auto | Agent API](https://apis.io/apis/1kosmos/1kosmos-verification-of-document-auto-agent-api/) — The Verification of Document : Auto | Agent API from 1Kosmos — 1 operation(s) for verification of document : auto | agent.
+- [1Kosmos Verified DID API](https://apis.io/apis/1kosmos/1kosmos-verified-did-api-api/) — The Verified DID API API from 1Kosmos — 1 operation(s) for verified did api.
+- [1Kosmos Verified DID Config API](https://apis.io/apis/1kosmos/1kosmos-verified-did-config-api-api/) — The Verified DID Config API API from 1Kosmos — 1 operation(s) for verified did config api.
+- [1Kosmos Verify API](https://apis.io/apis/1kosmos/1kosmos-verify-api/) — The Verify API from 1Kosmos — 1 operation(s) for verify.
+- [1Kosmos Verify Credentials (deprecated) API](https://apis.io/apis/1kosmos/1kosmos-verify-credentials-deprecated-api/) — The Verify Credentials (deprecated) API from 1Kosmos — 1 operation(s) for verify credentials (deprecated).
+- [1Kosmos Verify Document Scan API](https://apis.io/apis/1kosmos/1kosmos-verify-document-scan-api/) — The Verify Document Scan API from 1Kosmos — 1 operation(s) for verify document scan.
+- [1Kosmos Verify RFID API](https://apis.io/apis/1kosmos/1kosmos-verify-rfid-api/) — The Verify RFID API from 1Kosmos — 1 operation(s) for verify rfid.
+- [1Kosmos Version API](https://apis.io/apis/1kosmos/1kosmos-version-api/) — The Version API from 1Kosmos — 2 operation(s) for version.
+- [1Kosmos Version Status API](https://apis.io/apis/1kosmos/1kosmos-versionstatus-api/) — The VersionStatus API from 1Kosmos — 1 operation(s) for versionstatus.
+- [1Kosmos Webhook API](https://apis.io/apis/1kosmos/1kosmos-webhook-api/) — The Webhook API from 1Kosmos — 3 operation(s) for webhook.
+- [1Kosmos Webhooks Controller API](https://apis.io/apis/1kosmos/1kosmos-webhooks-controller-api/) — The webhooks-controller API from 1Kosmos — 1 operation(s) for webhooks-controller.
 
 ### Published properties
 
@@ -128,6 +189,12 @@ OpenAPI overlays, including conversational phrasing for each operation.
 
 - [1Kosmos Blockid Overlay](https://apis.io/overlays/1kosmos/1kosmos-blockid-overlay/)
 
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [1Kosmos API Rules](https://apis.io/rules/1kosmos/1kosmos-rules/)
+
 #### Security (2)
 
 Authentication, trust centre, and vulnerability disclosure.
@@ -159,24 +226,24 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 49.2** — developing · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 52.0** — developing · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 73.2 |
-| Contract quality | 51.1 |
-| Contract governance | 18.2 |
-| Operational transparency | 34.2 |
+| Contract quality | 55.6 |
+| Contract governance | 31.8 |
+| Operational transparency | 38.1 |
 | Developer ergonomics | 72.0 |
-| Access clarity | 31.6 |
+| Access clarity | 34.0 |
 
-**Agent readiness 23.0** — agent-aware
+**Agent readiness 24.1** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
 | Spec Presence | yes |
 | Agentic Access | derived (partial credit) |
-| Reversibility Documented | — |
+| Reversibility Documented | documented (partial credit) |
 | MCP Server | — |
 | Auth Clarity | bearer (partial credit) |
 | Idempotency | — |
@@ -195,8 +262,12 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | — |
 | Operation Distinctiveness | mostly (partial credit) |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 34.0** — AI & Biometrics
+**Regulatory alignment 28.3** — AI & Biometrics
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/1kosmos/](https://apis.io/providers/1kosmos/).
 
